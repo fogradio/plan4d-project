@@ -1,68 +1,430 @@
 ---
-import { Font } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import ResultsComparison from "../components/ResultsComparison.astro";
+import results from "../data/results.json";
+import {
+  benchmarks,
+  metricNames,
+  metricDescriptions,
+  isBest,
+} from "../data/benchmarks";
+import "../styles/plan4d.css";
 
-import Table from "../components/Table.astro";
-
-import "../styles/global.css";
-import "katex/dist/katex-swap.css";
-
-import { Content, frontmatter } from "../paper.mdx";
-
-interface Frontmatter {
-  title: string;
-  description?: string;
-  favicon: string;
-  thumbnail?: string;
-  theme?: "device" | "light" | "dark";
-}
-
-const {
-  title,
-  description,
-  favicon,
-  thumbnail,
-  theme = "device",
-} = frontmatter as Frontmatter;
-
-const baseUrl = import.meta.env.BASE_URL;
-const prefix = baseUrl.endsWith("/") ? baseUrl : baseUrl + "/";
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const title = "Plan4D: Generative Plannable 4D Worlds";
+const description =
+  "Plan4D predicts future RGB video and dense 4D geometry from an observed scene and text-specified actions.";
+const firstScene = results.cases[0];
+const sceneLabels: Record<string, string> = {
+  P02_122_161: "Pour ingredients into a pan",
+  P02_129_354: "Brush a garlic presser",
+  P02_135_92: "Spread jam on a bagel",
+  P06_102_75: "Knead dough",
+  P07_116_25: "Put rice onto a plate",
+  P25_104_94: "Stir pasta",
+};
+const authors = [
+  ["Hangwei Zhang", "1,2"],
+  ["Rujing Dang", "2"],
+  ["Ruimin Lin", "2"],
+  ["Jiahong Wu", "2"],
+  ["Xiangxiang Chu", "2"],
+  ["Chuanxia Zheng", "1,†"],
+];
+const citation = `@misc{zhang2026plan4d,
+  title   = {Plan4D: Generative Plannable 4D Worlds},
+  author  = {Hangwei Zhang and Rujing Dang and Ruimin Lin and
+             Jiahong Wu and Xiangxiang Chu and Chuanxia Zheng},
+  year    = {2026}
+}`;
 ---
 
 <!doctype html>
-<html class="bg-white dark:bg-zinc-900" lang="en" data-theme={theme}>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    {description && <meta name="description" content={description} />}
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-
-    <link rel="icon" type="image/svg+xml" href={prefix + favicon} />
-
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ffffff" />
     <meta property="og:title" content={title} />
-    {description && <meta property="og:description" content={description} />}
+    <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    {thumbnail && <meta property="og:image" content={prefix + thumbnail} />}
-
-    <Font
-      cssVariable="--font-noto-sans"
-      preload={[{ subset: "latin", style: "normal" }]}
-    />
-
+    <meta property="og:image" content={base + "figures/teaser.webp"} />
+    <link rel="icon" href={base + "plan4d.svg"} type="image/svg+xml" />
     <title>{title}</title>
   </head>
-  <body
-    class="prose prose-lg prose-zinc dark:prose-invert prose-a:text-blue-600 prose-a:hover:text-blue-900 prose-a:dark:text-blue-200 prose-a:dark:hover:text-blue-100 prose-a:underline prose-a:decoration-dashed prose-a:underline-offset-4 prose-a:hover:decoration-solid prose-a:font-normal prose-code:bg-zinc-200 prose-code:dark:bg-zinc-800 prose-code:text-zinc-800 prose-code:dark:text-zinc-200 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:font-medium prose-code:before:content-none prose-code:after:content-none max-w-none pt-16 pb-6 font-(family-name:--font-noto-sans)"
-  >
-    <main>
-      <Content components={{ table: Table }} />
-    </main>
-    <footer class="mx-auto max-w-[50rem] px-6 text-center">
-      <p class="prose-sm text-center">
-        Built with <a
-          href="https://research-template.roman.technology"
-          rel="nofollow">Roman Hauksson-Neill's project page template</a
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <nav class="nav-shell" aria-label="Main navigation">
+        <a class="wordmark" href="#top"
+          >Plan<span>4D</span><span class="wordmark-square" aria-hidden="true"
+          ></span></a
         >
-      </p>
+        <div class="nav-links">
+          <a href="#abstract">Abstract</a><a href="#method">Method</a><a
+            href="#comparisons">Comparisons</a
+          ><a href="#quantitative">Results</a><a href="#citation">BibTeX</a>
+        </div>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="paper-heading content-shell" id="top">
+        <p class="eyebrow">Video generation meets 4D geometry</p>
+        <h1>
+          <span class="paper-name">Plan<span>4D</span></span><span
+            class="paper-title">Generative Plannable 4D Worlds</span
+          >
+        </h1>
+        <div class="authors">
+          {
+            authors.map(([name, affiliation]) => (
+              <span>
+                {name}
+                <sup>{affiliation}</sup>
+              </span>
+            ))
+          }
+        </div>
+        <p class="affiliations">
+          <span><sup>1</sup> Nanyang Technological University</span><span
+            ><sup>2</sup> AMAP, Alibaba Group</span
+          >
+        </p>
+        <p class="author-note">† Corresponding author</p>
+        <div class="paper-links">
+          <a class="action-link primary-link" href="#comparisons"
+            ><Icon name="ri:box-3-line" /> Explore 4D results <Icon
+              name="ri:arrow-right-line"
+            /></a
+          ><a class="action-link" href="#method"
+            ><Icon name="ri:flow-chart" /> Method</a
+          ><a class="action-link" href="#citation"
+            ><Icon name="ri:double-quotes-l" /> BibTeX</a
+          >
+        </div>
+      </section>
+
+      <figure class="teaser content-shell">
+        <img
+          src={base + "figures/teaser.webp"}
+          alt="Plan4D generates future video, depth, camera rays and scene flow, lifted into dynamic 4D reconstructions, for a pipette interaction and a person walking with a stabilizer."
+          width="2048"
+          height="912"
+          fetchpriority="high"
+        />
+        <figcaption>
+          <strong>From planned actions to dynamic 4D worlds.</strong> An observed
+          scene and a text-specified action become synchronized video, geometry, and
+          motion.
+        </figcaption>
+      </figure>
+
+      <section class="section abstract-section" id="abstract">
+        <div class="text-shell">
+          <p class="eyebrow">Abstract</p><h2>
+            Predict the appearance.<br />Understand the dynamics.
+          </h2>
+          <p>
+            World models for future prediction often prioritize the visual
+            quality of generated videos, with limited geometric consistency over
+            time. <strong>Plan4D</strong> predicts future RGB video together with
+            dense 4D geometry, including depth, cameras, point clouds, and scene flow,
+            from an observed scene context and text-specified actions.
+          </p>
+          <p>
+            To address the scarcity of paired action and 4D training data, we
+            connect the complementary priors of <strong>LongCat-Video</strong> and
+            <strong>Depth Anything 3</strong> through model stitching, and add a dedicated
+            scene-flow head. Video and geometry are decoded from the same latent trajectory,
+            supporting fine-grained actions and temporally coherent 3D structure.
+          </p>
+        </div>
+        <div class="contributions content-shell">
+          <div>
+            <span class="contribution-number">01</span><h3>
+              Action-conditioned futures
+            </h3><p>
+              Observed context and a planned action specify how the scene
+              evolves.
+            </p>
+          </div><div>
+            <span class="contribution-number">02</span><h3>
+              A shared latent trajectory
+            </h3><p>
+              RGB, depth, cameras, and scene flow are synchronized readouts of
+              one generated world.
+            </p>
+          </div><div>
+            <span class="contribution-number">03</span><h3>
+              Geometry-guided generation
+            </h3><p>
+              A frozen stitched decoder provides geometric supervision to the
+              video generator.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <ResultsComparison />
+
+      <section class="section outputs-section" id="outputs">
+        <div class="section-heading content-shell">
+          <div>
+            <p class="eyebrow">Multimodal predictions</p><h2>
+              Appearance and geometry, together.
+            </h2>
+          </div><label class="select-control" for="output-scene"
+            >Scene <select id="output-scene"
+              >{
+                results.cases.map((scene) => (
+                  <option
+                    value={scene.id}
+                    data-video={base + scene.video}
+                    data-depth={base + scene.depthVideo}
+                    data-image={base + scene.image}
+                    data-depth-poster={base + `results/${scene.id}-depth.webp`}
+                  >
+                    {sceneLabels[scene.id]}
+                  </option>
+                ))
+              }</select
+            ></label
+          >
+        </div>
+        <div class="video-pair content-shell">
+          <figure>
+            <div class="media-label">
+              <span class="rgb-dot"></span> Generated RGB
+            </div><video
+              id="rgb-video"
+              poster={base + firstScene.image}
+              controls
+              playsinline
+              muted
+              loop
+              preload="none"
+              aria-label="Plan4D generated RGB video"
+            >
+              <source
+                src={base + firstScene.video}
+                type='video/mp4; codecs="avc1.64001f"'
+              />
+              <source
+                src={base + firstScene.video.replace(/\.mp4$/, ".webm")}
+                type='video/webm; codecs="vp9"'
+              />
+            </video>
+          </figure><figure>
+            <div class="media-label">
+              <span class="depth-dot"></span> Predicted depth
+            </div><video
+              id="depth-video"
+              poster={base + `results/${firstScene.id}-depth.webp`}
+              controls
+              playsinline
+              muted
+              loop
+              preload="none"
+              aria-label="Plan4D predicted depth video"
+            >
+              <source
+                src={base + firstScene.depthVideo}
+                type='video/mp4; codecs="avc1.64001f"'
+              />
+              <source
+                src={base + firstScene.depthVideo.replace(/\.mp4$/, ".webm")}
+                type='video/webm; codecs="vp9"'
+              />
+            </video>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section" id="method">
+        <div class="section-heading content-shell">
+          <div>
+            <p class="eyebrow">The framework</p><h2>
+              Two foundation models. One 4D world.
+            </h2><p class="section-description">
+              A latent-to-geometry connection joins a video generator with a
+              dynamic 3D reconstruction model.
+            </p>
+          </div>
+        </div>
+        <figure class="method-figure content-shell">
+          <img
+            src={base + "figures/method.webp"}
+            alt="Plan4D architecture: LongCat-Video generates a latent trajectory, a stitching module maps it into DA3 tokens, and dense heads decode depth, camera rays and scene flow."
+            loading="lazy"
+            width="2600"
+            height="1150"
+          /><figcaption>
+            A learned stitching module maps video VAE latents into the DA3
+            feature space. During joint training, the frozen geometry decoder
+            acts as a differentiable critic. At inference, the shared latent
+            produces both RGB video and dense 4D structure.
+          </figcaption>
+        </figure>
+        <div class="method-steps content-shell">
+          <div>
+            <span>01 / Motion</span><h3>Read out scene flow</h3><p>
+              A DPT-style motion head predicts dense 3D displacements from
+              frozen DA3 features.
+            </p>
+          </div><div>
+            <span>02 / Stitching</span><h3>Connect latent and geometry</h3><p>
+              A compact spatiotemporal projection maps video latents into the
+              reconstruction backbone.
+            </p>
+          </div><div>
+            <span>03 / Calibration</span><h3>Preserve geometric priors</h3><p>
+              Teacher distillation and annotated geometry calibrate the stitched
+              decoder.
+            </p>
+          </div><div>
+            <span>04 / Joint training</span><h3>Ground future generation</h3><p>
+              Flow matching and geometric supervision shape a visually and
+              spatially consistent rollout.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section quantitative-section" id="quantitative">
+        <div class="section-heading content-shell">
+          <div>
+            <p class="eyebrow">Quantitative evaluation</p><h2>
+              Across appearance, structure, and motion.
+            </h2><p class="section-description">
+              Representative joint-generation results from the manuscript.
+              EPIC-KITCHENS-100 metrics cover 100 clips.
+            </p>
+          </div>
+        </div>
+        <div class="content-shell">
+          <div
+            class="benchmark-tabs"
+            role="tablist"
+            aria-label="Evaluation dataset"
+          >
+            {
+              benchmarks.map((benchmark, index) => (
+                <button
+                  type="button"
+                  role="tab"
+                  id={`tab-${index}`}
+                  aria-controls={`benchmark-${index}`}
+                  aria-selected={index === 0 ? "true" : "false"}
+                  tabindex={index === 0 ? 0 : -1}
+                  data-benchmark={index}
+                >
+                  {benchmark.name}
+                </button>
+              ))
+            }
+          </div>
+          {
+            benchmarks.map((benchmark, index) => (
+              <div
+                class="benchmark-panel"
+                role="tabpanel"
+                tabindex="0"
+                id={`benchmark-${index}`}
+                aria-labelledby={`tab-${index}`}
+                hidden={index !== 0}
+              >
+                <table class="metrics-table">
+                  <Fragment>
+                    <thead>
+                      <Fragment>
+                        <tr>
+                          <Fragment>
+                            <th rowspan="2" scope="col">
+                              Method
+                            </th>
+                            <th colspan="2" scope="colgroup">
+                              Video quality
+                            </th>
+                            <th colspan="2" scope="colgroup">
+                              Depth &amp; reconstruction
+                            </th>
+                            <th colspan="2" scope="colgroup">
+                              Camera
+                            </th>
+                          </Fragment>
+                        </tr>
+                        <tr>
+                          {metricNames.map((name, column) => (
+                            <th scope="col" title={metricDescriptions[column]}>
+                              {name}
+                            </th>
+                          ))}
+                        </tr>
+                      </Fragment>
+                    </thead>
+                    <tbody>
+                      {benchmark.rows.map((row) => (
+                        <tr
+                          class:list={{
+                            "ours-metrics": row.method === "Plan4D",
+                          }}
+                        >
+                          <th scope="row">
+                            {row.method}
+                            {row.method === "Plan4D" && <small>Ours</small>}
+                          </th>
+                          {row.values.map((value, column) => (
+                            <td
+                              class:list={{
+                                best: isBest(benchmark.rows, column, value),
+                              }}
+                            >
+                              {value}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Fragment>
+                </table>
+              </div>
+            ))
+          }
+          <p class="table-note">
+            SC: subject consistency. Cap. Sim: video-caption similarity. Bold
+            values are best within each dataset. Arrows indicate the preferred
+            direction.
+          </p>
+        </div>
+      </section>
+
+      <section class="section citation-section text-shell" id="citation">
+        <div class="section-heading">
+          <div><p class="eyebrow">Reference</p><h2>BibTeX</h2></div><button
+            class="icon-button"
+            id="copy-citation"
+            title="Copy BibTeX"
+            aria-label="Copy BibTeX"><Icon name="ri:file-copy-line" /></button
+          >
+        </div><pre><code id="citation-text">{citation}</code></pre><p
+          id="copy-status"
+          role="status"
+          aria-live="polite"
+        >
+        </p>
+      </section>
+    </main>
+    <footer class="site-footer content-shell">
+      <a class="wordmark" href="#top">Plan<span>4D</span></a><p>
+        Nanyang Technological University &amp; AMAP, Alibaba Group
+      </p><a
+        href="https://github.com/RomanHauksson/academic-project-astro-template"
+        rel="nofollow">Template credit <Icon name="ri:arrow-right-up-line" /></a
+      >
     </footer>
+    <script>
+      import "../scripts/page";
+    </script>
   </body>
 </html>

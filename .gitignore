@@ -22,3 +22,8 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Reproducible local media and browser validation artifacts
+public/results/
+artifacts/
+__pycache__/

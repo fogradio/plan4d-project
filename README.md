@@ -1,4 +1,10 @@
-# Academic project page template
+# Plan4D Project Page
+
+Plan4D 项目页已实现在 `src/pages/index.astro`。运行、资源生成、对比数据范围与发布说明见 [PLAN4D.md](PLAN4D.md)。
+
+以下保留原始模板说明，供组件开发参考。当前页面内容不再由 `src/paper.mdx` 驱动。
+
+## Original Template Documentation
 
 This is a template to help you build a professional project page for your research paper, based on the design from the original [Nerfies page](https://nerfies.github.io/). Instead of manually editing an HTML file, you can author the page's content in Markdown and make use of a polished set of components, then deploy it with GitHub Pages. [See a live demo of the template](https://research-template.roman.technology).
 

@@ -66,9 +66,17 @@ jobs:
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
         working-directory: ${{ env.BUILD_PATH }}
+      - name: Restore Plan4D media
+        if: ${{ vars.PLAN4D_RESULTS_ARCHIVE_URL != '' }}
+        env:
+          PLAN4D_RESULTS_ARCHIVE_URL: ${{ vars.PLAN4D_RESULTS_ARCHIVE_URL }}
+        run: |
+          curl --fail --location "$PLAN4D_RESULTS_ARCHIVE_URL" --output "$RUNNER_TEMP/plan4d-results.tar.gz"
+          tar -xzf "$RUNNER_TEMP/plan4d-results.tar.gz" -C public
+        working-directory: ${{ env.BUILD_PATH }}
       - name: Build with Astro
         run: |
-          ${{ steps.detect-package-manager.outputs.runner }} astro build \
+          node scripts/build.mjs \
             --site "${{ steps.pages.outputs.origin }}" \
             --base "${{ steps.pages.outputs.base_path }}"
         working-directory: ${{ env.BUILD_PATH }}

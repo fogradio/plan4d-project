@@ -10,7 +10,14 @@ import { tailwind4 } from "tailwind-csstree";
 import { defineConfig, globalIgnores } from "eslint/config";
 
 export default defineConfig([
-  globalIgnores(["dist/*", ".astro/*", ".vscode/*", "package-lock.json"]),
+  globalIgnores([
+    "dist/*",
+    ".astro/*",
+    ".vscode/*",
+    "package-lock.json",
+    "artifacts/**",
+    "public/results/**",
+  ]),
   {
     files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
     plugins: { js },

@@ -1,0 +1,276 @@
+---
+import { Icon } from "astro-icon/components";
+import results from "../data/results.json";
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const methods = [
+  { id: "gen3r", name: "Gen3R" },
+  { id: "tesseract", name: "TesserAct" },
+  { id: "vist3a", name: "VIST3A" },
+  { id: "plan4d", name: "Plan4D" },
+] as const;
+---
+
+<section id="comparisons" class="section comparison-section">
+  <div class="section-heading wide-shell">
+    <div>
+      <p class="eyebrow">Action-conditioned world generation</p>
+      <h2>One observation. Four possible futures.</h2>
+      <p class="section-description">
+        Everyday interactions, generated from an observed image and a
+        text-specified action.
+      </p>
+    </div>
+    <span class="section-count"
+      >6 scenes <span aria-hidden="true">·</span> 81 frames</span
+    >
+  </div>
+
+  <div class="comparison-options wide-shell">
+    <label class="check-control"
+      ><input id="sync-views" type="checkbox" checked /> Linked views</label
+    >
+    <label class="point-control" for="point-size"
+      ><Icon name="ri:focus-3-line" /> Point size <input
+        id="point-size"
+        type="range"
+        min="1"
+        max="5"
+        step="0.25"
+        value="2.5"
+      /></label
+    >
+    <div class="comparison-legend">
+      <span class="method-dot"></span> Plan4D (ours)
+    </div>
+  </div>
+
+  <div
+    class="comparison-scroll wide-shell"
+    tabindex="0"
+    role="region"
+    aria-label="Method comparison, six columns"
+    data-comparison-scroll
+  >
+    <div class="comparison-table">
+      <div class="comparison-header comparison-grid">
+        <div>Input text</div>
+        <div>Input image</div>
+        {
+          methods.map((method) => (
+            <div
+              class:list={[
+                "method-heading",
+                { "ours-heading": method.id === "plan4d" },
+              ]}
+            >
+              <Fragment>
+                <span>
+                  {method.name}
+                  {method.id === "plan4d" && <small>Ours</small>}
+                </span>
+                <span class="column-kicker">Interactive 4D output</span>
+              </Fragment>
+            </div>
+          ))
+        }
+      </div>
+      {
+        results.cases.map((scene, index) => (
+          <article
+            class="comparison-row"
+            data-case={scene.id}
+            data-fps={scene.fps}
+            aria-label={`${scene.id}: ${scene.prompt}`}
+          >
+            <div class="comparison-grid">
+              <div class="prompt-cell">
+                <span class="case-label">
+                  <span>{String(index + 1).padStart(2, "0")}</span> {scene.id}
+                </span>
+                <p>{scene.prompt}</p>
+              </div>
+              <div class="input-cell">
+                <img
+                  src={base + scene.image}
+                  alt={`Observed input for ${scene.prompt}`}
+                  loading="lazy"
+                  width="512"
+                  height="288"
+                />
+              </div>
+              {methods.map((method) => (
+                <div
+                  class:list={[
+                    "cloud-cell",
+                    { "ours-cell": method.id === "plan4d" },
+                  ]}
+                  data-method={method.id}
+                  data-sequence={scene.methods[method.id]}
+                >
+                  <div
+                    class="viewer-surface"
+                    tabindex="0"
+                    role="img"
+                    aria-label={`${method.name}, ${scene.prompt}, interactive point cloud`}
+                  >
+                    <span class="cloud-status" role="status">
+                      Loading 4D scene
+                    </span>
+                    <button class="retry-button" type="button" hidden>
+                      <Icon name="ri:refresh-line" /> Retry
+                    </button>
+                  </div>
+                  <div class="cloud-tools">
+                    <span class="cloud-method">{method.name}</span>
+                    <span class="cloud-frame">01 / 81</span>
+                    <button
+                      type="button"
+                      class="icon-button reset-view"
+                      title={`Reset ${method.name} view`}
+                      aria-label={`Reset ${method.name} view`}
+                    >
+                      <Icon name="ri:restart-line" />
+                    </button>
+                    <button
+                      type="button"
+                      class="icon-button expand-view"
+                      title={`Expand ${method.name}`}
+                      aria-label={`Expand ${method.name}`}
+                      disabled
+                    >
+                      <Icon name="ri:fullscreen-line" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div class="row-timeline">
+              <span class="row-state" role="status">
+                Loading
+              </span>
+              <button
+                type="button"
+                class="icon-button playback-button"
+                title="Play sequence"
+                aria-label="Play sequence"
+                aria-pressed="false"
+                disabled
+              >
+                <Fragment>
+                  <Icon name="ri:play-fill" class="play-icon" />
+                  <Icon name="ri:pause-fill" class="pause-icon" />
+                </Fragment>
+              </button>
+              <button
+                type="button"
+                class="icon-button previous-frame"
+                title="Previous frame"
+                aria-label="Previous frame"
+                disabled
+              >
+                <Icon name="ri:skip-back-mini-line" />
+              </button>
+              <input
+                class="frame-slider"
+                type="range"
+                min="0"
+                max="80"
+                step="1"
+                value="0"
+                aria-label={`Frame for ${scene.id}`}
+                disabled
+              />
+              <button
+                type="button"
+                class="icon-button next-frame"
+                title="Next frame"
+                aria-label="Next frame"
+                disabled
+              >
+                <Icon name="ri:skip-forward-mini-line" />
+              </button>
+              <output class="frame-counter">01 / 81</output>
+              <select
+                class="playback-speed"
+                aria-label={`Playback speed for ${scene.id}`}
+              >
+                {[0.5, 1, 2].map((speed) => (
+                  <option
+                    value={speed}
+                    selected={speed === 1}
+                  >{`${speed}×`}</option>
+                ))}
+              </select>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+  <p class="comparison-note wide-shell">
+    All 81 time steps are retained. {
+      results.maxPoints
+        ? `Point clouds are uniformly subsampled to at most ${results.maxPoints.toLocaleString("en-US")} points per frame for the web.`
+        : "Point clouds retain all finite source vertices."
+    } Views are aligned to each sequence's first camera and independently scaled for
+    display.
+  </p>
+  <noscript
+    ><p class="wide-shell">
+      JavaScript is required for the interactive 4D comparisons.
+    </p></noscript
+  >
+</section>
+
+<dialog id="cloud-dialog" aria-labelledby="cloud-dialog-title">
+  <div class="dialog-heading">
+    <div>
+      <p class="eyebrow">Interactive 4D output</p><h3 id="cloud-dialog-title">
+        Plan4D
+      </h3>
+    </div><button
+      class="icon-button dialog-close"
+      type="button"
+      title="Close viewer"
+      aria-label="Close viewer"><Icon name="ri:close-line" /></button
+    >
+  </div>
+  <div
+    class="dialog-surface"
+    tabindex="0"
+    role="img"
+    aria-label="Expanded interactive point cloud"
+  >
+  </div>
+  <p class="dialog-state" role="status"></p>
+  <div class="dialog-timeline">
+    <button
+      type="button"
+      class="icon-button dialog-play"
+      title="Play sequence"
+      aria-label="Play sequence"
+      aria-pressed="false"
+      ><Icon name="ri:play-fill" class="play-icon" /><Icon
+        name="ri:pause-fill"
+        class="pause-icon"
+      /></button
+    ><input
+      class="dialog-slider"
+      type="range"
+      min="0"
+      max="80"
+      value="0"
+      aria-label="Expanded viewer frame"
+    /><output class="dialog-counter">01 / 81</output><button
+      class="icon-button dialog-reset"
+      type="button"
+      title="Reset view"
+      aria-label="Reset expanded view"><Icon name="ri:restart-line" /></button
+    >
+  </div>
+</dialog>
+
+<script>
+  import "../scripts/comparison";
+</script>
