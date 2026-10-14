@@ -2,7 +2,15 @@
 
 ## 内容与范围
 
-页面包括论文标题与作者、teaser、摘要、六场景逐帧交互式方法对比、三场景聚合点云对比、17 场景 Gallery、方法图、四个数据集的论文定量结果和 BibTeX。旧的双窗口 RGB/depth 视频对比及其同步脚本已移除；新 Gallery 使用单窗口切换模态，原视频文件保留。
+当前页面包括单行论文标题、居中的 NeurIPS 2026、作者与单位、Paper/Code/Model/BibTeX 四个入口、teaser、新版论文摘要与方法图、六场景逐帧对比、三场景聚合点云对比、17 场景五模态 Gallery 和 BibTeX。根据用户最终更正，保留全部原定性展示，移除原定量表格。
+
+摘要来自 `/mnt/workspace/hwzhang/69e090695f534d4b6292331f/sections/0_abstract.tex`，按用户要求省略末尾 Project Page 网址段落；通讯作者为 Jiahong Wu 和 Chuanxia Zheng，单位以同目录的 `neurips_2026.tex` 为准。方法图从 `figs/plab4d_final-chuanxia.pdf` 重新导出到 `public/figures/method-chuanxia-20261014.webp`。
+
+Paper、Code、Model 公开地址尚未提供，当前入口不可点击；BibTeX 跳转到引用区。`src/data/benchmarks.ts` 定量数据文件保留，但当前页面不导入、不展示其内容。
+
+## 定性展示资源
+
+以下记录定性资源的来源与复现方式。逐帧、聚合与 Gallery 组件沿用原有数据和交互。
 
 Plan4D 仅来自 `../../plan4d_final_outputs-best`。排除 `P28_101_119`，使用 `P02_122_161`、`P02_129_354`、`P02_135_92`、`P06_102_75`、`P07_116_25`、`P25_104_94`。各方法严格按场景 ID 匹配，共 24 组序列、1,944 帧。对比区不显示数据集名称，不包含额外版本切换。
 
@@ -100,7 +108,7 @@ npm run build -- --base /notebook-331e09bc81d9-code/proxy/4321/ --outDir artifac
 
 `src/data/results.json` 记录场景、点数、相机和 SHA-256；`public/results/provenance.json` 记录整理目录，并为 VIST3A 额外记录原始 AnySplat 来源、模型与相机来源。图像和视频来自同一个 best 结果。视频同时提供原始 H.264 MP4 与 VP9 WebM，兼容未安装 H.264 解码器的浏览器。WebM 使用现有 dav3 环境的 imageio-ffmpeg 导出。论文图由 PDF 转换，定量数据来自论文 `tables/4d_generation_subset.tex`，未更改数值。输入图像保持完整，不裁切。
 
-`public/results/` 约 380 MiB，作为可复现产物被 Git 忽略。初次范围更正前生成的资源保留在 `artifacts/initial-results-original-source/`，不参与页面或构建。
+`public/results/` 当前合计约 1007 MiB（含 Gallery），作为可复现产物被 Git 忽略。初次范围更正前生成的资源保留在 `artifacts/initial-results-original-source/`，不参与页面或构建。
 
 ## 验证
 
@@ -111,11 +119,11 @@ npm exec playwright install chromium --only-shell
 npm run validate:page
 ```
 
-本机 Playwright 浏览器已安装在 `/tmp/plan4d-browsers`，运行验证时设置 `PLAYWRIGHT_BROWSERS_PATH=/tmp/plan4d-browsers`。可通过 `PLAN4D_TEST_URL` 指定验证地址或带子路径的构建预览地址。浏览器检查覆盖首尾帧、点云像素、播放/暂停、快速拖动、重试、放大、手机布局、定量表切换和引用复制。截图与报告保存到 `artifacts/browser/`。
+本机 Playwright 浏览器已安装在 `/tmp/plan4d-browsers`，运行验证时设置 `PLAYWRIGHT_BROWSERS_PATH=/tmp/plan4d-browsers`。可通过 `PLAN4D_TEST_URL` 指定验证地址或带子路径的构建预览地址。`npm run validate:page` 使用 `scripts/verify_paper.mjs`，核对论文原文、通讯作者、四个入口、引用复制、新方法图、320–1920px 单行标题与无页面溢出，并确认全部定性区块存在、定量表格已移除。默认截图与报告保存在 `artifacts/paper-browser/`，可用 `PLAN4D_TEST_OUTPUT` 指定独立目录。
 
-浏览器检查还覆盖 12 份聚合点云非空与方法差异、TesserAct test_cab 失败重试、相机联动开关、无时间轴的聚合放大窗口、返回逐帧窗口、320px 手机无溢出，以及视频元素确实移除。可用 `PLAN4D_TEST_OUTPUT` 为本轮截图和报告指定独立目录。
+`node scripts/verify_page.mjs` 检查全部逐帧/聚合点云及其播放、旋转、放大、重试和手机布局；`node scripts/verify_gallery.mjs` 检查 17×5 模态、51 个视频播放及 Gallery 交互。
 
-构建器会先检查必需媒体，避免发布空 viewer。已有 `dist` 会被移动到 `artifacts/build-时间戳/dist` 保留，之后再生成新构建，不主动删除旧产物。
+构建器检查图标、teaser、新方法图与全部逐帧、聚合、Gallery 媒体，避免发布空查看器。已有 `dist` 会被移动到 `artifacts/build-时间戳/dist` 保留，之后再生成新构建，不主动删除旧产物。
 
 ## 静态发布
 
@@ -128,7 +136,11 @@ npm run preview -- --host 0.0.0.0 --port 4322
 
 不能直接用 `file://` 打开，需要 HTTP 服务加载点云。托管服务器应把 `.ply.gz` 当作 gzip 文件直接提供；如果服务器设置了 `Content-Encoding: gzip` 并让浏览器自动解压，加载器也能识别已解压的 PLY。
 
-若使用 GitHub Actions，需在构建前准备 `public/results/`。可在仓库变量 `PLAN4D_RESULTS_ARCHIVE_URL` 中配置仅含 `results/` 目录的可信资源归档地址；工作流将下载并恢复到 `public/`。未配置且仓库未包含资源时，构建会明确失败。当前未部署网站，也没有填入尚未提供的论文、arXiv、代码仓库公开链接。
+当前页面构建需要 `public/results/`。GitHub Actions 可通过 `PLAN4D_RESULTS_ARCHIVE_URL` 恢复媒体；未准备媒体时构建检查会明确失败。当前未填入尚未提供的论文、代码和模型公开链接。
+
+GitHub Pages 目标为 `https://fogradio.github.io/plan4d-project/`，仓库 Settings → Pages 的 Source 应设为 GitHub Actions。媒体以公开 Release 附件发布，不加入源码 Git 历史；压缩包内的顶层目录须为 `results/`，使工作流解压到 `public/` 后得到正确路径。仓库 Actions 变量 `PLAN4D_RESULTS_ARCHIVE_URL` 应指向该附件的固定版本下载地址，再推送 `main` 触发构建和部署。
+
+2026-10-14 发布候选的媒体包为 `artifacts/plan4d-results-20261014-release.tar.gz`，SHA-256：`79240366da1e22f100804d54fecb67046c3503ec1cd25168d7202c170547daef`。正式构建位于 `artifacts/github-pages-release-20261014/`，使用 `/plan4d-project/` 资源前缀，与 Nebula 预览构建分开保存。
 
 ## 主要文件
 

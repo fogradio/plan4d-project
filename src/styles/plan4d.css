@@ -190,19 +190,20 @@ sup {
   margin-bottom: 14px;
 }
 .paper-name {
-  display: block;
-  font-size: 56px;
-  line-height: 1.05;
   font-weight: 760;
-  margin-bottom: 9px;
 }
 .paper-name > span {
   color: var(--accent);
 }
 .paper-title {
-  display: block;
-  font-size: 34px;
+  font-size: 40px;
   font-weight: 540;
+  white-space: nowrap;
+}
+.paper-conference {
+  margin-top: 12px;
+  font-size: 18px;
+  font-weight: 500;
 }
 .authors {
   display: flex;
@@ -926,7 +927,7 @@ code {
 }
 @media (max-width: 900px) {
   .paper-title {
-    font-size: 29px;
+    font-size: 26px;
   }
   .section-heading {
     flex-wrap: wrap;
@@ -995,15 +996,9 @@ code {
     padding-top: 32px;
     padding-bottom: 20px;
   }
-  .paper-name {
-    font-size: 46px;
-    margin-bottom: 13px;
-  }
   .paper-title {
-    font-size: 27px;
+    font-size: 16px;
     line-height: 1.25;
-    max-width: 360px;
-    margin-inline: auto;
   }
   .eyebrow {
     font-size: 10px;
@@ -1128,6 +1123,12 @@ code {
     gap: 7px;
   }
 }
+@media (max-width: 380px) {
+  .paper-title {
+    font-size: 14px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

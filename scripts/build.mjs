@@ -5,7 +5,11 @@ import { spawnSync } from "node:child_process";
 const manifest = JSON.parse(readFileSync("src/data/results.json", "utf8"));
 const aggregated = JSON.parse(readFileSync("src/data/aggregated.json", "utf8"));
 const gallery = JSON.parse(readFileSync("src/data/gallery.json", "utf8"));
-const files = ["figures/teaser.webp", "figures/method.webp"];
+const files = [
+  "plan4d.svg",
+  "figures/teaser.webp",
+  "figures/method-chuanxia-20261014.webp",
+];
 for (const scene of [...manifest.cases, ...aggregated.cases])
   files.push(scene.image);
 for (const sequence of Object.values(aggregated.sequences))
@@ -25,9 +29,7 @@ for (const scene of gallery.cases) {
 }
 const missing = files.filter((file) => !existsSync(resolve("public", file)));
 if (missing.length) {
-  console.error(
-    `${missing.length} required media files are missing. Run scripts/prepare_assets.py, scripts/prepare_aggregates.py and scripts/prepare_gallery.py or restore public/results before building.`,
-  );
+  console.error(`Required page assets are missing: ${missing.join(", ")}`);
   process.exit(1);
 }
 

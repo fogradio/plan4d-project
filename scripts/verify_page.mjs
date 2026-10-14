@@ -360,14 +360,12 @@ try {
     "All 12 aggregated clouds render, TesserAct test_cab retries, linked/unlinked orbit works, aggregate modal hides only playback controls, frame modal still works",
   );
 
-  for (const tab of await page.locator("[data-benchmark]").all()) {
-    await tab.click();
-    assert.equal(await tab.getAttribute("aria-selected"), "true");
-    assert.equal(
-      await page.locator(".benchmark-panel:not([hidden])").count(),
-      1,
-    );
-  }
+  assert.equal(
+    await page
+      .locator("#quantitative, [data-benchmark], .metrics-table")
+      .count(),
+    0,
+  );
   await page.locator("#copy-citation").click();
   await page.waitForFunction(() =>
     /Copied|selected/.test(document.getElementById("copy-status").textContent),
@@ -377,7 +375,7 @@ try {
     /Copied|selected/,
   );
   report.checks.push(
-    "Benchmark tabs and citation control work; old RGB/depth comparison is removed",
+    "Quantitative tables are absent; citation control works; old RGB/depth comparison is removed",
   );
 
   await setFrame(first, 0);

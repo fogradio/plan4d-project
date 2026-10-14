@@ -298,7 +298,7 @@ def main() -> None:
     write_json(output / "provenance.json", {"sources": sources, "maxPoints": args.max_points, "excludedCases": sorted(EXCLUDED)})
     figures = PROJECT / "public" / "figures"
     figures.mkdir(parents=True, exist_ok=True)
-    for source, target in (("plan4d_teaser-v1.pdf", "teaser.webp"), ("plab4d_final-chuanxia.pdf", "method.webp")):
+    for source, target in (("plan4d_teaser-v1.pdf", "teaser.webp"), ("plab4d_final-chuanxia.pdf", "method-chuanxia-20261014.webp")):
         export_figure(args.paper_root / "figs" / source, figures / target)
     total = sum(path.stat().st_size for path in output.rglob("*") if path.is_file())
     print(f"Prepared {len(entries)} scenes, {len(sequences)} sequences, {total / 2**20:.1f} MiB.")

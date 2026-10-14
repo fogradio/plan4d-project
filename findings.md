@@ -1,5 +1,24 @@
 # 发现与依据
 
+## GitHub Pages 发布准备（2026-10-14）
+- origin 为公开仓库 https://github.com/fogradio/plan4d-project.git，main 与远端 cb45131 一致。
+- GitHub API 的 has_pages 为 false，公开页面返回 404，最近 Actions 在 Setup Pages 步骤失败。
+- public/results 被 Git 忽略，现有工作流支持通过 PLAN4D_RESULTS_ARCHIVE_URL 恢复 Release 媒体；仅推送源码不能完成发布。
+- 当前完整静态构建约 1,060,656,322 字节，媒体约 1,055,330,412 字节；发布前需检查大小及资源完整性。
+- git push --dry-run 在沙箱内外均因失效的 VS Code askpass socket 失败，无匿名写权限。准备官方 gh CLI 设备登录，不索取聊天 token。
+
+## 会议名称与摘要微调（2026-10-14）
+- 用户要求在标题与作者之间新增独立居中的 NeurIPS 2026，并仅去掉摘要末尾项目网址段落。
+- 摘要测试需排除论文源文件中的最后一句 Project Page，其他正文继续逐字比对；不回写论文。
+
+## 新版论文同步（2026-10-14）
+- 摘要来源为论文仓库 `sections/0_abstract.tex`，页面采用正文原文，将 LaTeX 标记转换为 HTML。
+- `neurips_2026.tex` 将 Jiahong Wu 与 Chuanxia Zheng 同时标记为通讯作者，第一单位为 PVG, Nanyang Technological University。
+- 新方法图来源为 `figs/plab4d_final-chuanxia.pdf`，原网页方法图生成于 10 月 12 日，需重新渲染。
+- 用户最终要求为保留全部定性展示，移除原定量表格。恢复 teaser、六场景逐帧对比、三场景聚合点云和 17 场景五模态 Gallery。
+- `src/data/benchmarks.ts` 定量数据文件保留，但页面不再导入或渲染，相关表格导航与交互脚本移除。
+- 本机 code-server 的 HTTPS `/proxy/4321/` 返回 200，可在浏览器检查中剥离外层 notebook 路径，验证实际端口代理与域名白名单。
+
 ## Gallery
 - 下拉选项以输入文本中的主要动作命名，保留 01-17 编号和原顺序；场景 ID 仅作为内部资源关联，不再出现在选项名称中。
 - 17 个指定场景均有 81 帧 PLY、输入图片、RGB/depth 视频及含轨迹的聚合 PLY。

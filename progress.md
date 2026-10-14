@@ -1,5 +1,33 @@
 # 实施记录
 
+## 2026-10-14 NeurIPS 2026 BibTeX
+- 按用户要求将页面引用从 `@misc` 改为 `@inproceedings`，会议为 Advances in Neural Information Processing Systems (NeurIPS)，年份 2026；保留论文标题和作者顺序，用花括号保护 Plan4D、4D 大小写。
+- 格式和类型检查、生产构建通过；4321 已切换到新版构建，经本机 HTTPS 端口代理验证引用为 NeurIPS 2026 会议论文，复制到剪贴板的内容与页面完全一致。旧构建归档保留。
+
+## 2026-10-14 第五点最终更正
+- 用户明确要求保留原来全部定性展示，去掉原来的定量表格；前轮新版标题、摘要、作者、资源入口与方法图继续保留。
+- 已恢复原 teaser、六场景逐帧对比、三场景聚合点云、17 场景五模态 Gallery，移除定量表格 HTML、导入、导航和事件逻辑。原数据和媒体未删除。
+- 已恢复构建媒体完整性检查，并同步页面检查预期，开始生产构建及浏览器交互验证。
+- 独立转发构建已完成；Astro 检查 0 错误、0 警告，保留原模板未使用字段与 Three.js 大包提示。目标 ESLint、Prettier 和 git diff --check 通过。
+- 新版论文内容和 320–1920px 单行标题检查通过。完整逐帧/聚合浏览器回归通过：24 个逐帧、12 个聚合查看器像素非空，播放暂停、首尾帧、旋转、联动、重试、放大和手机操作正常，定量表格不存在，页面错误为 0。
+- Gallery 全量验证通过：17×5 模态全部渲染，51 个视频实际解码播放，首尾帧变化、旋转、播放暂停、重试、快速切换、单框放大和 390/320px 手机布局均正常，页面错误为 0。
+- 已将验证好的构建切换至 `artifacts/forwarded-preview`，旧构建归档到 `artifacts/preview-before-qualitative-restoration-2026-10-14T07-47-15.613Z`，4321 无需重启即可提供新版。经本机 code-server HTTPS 代理复验内容、所有定性区块、定量表格缺席及 320–1920px 布局，0 错误；临时 4322 服务已停止。
+- 本轮报告：`artifacts/qualitative-restored-paper-browser/`、`artifacts/qualitative-restored-comparison-browser/`、`artifacts/qualitative-restored-gallery-browser/`、`artifacts/qualitative-restored-proxy-browser/`。原组件、数据清单及定量数据文件未改动，未删除任何文件。
+
+## 2026-10-14 论文同步与结果展示调整
+- 已确认工作区干净，读取新版论文标题、摘要、作者及方法图，并确认用户更正为移除全部定性结果、保留全部现有定量结果。
+- 使用 PDF 与 planning-with-files 技能；原始论文和结果数据只读。
+- 当前项目无 OpenSpec project.md；沿用已有项目实施授权完成内容与布局调整。
+- 页面已改为单行标题，移除首屏标语，逐字采用新版摘要，更新 PVG 单位与两位通讯作者；资源入口为 Paper、Code、Model、BibTeX。
+- 新 PDF 已导出为 2447×657 WebP 并目视核对；旧方法图保留。全部定性组件已退出页面，全部定量数据文件未改动。
+- 构建检查不再依赖历史定性媒体；新增当前页面的浏览器检查入口，覆盖定量数值、论文内容、单行标题和手机布局。
+- 首轮浏览器断言发现开发 HTML 在表格数值周围插入空格，数值本身一致；检查脚本已统一空白后比较，不修改表格数据。
+- 开发版检查已通过摘要逐字比对、全部 96 个定量数值、四个数据集切换、BibTeX 复制、方法图及桌面/手机布局，页面错误为 0。
+- 最终构建完成前启动的一次代理检查遇到短暂 404；构建完成后已确认 HTTPS 代理和服务直连均返回新版页面，正在独立复验。
+- 最终转发生产构建完成，Astro 检查 0 错误、0 警告，仅有原模板未使用字段提示。目标 ESLint、Prettier、Python 语法与 git diff --check 通过，定量数据文件与 HEAD 完全一致。
+- 经本机 code-server HTTPS 端口代理验证新版生产页面：摘要原文、作者、四入口、全部定量数值、鼠标/键盘表格切换与引用复制均通过，320–1920px 九种宽度标题单行且无页面溢出，定性媒体请求为 0，页面错误为 0。报告与截图为 `artifacts/paper-update-proxy-final/`。
+- 4321 继续提供最新转发构建；4322 临时开发服务已停止。历史组件、原始数据、旧方法图和旧构建均保留。外部 Nebula 登录流程未自动验证。
+
 ## 2026-10-14 Gallery 菜单命名
 - 根据 17 个 display prompt 提炼英文动作名称，替换下拉菜单中的文件夹名；保留编号、顺序和原始 ID。
 - 同步导出脚本的首次导出及 resume 路径，避免重新生成清单时恢复文件夹名；补充浏览器选项名称断言。
@@ -9,6 +37,22 @@
 - 最终名称完整浏览器复验通过：17 个选项与场景 ID 对应，17×5 模态、51 个视频播放、点云交互和错误重试均正常；320px/390px 名称宽度断言通过，页面错误为 0。报告：artifacts/gallery-labels-final-browser/report.json。
 - 最新转发构建完成，Astro 检查 0 错误、0 警告，仅有既存模板提示和大包提示；旧构建归档保留。4321 已重启并保持运行，4322 临时验证服务已停止。
 - 经本机 code-server HTTPS 代理复验 17 个选项、全部场景切换和 prompt/图片对应，以及 320px/390px 标签完整显示，页面错误为 0；报告：artifacts/gallery-labels-proxy-final/report.json。外部 Nebula 地址需要用户登录，其登录流程未自动验证。
+
+## 2026-10-14 GitHub Pages 发布
+- 用户明确授权将本次页面更新提交并推送到 main，并上传公开 Release 媒体。
+- 已核对 origin、工作流、媒体体积和远端失败记录。阻塞为 Pages 未启用、GitHub 登录失效；沙箱外 dry-run 也失败。
+- 正在准备官方 GitHub CLI 设备登录和正式子路径构建，不影响现有 4321 预览。
+- 官方 gh 2.102.0 已从 cli/cli 下载，SHA-256 与官方校验清单一致；设备授权流程已启动，等待用户浏览器授权。
+- /plan4d-project/ 正式构建通过 Astro 检查。页面、全部逐帧/聚合点云和 17×5 Gallery 浏览器回归通过，51 个视频均实际解码播放，页面错误为 0。
+- 媒体包已生成，SHA-256 为 79240366da1e22f100804d54fecb67046c3503ec1cd25168d7202c170547daef。正式报告位于 artifacts/github-pages-release-browser、artifacts/github-pages-release-comparison-browser、artifacts/github-pages-release-gallery-browser。
+
+## 2026-10-14 会议名称与摘要微调
+- 已添加居中的 NeurIPS 2026，删除网页摘要末尾 Project Page 段落。
+- 已更新页面校验，覆盖摘要正文、会议行位置与桌面/手机居中及不重叠检查；待构建与浏览器验证。
+- 构建完成，Astro 检查 0 错误、0 警告；保留既有模板未使用字段提示及 Three.js 大包提示。目标 ESLint、Prettier 与 git diff --check 通过。
+- 临时构建与真实 code-server HTTPS 代理均通过浏览器验证：320–1920px 共 9 种视口标题保持单行，会议行居中且无重叠，摘要正文一致且不含末尾项目链接，引用复制正常，页面错误为 0。报告：artifacts/conference-abstract-proxy-browser/report.json。
+- 已将验证后的构建更新到现有 4321 服务，旧构建保存在 artifacts/preview-before-conference-abstract-2026-10-14T08-12-14.144Z，临时 4322 服务已停止。
+- 验证过程处理：测试脚本首轮格式检查未通过，Prettier 格式化后通过；沙箱内停止临时进程提示不可见，经授权在沙箱外停止成功。
 
 ## 2026-10-14 Gallery
 - 已盘点全部 17 个场景；指定的 notch14 点云轨迹视频均存在，无需回退来源。

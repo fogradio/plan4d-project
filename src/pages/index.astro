@@ -3,12 +3,6 @@ import { Icon } from "astro-icon/components";
 import ResultsComparison from "../components/ResultsComparison.astro";
 import AggregatedComparison from "../components/AggregatedComparison.astro";
 import Gallery from "../components/Gallery.astro";
-import {
-  benchmarks,
-  metricNames,
-  metricDescriptions,
-  isBest,
-} from "../data/benchmarks";
 import "../styles/plan4d.css";
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
@@ -19,15 +13,16 @@ const authors = [
   ["Hangwei Zhang", "1,2"],
   ["Rujing Dang", "2"],
   ["Ruimin Lin", "2"],
-  ["Jiahong Wu", "2"],
+  ["Jiahong Wu", "2,†"],
   ["Xiangxiang Chu", "2"],
   ["Chuanxia Zheng", "1,†"],
 ];
-const citation = `@misc{zhang2026plan4d,
-  title   = {Plan4D: Generative Plannable 4D Worlds},
-  author  = {Hangwei Zhang and Rujing Dang and Ruimin Lin and
-             Jiahong Wu and Xiangxiang Chu and Chuanxia Zheng},
-  year    = {2026}
+const citation = `@inproceedings{zhang2026plan4d,
+  title     = {{Plan4D}: Generative Plannable {4D} Worlds},
+  author    = {Zhang, Hangwei and Dang, Rujing and Lin, Ruimin and
+               Wu, Jiahong and Chu, Xiangxiang and Zheng, Chuanxia},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2026}
 }`;
 ---
 
@@ -41,7 +36,10 @@ const citation = `@misc{zhang2026plan4d,
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content={base + "figures/teaser.webp"} />
+    <meta
+      property="og:image"
+      content={base + "figures/method-chuanxia-20261014.webp"}
+    />
     <link rel="icon" href={base + "plan4d.svg"} type="image/svg+xml" />
     <title>{title}</title>
   </head>
@@ -56,20 +54,17 @@ const citation = `@misc{zhang2026plan4d,
         <div class="nav-links">
           <a href="#abstract">Abstract</a><a href="#method">Method</a><a
             href="#comparisons">Comparisons</a
-          ><a href="#gallery">Gallery</a><a href="#quantitative">Results</a><a
-            href="#citation">BibTeX</a
-          >
+          ><a href="#gallery">Gallery</a><a href="#citation">BibTeX</a>
         </div>
       </nav>
     </header>
     <main id="main">
       <section class="paper-heading content-shell" id="top">
-        <p class="eyebrow">Video generation meets 4D geometry</p>
-        <h1>
-          <span class="paper-name">Plan<span>4D</span></span><span
-            class="paper-title">Generative Plannable 4D Worlds</span
-          >
+        <h1 class="paper-title">
+          <span class="paper-name">Plan<span>4D</span>:</span> Generative Plannable
+          4D Worlds
         </h1>
+        <p class="paper-conference">NeurIPS 2026</p>
         <div class="authors">
           {
             authors.map(([name, affiliation]) => (
@@ -81,19 +76,31 @@ const citation = `@misc{zhang2026plan4d,
           }
         </div>
         <p class="affiliations">
-          <span><sup>1</sup> Nanyang Technological University</span><span
+          <span><sup>1</sup> PVG, Nanyang Technological University</span><span
             ><sup>2</sup> AMAP, Alibaba Group</span
           >
         </p>
-        <p class="author-note">† Corresponding author</p>
+        <p class="author-note">† Corresponding authors</p>
         <div class="paper-links">
-          <a class="action-link primary-link" href="#comparisons"
-            ><Icon name="ri:box-3-line" /> Explore 4D results <Icon
-              name="ri:arrow-right-line"
-            /></a
-          ><a class="action-link" href="#method"
-            ><Icon name="ri:flow-chart" /> Method</a
-          ><a class="action-link" href="#citation"
+          <button
+            class="action-link"
+            type="button"
+            disabled
+            title="Paper link coming soon"
+            ><Icon name="ri:file-pdf-2-line" /> Paper</button
+          ><button
+            class="action-link"
+            type="button"
+            disabled
+            title="Code link coming soon"
+            ><Icon name="ri:github-line" /> Code</button
+          ><button
+            class="action-link"
+            type="button"
+            disabled
+            title="Model link coming soon"
+            ><Icon name="ri:box-3-line" /> Model</button
+          ><a class="action-link primary-link" href="#citation"
             ><Icon name="ri:double-quotes-l" /> BibTeX</a
           >
         </div>
@@ -116,22 +123,26 @@ const citation = `@misc{zhang2026plan4d,
 
       <section class="section abstract-section" id="abstract">
         <div class="text-shell">
-          <p class="eyebrow">Abstract</p><h2>
-            Predict the appearance.<br />Understand the dynamics.
-          </h2>
+          <h2>Abstract</h2>
           <p>
-            World models for future prediction often prioritize the visual
-            quality of generated videos, with limited geometric consistency over
-            time. <strong>Plan4D</strong> predicts future RGB video together with
-            dense 4D geometry, including depth, cameras, point clouds, and scene flow,
-            from an observed scene context and text-specified actions.
-          </p>
-          <p>
-            To address the scarcity of paired action and 4D training data, we
-            connect the complementary priors of <strong>LongCat-Video</strong> and
-            <strong>Depth Anything 3</strong> through model stitching, and add a dedicated
-            scene-flow head. Video and geometry are decoded from the same latent trajectory,
-            supporting fine-grained actions and temporally coherent 3D structure.
+            Most world models for future prediction prioritize the aesthetic
+            quality of generated videos, but offer only limited geometric
+            consistency over time, due to the lack of explicit 4D modeling. In
+            this paper, we introduce Plan4D, a possible next milestone towards
+            building a <em>generative plannable 4D world model</em> that predicts
+            future RGB videos together with dense 4D geometry, including depth, cameras,
+            point clouds, and scene flow, from an observed scene context and text-specified
+            actions. Since training data with paired actions and dense 4D annotations
+            is inherently scarce, Plan4D leverages the complementary priors of foundational
+            video generators and 3D reconstructors. Specifically, we propose a model-stitching
+            architecture that couples Depth Anything 3 with LongCat-Video and augments
+            it with an auxiliary DPT head for scene-flow prediction. The resulting
+            model allows us to plan and generate complex, long-horizon, and fine-grained
+            actions in dynamic 3D scenes, while substantially improving both visual
+            fidelity and geometric accuracy of the generated future videos. Extensive
+            experiments on both synthetic and real-world datasets demonstrate that
+            Plan4D achieves state-of-the-art performance in generative 4D modeling
+            of environmental reactions.
           </p>
         </div>
         <div class="contributions content-shell">
@@ -161,7 +172,6 @@ const citation = `@misc{zhang2026plan4d,
       </section>
 
       <ResultsComparison />
-
       <AggregatedComparison />
       <Gallery />
 
@@ -178,16 +188,19 @@ const citation = `@misc{zhang2026plan4d,
         </div>
         <figure class="method-figure content-shell">
           <img
-            src={base + "figures/method.webp"}
+            src={base + "figures/method-chuanxia-20261014.webp"}
             alt="Plan4D architecture: LongCat-Video generates a latent trajectory, a stitching module maps it into DA3 tokens, and dense heads decode depth, camera rays and scene flow."
             loading="lazy"
-            width="2600"
-            height="1150"
+            width="2447"
+            height="657"
           /><figcaption>
-            A learned stitching module maps video VAE latents into the DA3
-            feature space. During joint training, the frozen geometry decoder
-            acts as a differentiable critic. At inference, the shared latent
-            produces both RGB video and dense 4D structure.
+            <strong>Overview of the Plan4D pipeline.</strong> A video generator produces
+            a denoised latent trajectory, while a stitched DA3 decoder reads the same
+            latent state to recover synchronized depth, camera rays, camera parameters,
+            point clouds, and scene flow. During joint training, the stitched decoder
+            is frozen and acts as a differentiable geometry critic for the video generator;
+            at inference time, RGB video and dense 4D structure are decoded from the
+            shared latent trajectory.
           </figcaption>
         </figure>
         <div class="method-steps content-shell">
@@ -212,114 +225,6 @@ const citation = `@misc{zhang2026plan4d,
               spatially consistent rollout.
             </p>
           </div>
-        </div>
-      </section>
-
-      <section class="section quantitative-section" id="quantitative">
-        <div class="section-heading content-shell">
-          <div>
-            <p class="eyebrow">Quantitative evaluation</p><h2>
-              Across appearance, structure, and motion.
-            </h2><p class="section-description">
-              Representative joint-generation results from the manuscript.
-              EPIC-KITCHENS-100 metrics cover 100 clips.
-            </p>
-          </div>
-        </div>
-        <div class="content-shell">
-          <div
-            class="benchmark-tabs"
-            role="tablist"
-            aria-label="Evaluation dataset"
-          >
-            {
-              benchmarks.map((benchmark, index) => (
-                <button
-                  type="button"
-                  role="tab"
-                  id={`tab-${index}`}
-                  aria-controls={`benchmark-${index}`}
-                  aria-selected={index === 0 ? "true" : "false"}
-                  tabindex={index === 0 ? 0 : -1}
-                  data-benchmark={index}
-                >
-                  {benchmark.name}
-                </button>
-              ))
-            }
-          </div>
-          {
-            benchmarks.map((benchmark, index) => (
-              <div
-                class="benchmark-panel"
-                role="tabpanel"
-                tabindex="0"
-                id={`benchmark-${index}`}
-                aria-labelledby={`tab-${index}`}
-                hidden={index !== 0}
-              >
-                <table class="metrics-table">
-                  <Fragment>
-                    <thead>
-                      <Fragment>
-                        <tr>
-                          <Fragment>
-                            <th rowspan="2" scope="col">
-                              Method
-                            </th>
-                            <th colspan="2" scope="colgroup">
-                              Video quality
-                            </th>
-                            <th colspan="2" scope="colgroup">
-                              Depth &amp; reconstruction
-                            </th>
-                            <th colspan="2" scope="colgroup">
-                              Camera
-                            </th>
-                          </Fragment>
-                        </tr>
-                        <tr>
-                          {metricNames.map((name, column) => (
-                            <th scope="col" title={metricDescriptions[column]}>
-                              {name}
-                            </th>
-                          ))}
-                        </tr>
-                      </Fragment>
-                    </thead>
-                    <tbody>
-                      {benchmark.rows.map((row) => (
-                        <tr
-                          class:list={{
-                            "ours-metrics": row.method === "Plan4D",
-                          }}
-                        >
-                          <th scope="row">
-                            {row.method}
-                            {row.method === "Plan4D" && <small>Ours</small>}
-                          </th>
-                          {row.values.map((value, column) => (
-                            <td
-                              class:list={{
-                                best: isBest(benchmark.rows, column, value),
-                              }}
-                            >
-                              {value}
-                            </td>
-                          ))}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </Fragment>
-                </table>
-              </div>
-            ))
-          }
-          <p class="table-note">
-            SC: subject consistency. Cap. Sim: video-caption similarity. Bold
-            values are best within each dataset. Arrows indicate the preferred
-            direction.
-          </p>
         </div>
       </section>
 
