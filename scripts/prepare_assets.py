@@ -9,6 +9,7 @@ import json
 import re
 import shutil
 import subprocess
+from datetime import datetime, timezone
 from pathlib import Path
 
 import numpy as np
@@ -62,12 +63,37 @@ def camera_transform(directory: Path) -> np.ndarray:
     else:
         import torch
 
-        matrix = torch.load(
-            directory / "pred_camera_extrinsics_raw.pt", map_location="cpu", weights_only=True
-        ).numpy().reshape(-1, 3, 4)[0]
+        bundle_file = directory / "decode_outputs.pt"
+        if bundle_file.exists():
+            bundle = torch.load(bundle_file, map_location="cpu", weights_only=True)
+            extrinsics = bundle["extrinsic_w2c"]
+        else:
+            extrinsics = torch.load(
+                directory / "pred_camera_extrinsics_raw.pt", map_location="cpu", weights_only=True
+            )
+        matrix = extrinsics.numpy().reshape(-1, 3, 4)[0]
     transform = np.eye(4)
     transform[:3, :4] = matrix[:3, :4]
     return transform
+
+
+def vist3a_provenance(directory: Path) -> dict:
+    metadata = read_json(directory / "meta.json")
+    if "Wan2.1" not in metadata.get("model_id", "") or "vist3a_14b_lora_ema" not in metadata.get("transformer_lora_path", ""):
+        raise ValueError(f"Expected the Wan2.1 + AnySplat VIST3A baseline: {directory}")
+    if not (directory / "decode_outputs.pt").is_file():
+        raise ValueError(f"Missing original AnySplat geometry and cameras: {directory}")
+    inventory = read_json(directory.parent.parent / "_inventory/source_manifest.json")
+    records = [record for record in inventory["records"]
+               if record["method"] == "vist3a" and record["case"] == directory.name]
+    if len(records) != 1 or not records[0]["source"]:
+        raise ValueError(f"Missing VIST3A source mapping: {directory}")
+    original = Path(records[0]["source"])
+    original.resolve().relative_to(PROJECT.parents[1] / "ti2v_bench_anysplat_outputs")
+    if read_json(original / "meta.json") != metadata:
+        raise ValueError(f"VIST3A metadata differs from its original source: {directory}")
+    return {"originalDirectory": str(original), "model": metadata["model_id"],
+            "geometryModel": "AnySplat", "cameraSource": "decode_outputs.pt:extrinsic_w2c"}
 
 
 def export_sequence(directory: Path, destination: Path, max_points: int) -> dict:
@@ -158,15 +184,68 @@ def export_web_video(source: Path, destination: Path) -> None:
     ], check=True)
 
 
+def refresh_vist3a(baselines_root: Path) -> None:
+    manifest_path = PROJECT / "src/data/results.json"
+    provenance_path = PROJECT / "public/results/provenance.json"
+    manifest = read_json(manifest_path)
+    provenance = read_json(provenance_path)
+    replacements = []
+    for scene in manifest["cases"]:
+        scene_id = scene["id"]
+        candidates = sorted(path for path in (baselines_root / "vist3a").glob(f"epic_kitchens100_{scene_id}*")
+                            if canonical_id(path) == scene_id)
+        if len(candidates) != 1:
+            raise ValueError(f"Ambiguous/missing VIST3A baseline for {scene_id}: {candidates}")
+        directory = candidates[0]
+        origin = vist3a_provenance(directory)
+        frame_paths(directory / "point_cloud")
+        replacements.append((scene, directory, origin))
+    timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+    backup = PROJECT / "artifacts" / f"vist3a-source-correction-{timestamp}"
+    backup.mkdir(parents=True)
+    shutil.copy2(manifest_path, backup / "results.json")
+    shutil.copy2(provenance_path, backup / "provenance.json")
+    for scene, directory, origin in replacements:
+        scene_id = scene["id"]
+        previous_id = scene["methods"]["vist3a"]
+        previous = manifest["sequences"][previous_id]
+        old_folder = PROJECT / "public" / previous["path"]
+        if old_folder.exists():
+            old_folder.rename(backup / old_folder.name)
+        sequence_id = f"vist3a-{scene_id}-wan21-anysplat"
+        destination = PROJECT / "public/results" / sequence_id
+        if destination.exists():
+            destination.rename(backup / destination.name)
+        print(f"Exporting {sequence_id}: {directory}", flush=True)
+        sequence = export_sequence(directory, destination, manifest["maxPoints"])
+        plan4d_id = scene["methods"]["plan4d"]
+        if sequence["sha256"] == manifest["sequences"][plan4d_id]["sha256"]:
+            raise ValueError(f"VIST3A duplicates Plan4D: {scene_id}")
+        manifest["sequences"] = {
+            sequence_id if key == previous_id else key: sequence if key == previous_id else value
+            for key, value in manifest["sequences"].items()
+        }
+        scene["methods"]["vist3a"] = sequence_id
+        provenance["sources"] = [source for source in provenance["sources"] if source["sequence"] != previous_id]
+        provenance["sources"].append({"sequence": sequence_id, "directory": str(directory.resolve()), **origin})
+    write_json(manifest_path, manifest)
+    write_json(provenance_path, provenance)
+    print(f"Refreshed {len(replacements)} VIST3A sequences; previous assets preserved in {backup}", flush=True)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--results-root", type=Path, default=PROJECT.parents[1] / "plan4d_final_outputs-best")
     parser.add_argument("--baselines-root", type=Path, default=PROJECT.parents[1] / "plan4d_final_outputs-baselines")
     parser.add_argument("--paper-root", type=Path, default=Path("/mnt/workspace/hwzhang/69e090695f534d4b6292331f"))
     parser.add_argument("--max-points", type=int, default=16000, help="Maximum preview points per frame, 0 keeps all points")
+    parser.add_argument("--refresh-vist3a", action="store_true", help="Refresh only VIST3A sequences and preserve the other methods")
     args = parser.parse_args()
     if args.max_points < 0:
         parser.error("--max-points must be nonnegative")
+    if args.refresh_vist3a:
+        refresh_vist3a(args.baselines_root)
+        return
     cases = sorted(path for path in args.results_root.glob("epic_kitchens100_*") if path.is_dir() and canonical_id(path) not in EXCLUDED)
     grouped = {}
     for path in cases:
@@ -199,10 +278,11 @@ def main() -> None:
                 if len(candidates) != 1:
                     raise ValueError(f"Ambiguous/missing {method} baseline for {scene_id}: {candidates}")
             for directory in candidates:
-                sequence_id = f"{method}-{scene_id}"
+                origin = vist3a_provenance(directory) if method == "vist3a" else {}
+                sequence_id = f"{method}-{scene_id}" + ("-wan21-anysplat" if method == "vist3a" else "")
                 print(f"Exporting {sequence_id}: {directory.name}", flush=True)
                 sequences[sequence_id] = export_sequence(directory, output / sequence_id, args.max_points)
-                sources.append({"sequence": sequence_id, "directory": str(directory.resolve())})
+                sources.append({"sequence": sequence_id, "directory": str(directory.resolve()), **origin})
                 entry["methods"][method] = sequence_id
         video = plan4d_directory / "generated_video.mp4"
         depth = plan4d_directory / "pred_depth_vis.mp4"

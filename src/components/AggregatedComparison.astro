@@ -1,0 +1,155 @@
+---
+import { Icon } from "astro-icon/components";
+import aggregated from "../data/aggregated.json";
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const displayPrompts: Record<string, string> = {
+  "iaHNa6cm64k-0:02:50.044-0:02:56.759":
+    "Hold the stabilizer steady. Walk across the grassy area. Maintain the stabilizer's position. Ensure the camera stays balanced.",
+  test_cab_e_3rd_00000_00081:
+    "Camera tracks a black robot tailing a white one forward.",
+};
+const scenes = aggregated.cases.map((scene) => ({
+  ...scene,
+  prompt: displayPrompts[scene.id] ?? scene.prompt,
+}));
+const methods = [
+  { id: "gen3r", name: "Gen3R" },
+  { id: "tesseract", name: "TesserAct" },
+  { id: "vist3a", name: "VIST3A" },
+  { id: "plan4d", name: "Plan4D" },
+] as const;
+---
+
+<section id="aggregated" class="section aggregate-section">
+  <div class="section-heading wide-shell">
+    <h2>Aggregated 4D Point Cloud</h2>
+    <span class="section-count">3 scenes</span>
+  </div>
+  <div class="comparison-options wide-shell">
+    <label class="check-control">
+      <input id="aggregate-sync-views" type="checkbox" checked /> Linked views
+    </label>
+    <label class="point-control" for="aggregate-point-size">
+      <Icon name="ri:focus-3-line" /> Point size
+      <input
+        id="aggregate-point-size"
+        type="range"
+        min="0.5"
+        max="3"
+        step="0.25"
+        value="1"
+      />
+    </label>
+    <div class="comparison-legend">
+      <span class="method-dot"></span> Plan4D (ours)
+    </div>
+  </div>
+  <div
+    class="comparison-scroll wide-shell"
+    data-comparison-scroll
+    tabindex="0"
+    role="region"
+    aria-label="Aggregated point-cloud comparison, three columns"
+  >
+    <div class="aggregate-table">
+      <div class="comparison-header aggregate-grid">
+        <div>Input text</div>
+        <div>Input image</div>
+        <div class="aggregate-heading">Aggregated 4D Point Cloud</div>
+      </div>
+      {
+        scenes.map((scene, index) => (
+          <article
+            class="aggregate-row"
+            data-case={scene.id}
+            aria-label={scene.prompt}
+          >
+            <div class="aggregate-grid">
+              <div class="prompt-cell">
+                <span class="case-label">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <p>{scene.prompt}</p>
+              </div>
+              <div class="input-cell">
+                <img
+                  src={base + scene.image}
+                  alt={`Observed input for ${scene.prompt}`}
+                  loading="lazy"
+                  width="512"
+                  height="288"
+                />
+              </div>
+              <div class="aggregate-methods">
+                {methods.map((method) => (
+                  <div
+                    class:list={[
+                      "cloud-cell",
+                      { "ours-cell": method.id === "plan4d" },
+                    ]}
+                    data-method={method.id}
+                    data-sequence={scene.methods[method.id]}
+                  >
+                    <div
+                      class:list={[
+                        "aggregate-method-heading",
+                        { "ours-heading": method.id === "plan4d" },
+                      ]}
+                    >
+                      {method.name}
+                      {method.id === "plan4d" && <small>Ours</small>}
+                    </div>
+                    <div
+                      class="viewer-surface"
+                      tabindex="0"
+                      role="img"
+                      aria-label={`${method.name} aggregated 4D point cloud, scene ${index + 1}`}
+                    >
+                      <span class="cloud-status" role="status">
+                        Loading point cloud
+                      </span>
+                      <button type="button" class="retry-button" hidden>
+                        <Icon name="ri:refresh-line" /> Retry
+                      </button>
+                    </div>
+                    <div class="cloud-tools">
+                      <span class="cloud-method">{method.name}</span>
+                      <button
+                        type="button"
+                        class="icon-button reset-view"
+                        title="Reset view"
+                        aria-label={`Reset ${method.name} view`}
+                      >
+                        <Icon name="ri:restart-line" />
+                      </button>
+                      <button
+                        type="button"
+                        class="icon-button expand-view"
+                        title="Expand point cloud"
+                        aria-label={`Expand ${method.name} point cloud`}
+                        disabled
+                      >
+                        <Icon name="ri:fullscreen-line" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <p class="row-state" role="status" />
+          </article>
+        ))
+      }
+    </div>
+  </div>
+  <p class="comparison-note wide-shell">
+    {
+      aggregated.maxScenePoints
+        ? `Up to ${aggregated.maxScenePoints.toLocaleString("en-US")} uniformly sampled scene points per method. `
+        : "All source scene points are retained. "
+    }
+    All camera-frustum and trajectory points are retained. Each cloud uses its first
+    camera orientation and an independent display scale.
+  </p>
+</section>

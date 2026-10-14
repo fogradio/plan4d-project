@@ -1,0 +1,281 @@
+{
+  "maxScenePoints": 200000,
+  "cases": [
+    {
+      "id": "iaHNa6cm64k-0:02:50.044-0:02:56.759",
+      "prompt": "After adjusting the camera stabilizer, the person holds the stabilizer with the attached camera and begins walking across the grassy area. As they move, the stabilizer remains steady in their hand, allowing for smooth footage. The background shifts to show different buildings and people in the distance, with the person continuing to walk while maintaining the stabilizer’s position, ensuring the camera stays balanced throughout the movement.",
+      "image": "results/aggregated/iaHNa6cm64k-0:02:50.044-0:02:56.759.webp",
+      "methods": {
+        "gen3r": "gen3r-iaHNa6cm64k-0:02:50.044-0:02:56.759",
+        "tesseract": "tesseract-iaHNa6cm64k-0:02:50.044-0:02:56.759",
+        "vist3a": "vist3a-iaHNa6cm64k-0:02:50.044-0:02:56.759",
+        "plan4d": "plan4d-iaHNa6cm64k-0:02:50.044-0:02:56.759"
+      }
+    },
+    {
+      "id": "test_cab_e_3rd_00000_00081",
+      "prompt": "The armored figure walks toward the black figure, stopping to stand facing it.",
+      "image": "results/aggregated/test_cab_e_3rd_00000_00081.webp",
+      "methods": {
+        "gen3r": "gen3r-test_cab_e_3rd_00000_00081",
+        "tesseract": "tesseract-test_cab_e_3rd_00000_00081",
+        "vist3a": "vist3a-test_cab_e_3rd_00000_00081",
+        "plan4d": "plan4d-test_cab_e_3rd_00000_00081"
+      }
+    },
+    {
+      "id": "ZHwqSpZfPCI-0:05:13.280-0:05:19.640",
+      "prompt": "After the blueberries are poured into the bowl, a person pours a white liquid—likely yogurt or milk—from a small container into the bowl, allowing the liquid to flow over the blueberries. Once the pouring stops, the container is moved away from the bowl and placed on the counter. The bowl is then held steady by another individual, whose hands support it as the person who poured the liquid reaches for a spoon. Finally, the spoon is placed into the bowl, resting among the blueberries and the newly added liquid.",
+      "image": "results/aggregated/ZHwqSpZfPCI-0:05:13.280-0:05:19.640.webp",
+      "methods": {
+        "gen3r": "gen3r-ZHwqSpZfPCI-0:05:13.280-0:05:19.640",
+        "tesseract": "tesseract-ZHwqSpZfPCI-0:05:13.280-0:05:19.640",
+        "vist3a": "vist3a-ZHwqSpZfPCI-0:05:13.280-0:05:19.640",
+        "plan4d": "plan4d-ZHwqSpZfPCI-0:05:13.280-0:05:19.640"
+      }
+    }
+  ],
+  "sequences": {
+    "gen3r-iaHNa6cm64k-0:02:50.044-0:02:56.759": {
+      "path": "results/aggregated/gen3r-iaHNa6cm64k-0:02:50.044-0:02:56.759/global_pcd_with_camera_trajectory.ply.gz",
+      "worldToCamera": [
+        1.0, -0.00025177001953125, 0.0003643035888671875, -0.00029754638671875,
+        0.00025177001953125, 1.0, 5.14984130859375e-5, -0.00018405914306640625,
+        -0.0003643035888671875, -5.14984130859375e-5, 1.0,
+        0.0004444122314453125, 0.0, 0.0, 0.0, 1.0
+      ],
+      "center": [0.7254700146184794, 0.27445637879326135, -1.1108812008944968],
+      "radius": 1.5742621890421327,
+      "sourceCase": "iaHNa6cm64k-0:02:50.044-0:02:56.759",
+      "frameCount": 1,
+      "sourceFrameCount": 81,
+      "sourcePoints": 2320722,
+      "previewPoints": 223296,
+      "cameraPoints": 23296,
+      "sourceSha256": "f85d0c90a9e2c1727733c24f10022aef52b14116db35c343212b1ade966d157b",
+      "sha256": "e347d34749dc821e5f265940b3dfa376819daa251d183e1f8862227e172aac9e"
+    },
+    "tesseract-iaHNa6cm64k-0:02:50.044-0:02:56.759": {
+      "path": "results/aggregated/tesseract-iaHNa6cm64k-0:02:50.044-0:02:56.759/global_pcd_with_camera_trajectory.ply.gz",
+      "worldToCamera": [
+        0.9999995827674866, -5.900816177017987e-5, 0.000989675521850586,
+        -5.092108949611429e-6, 5.932990461587906e-5, 1.0,
+        -0.00032503678812645376, -0.00019494506705086678,
+        -0.0009897947311401367, 0.0003250953450333327, 0.9999995231628418,
+        0.00047047215048223734, 0.0, 0.0, 0.0, 1.0
+      ],
+      "center": [-1.1983923038012778, 0.8669668368444986, -3.462730876043749],
+      "radius": 4.577475470797334,
+      "sourceCase": "iaHNa6cm64k-0:02:50.044-0:02:56.759",
+      "frameCount": 1,
+      "sourceFrameCount": 49,
+      "sourcePoints": 1014080,
+      "previewPoints": 214080,
+      "cameraPoints": 14080,
+      "sourceSha256": "127f30eb03fa11e9945d685369afe4af4aa38f678dc5cce832219b8c3aa6a269",
+      "sha256": "36f19306954b05af316bee7dfc81ea1fdd23d00779c9953e0b98aaa4b55f5c6b"
+    },
+    "vist3a-iaHNa6cm64k-0:02:50.044-0:02:56.759": {
+      "path": "results/aggregated/vist3a-iaHNa6cm64k-0:02:50.044-0:02:56.759/global_pcd_with_camera_trajectory.ply.gz",
+      "worldToCamera": [
+        0.9997267723083496, 0.004743953235447407, -0.022891400381922722,
+        0.016885410994291306, -0.00435332115739584, 0.9998445510864258,
+        0.017084334045648575, -0.007418676279485226, 0.022968895733356476,
+        -0.016980009153485298, 0.9995920062065125, -0.024235112592577934, 0.0,
+        0.0, 0.0, 1.0
+      ],
+      "center": [0.2770752191540291, 0.4674750068055037, 0.11473370418568818],
+      "radius": 6.343156253456172,
+      "sourceCase": "iaHNa6cm64k-0:02:50.044-0:02:56.759",
+      "frameCount": 1,
+      "sourceFrameCount": 81,
+      "sourcePoints": 1023296,
+      "previewPoints": 223296,
+      "cameraPoints": 23296,
+      "sourceSha256": "ae9621899db2cf28d958dc70b950e873cab9cde0cb1d26bd34eae9f53e5eddea",
+      "sha256": "c5d153d95f549d3ba8323a25d383393d80323c2c631e4e0dd263b3649a0d1047"
+    },
+    "plan4d-iaHNa6cm64k-0:02:50.044-0:02:56.759": {
+      "path": "results/aggregated/plan4d-iaHNa6cm64k-0:02:50.044-0:02:56.759/global_pcd_with_camera_trajectory.ply.gz",
+      "worldToCamera": [
+        0.9976367950439453, -0.0406472273170948, 0.055456679314374924,
+        0.09228515625, 0.04316798225045204, 0.9979321956634521,
+        -0.047579310834407806, 0.032958984375, -0.053566113114356995,
+        0.050100069493055344, 0.9973216652870178, 0.07275390625, 0.0, 0.0, 0.0,
+        1.0
+      ],
+      "center": [0.4409833985993826, 0.5015810501519476, -1.1523167248256367],
+      "radius": 2.534954392112658,
+      "sourceCase": "iaHNa6cm64k-0:02:50.044-0:02:56.759",
+      "frameCount": 1,
+      "sourceFrameCount": 81,
+      "sourcePoints": 1023296,
+      "previewPoints": 223296,
+      "cameraPoints": 23296,
+      "sourceSha256": "257ef04f4b3bd7dc6f058ce820bd7210d4b6347c97bfb8fcb8576f6bcaaf5a80",
+      "sha256": "62759c792907bc22767f84d32ef25e63857dc32dfe1bff7f9df4145326a7eb41"
+    },
+    "gen3r-test_cab_e_3rd_00000_00081": {
+      "path": "results/aggregated/gen3r-test_cab_e_3rd_00000_00081/global_pcd_with_camera_trajectory.ply.gz",
+      "worldToCamera": [
+        1.0, -0.000194549560546875, 0.00010728836059570312,
+        8.463859558105469e-6, 0.000194549560546875, 1.0, 0.0004100799560546875,
+        -0.0002841949462890625, -0.00010728836059570312, -0.0004100799560546875,
+        1.0, -0.000522613525390625, 0.0, 0.0, 0.0, 1.0
+      ],
+      "center": [0.26873268591059185, 0.11591031099394362, -0.6524736115374243],
+      "radius": 0.9381228556691066,
+      "sourceCase": "test_cab_e_3rd_00000_00081",
+      "frameCount": 1,
+      "sourceFrameCount": 81,
+      "sourcePoints": 1139680,
+      "previewPoints": 223296,
+      "cameraPoints": 23296,
+      "sourceSha256": "c6b85bcfbf8e36e8222b1d4061448b06cae0452c56f77e9761248c17fef4d882",
+      "sha256": "6380724e148e655994a03212e23f7ec9a35b9e2e04b93cd95dc38ebad29ebb49"
+    },
+    "tesseract-test_cab_e_3rd_00000_00081": {
+      "path": "results/aggregated/tesseract-test_cab_e_3rd_00000_00081/global_pcd_with_camera_trajectory.ply.gz",
+      "worldToCamera": [
+        1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0,
+        0.0, 1.0
+      ],
+      "center": [-0.1329172492027283, 0.24932535171508788, -1.1778534931354443],
+      "radius": 1.5510630482787164,
+      "sourceCase": "test_cab_e_3rd_00000_00081",
+      "frameCount": 1,
+      "sourceFrameCount": 81,
+      "sourcePoints": 523296,
+      "previewPoints": 223296,
+      "cameraPoints": 23296,
+      "sourceSha256": "0e5804eade233a81d45de34dd2af4dc43e1ac5084734abd0af272709d7634bfe",
+      "sha256": "1e960277ae4eeb2738abb99e76a5452a09088cc752d7efc75d072923ac25d40b"
+    },
+    "vist3a-test_cab_e_3rd_00000_00081": {
+      "path": "results/aggregated/vist3a-test_cab_e_3rd_00000_00081/global_pcd_with_camera_trajectory.ply.gz",
+      "worldToCamera": [
+        0.9999355673789978, 0.00560352299362421, 0.009876596741378307,
+        0.011958047747612, -0.005674012470990419, 0.9999584555625916,
+        0.007123576011508703, -0.0032957701478153467, -0.009836271405220032,
+        -0.007179157342761755, 0.9999258518218994, -0.018034985288977623, 0.0,
+        0.0, 0.0, 1.0
+      ],
+      "center": [
+        -0.0015219188562621278, 0.29284937794496496, -0.31724689460326655
+      ],
+      "radius": 1.4510806679561494,
+      "sourceCase": "test_cab_e_3rd_00000_00081",
+      "frameCount": 1,
+      "sourceFrameCount": 81,
+      "sourcePoints": 1023296,
+      "previewPoints": 223296,
+      "cameraPoints": 23296,
+      "sourceSha256": "994ba13f409f0917b11bf84ea970ac09ed4890bed34d4bd195fd654aae217ade",
+      "sha256": "52dfe84ae17136b6fefa400db7b99a94130fff2f9f9f0c0b4d6340755100bb5e"
+    },
+    "plan4d-test_cab_e_3rd_00000_00081": {
+      "path": "results/aggregated/plan4d-test_cab_e_3rd_00000_00081/global_pcd_with_camera_trajectory.ply.gz",
+      "worldToCamera": [
+        0.9984641075134277, -0.032710328698158264, 0.04483141377568245,
+        0.037353515625, 0.034370750188827515, 0.998790979385376,
+        -0.03520096093416214, 0.030517578125, -0.04350307583808899,
+        0.0365292988717556, 0.9983810782432556, 0.09521484375, 0.0, 0.0, 0.0,
+        1.0
+      ],
+      "center": [-0.03545106459350772, 0.2062476929553081, -0.975456573061969],
+      "radius": 1.2166859611069536,
+      "sourceCase": "test_cab_e_3rd_00000_00081",
+      "frameCount": 1,
+      "sourceFrameCount": 81,
+      "sourcePoints": 1023296,
+      "previewPoints": 223296,
+      "cameraPoints": 23296,
+      "sourceSha256": "e9c48321cc00b1b65718aa0b3a8ab5a14f59a20d054af5f927180cf0f076638c",
+      "sha256": "2c6efcb56ca1be830e3490983d2beaa15977f112824920f79dc0427ad2ed8d9e"
+    },
+    "gen3r-ZHwqSpZfPCI-0:05:13.280-0:05:19.640": {
+      "path": "results/aggregated/gen3r-ZHwqSpZfPCI-0:05:13.280-0:05:19.640/global_pcd_with_camera_trajectory.ply.gz",
+      "worldToCamera": [
+        1.0, -0.00022220611572265625, 0.00029754638671875,
+        -2.4318695068359375e-5, 0.00022220611572265625, 1.0,
+        0.000553131103515625, -0.00018596649169921875, -0.00029754638671875,
+        -0.000553131103515625, 1.0, -0.00011110305786132812, 0.0, 0.0, 0.0, 1.0
+      ],
+      "center": [
+        0.11274540627878579, 0.015569714649346866, -0.6129740513822188
+      ],
+      "radius": 0.876752055928392,
+      "sourceCase": "ZHwqSpZfPCI-0:05:13.280-0:05:19.640",
+      "frameCount": 1,
+      "sourceFrameCount": 81,
+      "sourcePoints": 1868239,
+      "previewPoints": 223296,
+      "cameraPoints": 23296,
+      "sourceSha256": "cac2e6d8b497f45204d2d2301e89f9d009492797c6029b09db313319360c44e2",
+      "sha256": "88810e9f6af5f44a0d2ceb863856bf95018cf6757952e32104b2ee91bb4e0db7"
+    },
+    "tesseract-ZHwqSpZfPCI-0:05:13.280-0:05:19.640": {
+      "path": "results/aggregated/tesseract-ZHwqSpZfPCI-0:05:13.280-0:05:19.640/global_pcd_with_camera_trajectory.ply.gz",
+      "worldToCamera": [
+        0.9999979734420776, -0.0020344487857073545, 0.0001563429832458496,
+        -1.5697551134508103e-5, 0.0020344143267720938, 0.9999979734420776,
+        0.00022210480528883636, -2.7677366233547218e-5, -0.00015687942504882812,
+        -0.00022178633662406355, 1.0, 0.0003283106198068708, 0.0, 0.0, 0.0, 1.0
+      ],
+      "center": [
+        0.010222761039791639, 0.02915374990156222, -0.5924429779399905
+      ],
+      "radius": 0.6325776163561386,
+      "sourceCase": "ZHwqSpZfPCI-0:05:13.280-0:05:19.640",
+      "frameCount": 1,
+      "sourceFrameCount": 49,
+      "sourcePoints": 1014080,
+      "previewPoints": 214080,
+      "cameraPoints": 14080,
+      "sourceSha256": "b5353a0f064c38bfdcc3ae69e0bfcce59f417b29a2c099413b8f50627f370a10",
+      "sha256": "bbb05658e086dfc898ac6c609cf73746a83c516ce3f81d92abfb24b83efcf621"
+    },
+    "vist3a-ZHwqSpZfPCI-0:05:13.280-0:05:19.640": {
+      "path": "results/aggregated/vist3a-ZHwqSpZfPCI-0:05:13.280-0:05:19.640/global_pcd_with_camera_trajectory.ply.gz",
+      "worldToCamera": [
+        0.9999918937683105, 0.003151451935991645, -0.002495192689821124,
+        0.001902362215332687, -0.0031109913252294064, 0.9998663067817688,
+        0.016056591644883156, -0.005091747269034386, 0.002545461058616638,
+        -0.016048701480031013, 0.9998680353164673, -0.01915782503783703, 0.0,
+        0.0, 0.0, 1.0
+      ],
+      "center": [
+        -0.06126074493554598, -0.002361622378357603, -0.9411784135678164
+      ],
+      "radius": 1.0947237413420279,
+      "sourceCase": "ZHwqSpZfPCI-0:05:13.280-0:05:19.640",
+      "frameCount": 1,
+      "sourceFrameCount": 81,
+      "sourcePoints": 1023296,
+      "previewPoints": 223296,
+      "cameraPoints": 23296,
+      "sourceSha256": "c66586acdec063fa066db93db285aa327effaa9921aed92585fc7028d457ba69",
+      "sha256": "e0023dfb9bb9f273fa30ce51229e8e67b4ed1b6e50c9ed2ce82105c20d4e19b7"
+    },
+    "plan4d-ZHwqSpZfPCI-0:05:13.280-0:05:19.640": {
+      "path": "results/aggregated/plan4d-ZHwqSpZfPCI-0:05:13.280-0:05:19.640/global_pcd_with_camera_trajectory.ply.gz",
+      "worldToCamera": [
+        0.9988425374031067, -0.03587653487920761, 0.031890250742435455,
+        0.0272216796875, 0.03687310591340065, 0.9989515542984009,
+        -0.027239590883255005, 0.0341796875, -0.030893681570887566,
+        0.028236161917448044, 0.9991176128387451, 0.06494140625, 0.0, 0.0, 0.0,
+        1.0
+      ],
+      "center": [0.28914836277443307, 0.11272503053386065, -1.102124821421297],
+      "radius": 1.2841352383394924,
+      "sourceCase": "ZHwqSpZfPCI-0:05:13.280-0:05:19.640",
+      "frameCount": 1,
+      "sourceFrameCount": 81,
+      "sourcePoints": 1023296,
+      "previewPoints": 223296,
+      "cameraPoints": 23296,
+      "sourceSha256": "a5b558977282bb3a7167a1e4ac0bb7da2b53834ad87fe1a91b26f1e39b4dcea2",
+      "sha256": "b6130ed864dd3eea729c68c7500753ede2cf842fe2ce4af24deb47b84dd195b0"
+    }
+  }
+}

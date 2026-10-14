@@ -3,24 +3,30 @@ import { resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 
 const manifest = JSON.parse(readFileSync("src/data/results.json", "utf8"));
+const aggregated = JSON.parse(readFileSync("src/data/aggregated.json", "utf8"));
+const gallery = JSON.parse(readFileSync("src/data/gallery.json", "utf8"));
 const files = ["figures/teaser.webp", "figures/method.webp"];
-for (const scene of manifest.cases)
-  files.push(
-    scene.image,
-    scene.video,
-    scene.depthVideo,
-    `results/${scene.id}-depth.webp`,
-    scene.video.replace(/\.mp4$/, ".webm"),
-    scene.depthVideo.replace(/\.mp4$/, ".webm"),
-  );
+for (const scene of [...manifest.cases, ...aggregated.cases])
+  files.push(scene.image);
+for (const sequence of Object.values(aggregated.sequences))
+  files.push(sequence.path);
 for (const sequence of Object.values(manifest.sequences)) {
   for (let frame = 0; frame < sequence.frameCount; frame++)
     files.push(`${sequence.path}/${String(frame).padStart(4, "0")}.ply.gz`);
 }
+for (const scene of gallery.cases) {
+  files.push(scene.image, scene.aggregate.path);
+  for (const video of Object.values(scene.videos))
+    files.push(video.mp4, video.webm, video.poster);
+  for (let frame = 0; frame < scene.sequence.frameCount; frame++)
+    files.push(
+      `${scene.sequence.path}/${String(frame).padStart(4, "0")}.ply.gz`,
+    );
+}
 const missing = files.filter((file) => !existsSync(resolve("public", file)));
 if (missing.length) {
   console.error(
-    `${missing.length} required media files are missing. Run scripts/prepare_assets.py or restore public/results before building.`,
+    `${missing.length} required media files are missing. Run scripts/prepare_assets.py, scripts/prepare_aggregates.py and scripts/prepare_gallery.py or restore public/results before building.`,
   );
   process.exit(1);
 }

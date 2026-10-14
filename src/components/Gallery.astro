@@ -1,0 +1,208 @@
+---
+import { Icon } from "astro-icon/components";
+import gallery from "../data/gallery.json";
+import "../styles/gallery.css";
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const first = gallery.cases[0];
+const modes = [
+  { name: "INTERACTIVE 4D OUTPUT", icon: "ri:box-3-line" },
+  { name: "RGB Video", icon: "ri:film-line" },
+  { name: "Depth Video", icon: "ri:contrast-drop-2-line" },
+  { name: "Aggregated 4D Point Cloud", icon: "ri:global-line" },
+  { name: "Scene Flow", icon: "ri:flow-chart" },
+];
+---
+
+<section class="section gallery-section" id="gallery">
+  <div class="content-shell">
+    <div class="section-heading gallery-heading">
+      <h2>Gallery</h2>
+      <label class="gallery-select" for="gallery-case">
+        <span>Scene</span>
+        <select id="gallery-case" aria-label="Gallery scene">
+          {
+            gallery.cases.map((scene) => (
+              <option value={scene.id}>{scene.label}</option>
+            ))
+          }
+        </select>
+      </label>
+    </div>
+    <div class="gallery-layout">
+      <aside class="gallery-input" aria-label="Gallery input conditions">
+        <h3>Input image</h3>
+        <img
+          id="gallery-image"
+          src={base + first.image}
+          width="512"
+          height="288"
+          loading="lazy"
+          alt={`Input for ${first.id}`}
+        />
+        <h3>Input text</h3>
+        <p id="gallery-prompt">{first.prompt}</p>
+      </aside>
+      <div id="gallery-slot">
+        <div
+          class="gallery-output"
+          data-case={first.id}
+          data-mode="0"
+          data-state="idle"
+        >
+          <div
+            class="gallery-mode-bar"
+            tabindex="0"
+            aria-label="Gallery modality navigation"
+          >
+            <button
+              type="button"
+              class="icon-button gallery-previous"
+              title="Previous modality"
+              aria-label="Previous modality"
+              ><Icon name="ri:arrow-left-s-line" /></button
+            >
+            <div class="gallery-mode-title">
+              <h3 id="gallery-mode-title" aria-live="polite">
+                INTERACTIVE 4D OUTPUT
+              </h3><span id="gallery-mode-counter">1 / 5</span>
+            </div>
+            <button
+              type="button"
+              class="icon-button gallery-next"
+              title="Next modality"
+              aria-label="Next modality"
+              ><Icon name="ri:arrow-right-s-line" /></button
+            >
+          </div>
+          <div class="gallery-stage" aria-labelledby="gallery-mode-title">
+            <div
+              id="gallery-cloud"
+              tabindex="0"
+              role="img"
+              aria-label="Interactive Plan4D point cloud"
+            >
+            </div>
+            <video
+              id="gallery-video"
+              controls
+              playsinline
+              muted
+              loop
+              preload="none"
+              hidden
+              aria-label="Gallery video"></video>
+            <div class="gallery-status" role="status" hidden>
+              <span></span><button type="button" class="gallery-retry" hidden
+                ><Icon name="ri:refresh-line" /> Retry</button
+              >
+            </div>
+          </div>
+          <div class="gallery-playback">
+            <div class="gallery-timeline">
+              <button
+                type="button"
+                class="icon-button gallery-play"
+                title="Play sequence"
+                aria-label="Play sequence"
+                aria-pressed="false"
+                disabled
+                ><Icon name="ri:play-fill" class="play-icon" /><Icon
+                  name="ri:pause-fill"
+                  class="pause-icon"
+                /></button
+              >
+              <input
+                id="gallery-frame"
+                type="range"
+                min="0"
+                max="80"
+                value="0"
+                aria-label="Gallery frame"
+                disabled
+              />
+              <output id="gallery-frame-counter">01 / 81</output>
+              <select
+                id="gallery-speed"
+                aria-label="Gallery playback speed"
+                title="Playback speed"
+                ><option value="0.5">0.5x</option><option value="1" selected
+                  >1x</option
+                ><option value="2">2x</option></select
+              >
+            </div>
+            <div class="gallery-cloud-tools">
+              <label class="point-control" for="gallery-point-size"
+                ><Icon name="ri:focus-3-line" /><input
+                  id="gallery-point-size"
+                  type="range"
+                  min="0.5"
+                  max="4"
+                  step="0.25"
+                  value="2.5"
+                  aria-label="Gallery point size"
+                  title="Point size"
+                /></label
+              >
+              <button
+                type="button"
+                class="icon-button gallery-reset"
+                title="Reset view"
+                aria-label="Reset gallery view"
+                ><Icon name="ri:restart-line" /></button
+              >
+            </div>
+            <button
+              type="button"
+              class="icon-button gallery-expand"
+              title="Expand output"
+              aria-label="Expand gallery output"
+              ><Icon name="ri:fullscreen-line" /></button
+            >
+            <button
+              type="button"
+              class="icon-button gallery-close"
+              title="Close expanded output"
+              aria-label="Close expanded gallery"
+              hidden><Icon name="ri:fullscreen-exit-line" /></button
+            >
+          </div>
+          <div
+            class="gallery-modes"
+            role="group"
+            aria-label="Gallery modalities"
+          >
+            {
+              modes.map((mode, index) => (
+                <button
+                  type="button"
+                  class="icon-button gallery-mode"
+                  data-mode={index}
+                  aria-label={mode.name}
+                  title={mode.name}
+                  aria-pressed={index === 0 ? "true" : "false"}
+                >
+                  <Icon name={mode.icon} />
+                </button>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="comparison-note">
+      All 81 time steps are retained. Frame previews contain up to {
+        gallery.maxPoints.toLocaleString("en-US")
+      } sampled points. Aggregated previews contain up to {
+        gallery.maxAggregatePoints.toLocaleString("en-US")
+      } scene points and all camera-trajectory vertices. Display scales are normalized
+      independently.
+    </p>
+    <noscript><p>JavaScript is required for the Gallery.</p></noscript>
+  </div>
+</section>
+<dialog id="gallery-dialog" aria-label="Expanded Gallery output"></dialog>
+
+<script>
+  import "../scripts/gallery";
+</script>

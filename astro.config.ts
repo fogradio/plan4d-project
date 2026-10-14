@@ -14,6 +14,9 @@ import astroExpressiveCode from "astro-expressive-code";
 // https://astro.build/config
 export default defineConfig({
   devToolbar: { enabled: false },
+  server: {
+    allowedHosts: ["nebula-notebook2.alibaba-inc.com"],
+  },
   vite: {
     plugins: [tailwindcss()],
   },

@@ -1,0 +1,2029 @@
+{
+  "maxPoints": 16000,
+  "maxAggregatePoints": 200000,
+  "cases": [
+    {
+      "id": "0YrdfBnmrVU-0:02:42.000-0:02:48.840",
+      "label": "01 / Blending Soup",
+      "prompt": "In the video, a person uses an immersion blender to process a pot of soup. The soup initially contains visible chunks of vegetables, including green leafy pieces and other colorful bits, with steam rising from the pot, indicating it is hot. As the immersion blender is submerged and activated, the blades spin, breaking down the solid ingredients. The vegetables gradually disintegrate, and the soup’s texture shifts from chunky to smooth and creamy. The person holding the pot handle keeps the vessel steady while the blender moves through the liquid, causing the soup to swirl and thicken slightly as the ingredients blend together. The steam continues to rise throughout the process, emphasizing the soup’s warmth, and the once-lumpy mixture transforms into a uniform, velvety consistency.",
+      "sourcePrompt": "In the video, a person uses an immersion blender to process a pot of soup. The soup initially contains visible chunks of vegetables, including green leafy pieces and other colorful bits, with steam rising from the pot, indicating it is hot. As the immersion blender is submerged and activated, the blades spin, breaking down the solid ingredients. The vegetables gradually disintegrate, and the soup’s texture shifts from chunky to smooth and creamy. The person holding the pot handle keeps the vessel steady while the blender moves through the liquid, causing the soup to swirl and thicken slightly as the ingredients blend together. The steam continues to rise throughout the process, emphasizing the soup’s warmth, and the once-lumpy mixture transforms into a uniform, velvety consistency.",
+      "image": "results/gallery/0YrdfBnmrVU-0:02:42.000-0:02:48.840/input.webp",
+      "sequence": {
+        "frameCount": 81,
+        "path": "results/gallery/0YrdfBnmrVU-0:02:42.000-0:02:48.840/frames",
+        "worldToCamera": [
+          0.9999985098838806,
+          -0.0016275173984467983,
+          0.0007525086402893066,
+          -6.332776683848351e-05,
+          0.0016277923714369535,
+          0.9999986886978149,
+          -0.0003650073194876313,
+          -3.399819615879096e-05,
+          -0.0007520914077758789,
+          0.0003662318631540984,
+          0.9999997615814209,
+          4.086482931597857e-06,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          -0.01788404305833216,
+          0.033217271102053136,
+          -0.9363281297950397
+        ],
+        "radius": 0.35564150145644113,
+        "sourcePoints": [
+          141120,
+          141120
+        ],
+        "previewPoints": [
+          16000,
+          16000
+        ],
+        "sourceCase": "0YrdfBnmrVU-0:02:42.000-0:02:48.840",
+        "sha256": "7a124d1a1ef9783119ecbfb41b2ed323d7b322379e16d589fb3b47b595c589c2"
+      },
+      "aggregate": {
+        "path": "results/gallery/0YrdfBnmrVU-0:02:42.000-0:02:48.840/global_pcd_with_camera_trajectory.ply.gz",
+        "worldToCamera": [
+          0.9999985098838806,
+          -0.0016275173984467983,
+          0.0007525086402893066,
+          -6.332776683848351e-05,
+          0.0016277923714369535,
+          0.9999986886978149,
+          -0.0003650073194876313,
+          -3.399819615879096e-05,
+          -0.0007520914077758789,
+          0.0003662318631540984,
+          0.9999997615814209,
+          4.086482931597857e-06,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          -0.0065800150319895445,
+          0.0395454395430956,
+          -0.5906346007270605
+        ],
+        "radius": 0.7403971258555604,
+        "sourceCase": "0YrdfBnmrVU-0:02:42.000-0:02:48.840",
+        "frameCount": 1,
+        "sourceFrameCount": 81,
+        "sourcePoints": 1023296,
+        "previewPoints": 223296,
+        "cameraPoints": 23296,
+        "sourceSha256": "8b33dd0ba5f6172cc82a496592b799aaa8ebd509543d8571f18ea9d633a15463",
+        "sha256": "3f2b29bc886a3d3434cfef21e9c509f96af725704764b589686a45544b061c14"
+      },
+      "videos": {
+        "rgb": {
+          "mp4": "results/gallery/0YrdfBnmrVU-0:02:42.000-0:02:48.840/rgb.mp4",
+          "webm": "results/gallery/0YrdfBnmrVU-0:02:42.000-0:02:48.840/rgb.webm",
+          "poster": "results/gallery/0YrdfBnmrVU-0:02:42.000-0:02:48.840/rgb.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/0YrdfBnmrVU-0:02:42.000-0:02:48.840/generated_video.mp4",
+          "sha256": "12f595c0d6834a33d4b8ee514095f3e6f17f09f40cb4ed32c6eb3ce0a1193a28",
+          "webmSha256": "6818d27b27cb70f49a0574267b7903d7555d22e77cea594c9972634501d17bf2",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 512,
+          "height": 288
+        },
+        "depth": {
+          "mp4": "results/gallery/0YrdfBnmrVU-0:02:42.000-0:02:48.840/depth.mp4",
+          "webm": "results/gallery/0YrdfBnmrVU-0:02:42.000-0:02:48.840/depth.webm",
+          "poster": "results/gallery/0YrdfBnmrVU-0:02:42.000-0:02:48.840/depth.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/0YrdfBnmrVU-0:02:42.000-0:02:48.840/pred_depth_vis.mp4",
+          "sha256": "df52e9e6d86a3a2efa18e7c215c0ec17feb1308131ef69be38ce1e386bf7941a",
+          "webmSha256": "b0b3e8948fc8ecf33f8935f3f4c439cee360a57eda5d661bdc8e45dbbaf557ff",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 504,
+          "height": 280
+        },
+        "flow": {
+          "mp4": "results/gallery/0YrdfBnmrVU-0:02:42.000-0:02:48.840/flow.mp4",
+          "webm": "results/gallery/0YrdfBnmrVU-0:02:42.000-0:02:48.840/flow.webm",
+          "poster": "results/gallery/0YrdfBnmrVU-0:02:42.000-0:02:48.840/flow.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/0YrdfBnmrVU-0:02:42.000-0:02:48.840/notch14_pointcloud_trails/pred_scene_flow_raw_notch14_pointcloud_trails_vis.mp4",
+          "sha256": "de6830f36a711e4998bd5bd14e470dd140fe51c3a028a8c2a4ec914c3a7f84d7",
+          "webmSha256": "a50a25a59ba0d98edcda2f45e359515c3eedc13e9fd0846c933374176f5f458d",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 960,
+          "height": 720
+        }
+      },
+      "fps": 15.0
+    },
+    {
+      "id": "2l9TyNV64Zo-0:01:26.920-0:01:33.426",
+      "label": "02 / Liquid Dripping off a Spoon",
+      "prompt": "When the spoon is lifted from the bowl, the thick, light brown liquid slowly drips from the spoon back into the bowl. The liquid flows in a thin, steady stream as it descends, gradually returning to the bowl’s contents. The spoon’s movement upward causes the liquid to release from its surface, and the substance’s viscosity ensures the drip is controlled rather than a sudden pour. The liquid continues to fall until the spoon is fully raised, with the stream connecting the spoon to the bowl’s surface below.",
+      "sourcePrompt": "When the spoon is lifted from the bowl, the thick, light brown liquid slowly drips from the spoon back into the bowl. The liquid flows in a thin, steady stream as it descends, gradually returning to the bowl’s contents. The spoon’s movement upward causes the liquid to release from its surface, and the substance’s viscosity ensures the drip is controlled rather than a sudden pour. The liquid continues to fall until the spoon is fully raised, with the stream connecting the spoon to the bowl’s surface below.",
+      "image": "results/gallery/2l9TyNV64Zo-0:01:26.920-0:01:33.426/input.webp",
+      "sequence": {
+        "frameCount": 81,
+        "path": "results/gallery/2l9TyNV64Zo-0:01:26.920-0:01:33.426/frames",
+        "worldToCamera": [
+          0.9989472031593323,
+          -0.03533273935317993,
+          0.029252221807837486,
+          0.03173828125,
+          0.03631877154111862,
+          0.9987674355506897,
+          -0.03401803597807884,
+          0.035400390625,
+          -0.027937516570091248,
+          0.035004064440727234,
+          0.998993456363678,
+          0.06396484375,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          0.05776381632497668,
+          0.06475200573266454,
+          -1.1817024528951956
+        ],
+        "radius": 0.5251117956308771,
+        "sourcePoints": [
+          141120,
+          141120
+        ],
+        "previewPoints": [
+          16000,
+          16000
+        ],
+        "sourceCase": "2l9TyNV64Zo-0:01:26.920-0:01:33.426",
+        "sha256": "1d2ab287264e1074393bacd2b20be0ffb3d32b5e78e0a85b800bf30cb1575b3d"
+      },
+      "aggregate": {
+        "path": "results/gallery/2l9TyNV64Zo-0:01:26.920-0:01:33.426/global_pcd_with_camera_trajectory.ply.gz",
+        "worldToCamera": [
+          0.9989472031593323,
+          -0.03533273935317993,
+          0.029252221807837486,
+          0.03173828125,
+          0.03631877154111862,
+          0.9987674355506897,
+          -0.03401803597807884,
+          0.035400390625,
+          -0.027937516570091248,
+          0.035004064440727234,
+          0.998993456363678,
+          0.06396484375,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          0.10448892640892748,
+          0.06751921610958733,
+          -0.7631597589468946
+        ],
+        "radius": 1.0418437129967937,
+        "sourceCase": "2l9TyNV64Zo-0:01:26.920-0:01:33.426",
+        "frameCount": 1,
+        "sourceFrameCount": 81,
+        "sourcePoints": 1023296,
+        "previewPoints": 223296,
+        "cameraPoints": 23296,
+        "sourceSha256": "f243ad85d796839ea9fa9a282f5042b14f2e491d49da228b2d83ac321a894a15",
+        "sha256": "867883645675231901ea26d9bc76d3fd41ad9f02ff8c9daf326c38a627bae893"
+      },
+      "videos": {
+        "rgb": {
+          "mp4": "results/gallery/2l9TyNV64Zo-0:01:26.920-0:01:33.426/rgb.mp4",
+          "webm": "results/gallery/2l9TyNV64Zo-0:01:26.920-0:01:33.426/rgb.webm",
+          "poster": "results/gallery/2l9TyNV64Zo-0:01:26.920-0:01:33.426/rgb.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/2l9TyNV64Zo-0:01:26.920-0:01:33.426/generated_video.mp4",
+          "sha256": "4132b9da289205d7e8b0a63e5399c78aa650112919e67de2c02b2d7fddb007cf",
+          "webmSha256": "a684329bfa7df0e2e6c19124b592a888c2a2653771b8846bd0bddb2a5db5412f",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 512,
+          "height": 288
+        },
+        "depth": {
+          "mp4": "results/gallery/2l9TyNV64Zo-0:01:26.920-0:01:33.426/depth.mp4",
+          "webm": "results/gallery/2l9TyNV64Zo-0:01:26.920-0:01:33.426/depth.webm",
+          "poster": "results/gallery/2l9TyNV64Zo-0:01:26.920-0:01:33.426/depth.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/2l9TyNV64Zo-0:01:26.920-0:01:33.426/pred_depth_vis.mp4",
+          "sha256": "c1f16bb75e845131c821dfc49fe3b45e914a90bda72c49ee41410f52d6d6cdd9",
+          "webmSha256": "9d9fab782abb8946a52a62e2037a0e42d710a17b92cd951ce4f139d10112916c",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 504,
+          "height": 280
+        },
+        "flow": {
+          "mp4": "results/gallery/2l9TyNV64Zo-0:01:26.920-0:01:33.426/flow.mp4",
+          "webm": "results/gallery/2l9TyNV64Zo-0:01:26.920-0:01:33.426/flow.webm",
+          "poster": "results/gallery/2l9TyNV64Zo-0:01:26.920-0:01:33.426/flow.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/2l9TyNV64Zo-0:01:26.920-0:01:33.426/notch14_pointcloud_trails/pred_scene_flow_raw_notch14_pointcloud_trails_vis.mp4",
+          "sha256": "cc458fe9c7e299da2ae0abb8bbfde0097c6a5040e3a133a386d5709bf9915f2e",
+          "webmSha256": "2bfe552cc399c4c85454e4ebf5ebe3dc9bfdb1535b1e71cb318943b93e23181e",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 960,
+          "height": 720
+        }
+      },
+      "fps": 15.0
+    },
+    {
+      "id": "3Aku0Zz2_RI-0:03:26.956-0:03:33.379",
+      "label": "03 / Lowering Chopsticks",
+      "prompt": "After the person eats the food with chopsticks, they lower the chopsticks back into the bowl, resting them against the bowl’s edge. The bowl, which is held in their left hand, remains steady as the chopsticks—previously used to bring food to their mouth—return to the dish. The motion is smooth and deliberate, with the chopsticks settling into the bowl as the person prepares for the next bite. The surrounding elements, like the red and dark-colored bowls on the table and the restaurant’s interior, stay consistent, emphasizing the natural flow of eating.",
+      "sourcePrompt": "After the person eats the food with chopsticks, they lower the chopsticks back into the bowl, resting them against the bowl’s edge. The bowl, which is held in their left hand, remains steady as the chopsticks—previously used to bring food to their mouth—return to the dish. The motion is smooth and deliberate, with the chopsticks settling into the bowl as the person prepares for the next bite. The surrounding elements, like the red and dark-colored bowls on the table and the restaurant’s interior, stay consistent, emphasizing the natural flow of eating.",
+      "image": "results/gallery/3Aku0Zz2_RI-0:03:26.956-0:03:33.379/input.webp",
+      "sequence": {
+        "frameCount": 81,
+        "path": "results/gallery/3Aku0Zz2_RI-0:03:26.956-0:03:33.379/frames",
+        "worldToCamera": [
+          0.998380720615387,
+          -0.04120377451181412,
+          0.03917480260133743,
+          0.03662109375,
+          0.0424523763358593,
+          0.9984977841377258,
+          -0.034336481243371964,
+          0.033203125,
+          -0.03761405125260353,
+          0.03589722886681557,
+          0.9986441135406494,
+          0.08056640625,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          0.1073686373660021,
+          0.07105148933540195,
+          -1.0104271038670398
+        ],
+        "radius": 0.7107739575958376,
+        "sourcePoints": [
+          141120,
+          141120
+        ],
+        "previewPoints": [
+          16000,
+          16000
+        ],
+        "sourceCase": "3Aku0Zz2_RI-0:03:26.956-0:03:33.379",
+        "sha256": "f9bd829c467acde1ffab8d3da176d322d010a6aef0ab82ecb5b4faf1c6ee82e5"
+      },
+      "aggregate": {
+        "path": "results/gallery/3Aku0Zz2_RI-0:03:26.956-0:03:33.379/global_pcd_with_camera_trajectory.ply.gz",
+        "worldToCamera": [
+          0.998380720615387,
+          -0.04120377451181412,
+          0.03917480260133743,
+          0.03662109375,
+          0.0424523763358593,
+          0.9984977841377258,
+          -0.034336481243371964,
+          0.033203125,
+          -0.03761405125260353,
+          0.03589722886681557,
+          0.9986441135406494,
+          0.08056640625,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          0.11777057757619946,
+          0.07457668182763316,
+          -0.8050637294753702
+        ],
+        "radius": 1.2120667376876297,
+        "sourceCase": "3Aku0Zz2_RI-0:03:26.956-0:03:33.379",
+        "frameCount": 1,
+        "sourceFrameCount": 81,
+        "sourcePoints": 1023296,
+        "previewPoints": 223296,
+        "cameraPoints": 23296,
+        "sourceSha256": "2405102ff997671faa0812b9655cc053ee5ff1fbe08779a62bd8bd56d2ef8e46",
+        "sha256": "0f29351ab3d8a321145e5ae370a508b2dcf9692e17088ab7b26d42a19d8d700d"
+      },
+      "videos": {
+        "rgb": {
+          "mp4": "results/gallery/3Aku0Zz2_RI-0:03:26.956-0:03:33.379/rgb.mp4",
+          "webm": "results/gallery/3Aku0Zz2_RI-0:03:26.956-0:03:33.379/rgb.webm",
+          "poster": "results/gallery/3Aku0Zz2_RI-0:03:26.956-0:03:33.379/rgb.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/3Aku0Zz2_RI-0:03:26.956-0:03:33.379/generated_video.mp4",
+          "sha256": "65baf8a3a41b7ec4530bf51a8f51311d41aad05a0cb53ec7aa2b444ff61abbd4",
+          "webmSha256": "0ff1be8350430ccac50afbd7fcacca67f5297305f4ba05e1b7a19e76c59bdc19",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 512,
+          "height": 288
+        },
+        "depth": {
+          "mp4": "results/gallery/3Aku0Zz2_RI-0:03:26.956-0:03:33.379/depth.mp4",
+          "webm": "results/gallery/3Aku0Zz2_RI-0:03:26.956-0:03:33.379/depth.webm",
+          "poster": "results/gallery/3Aku0Zz2_RI-0:03:26.956-0:03:33.379/depth.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/3Aku0Zz2_RI-0:03:26.956-0:03:33.379/pred_depth_vis.mp4",
+          "sha256": "91d5120e4bce1d13c62527b20b1d1934b15042ad36b2f3f24bcb98afe25d2f45",
+          "webmSha256": "90a1aa7f497980b64ae622c2105e4d616f57ca3f8603bec99c06cd1139d55d95",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 504,
+          "height": 280
+        },
+        "flow": {
+          "mp4": "results/gallery/3Aku0Zz2_RI-0:03:26.956-0:03:33.379/flow.mp4",
+          "webm": "results/gallery/3Aku0Zz2_RI-0:03:26.956-0:03:33.379/flow.webm",
+          "poster": "results/gallery/3Aku0Zz2_RI-0:03:26.956-0:03:33.379/flow.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/3Aku0Zz2_RI-0:03:26.956-0:03:33.379/notch14_pointcloud_trails/pred_scene_flow_raw_notch14_pointcloud_trails_vis.mp4",
+          "sha256": "2dbb64d94629e180e6208a695e1c4125cb54cb974d11122fd237949fb3e8f113",
+          "webmSha256": "9490a8a143a85748a07cf04851d2610f8f2185a0546b5df4ab24978338fdabf2",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 960,
+          "height": 720
+        }
+      },
+      "fps": 15.0
+    },
+    {
+      "id": "4MbIbjWJz7k-0:11:10.219-0:11:16.492",
+      "label": "04 / Eating Pizza",
+      "prompt": "In the video, a person in a restaurant takes a bite of a pizza topped with ingredients like greens and red toppings. After taking the bite, the person chews the pizza while still holding it with both hands. The restaurant environment remains active in the background, with other diners and warm lighting visible, but the focus stays on the person’s action as they chew the pizza. No further movement or interaction with the pizza is shown beyond the chewing sequence, so the key event after the bite is the person chewing the piece of pizza they just ate.",
+      "sourcePrompt": "In the video, a person in a restaurant takes a bite of a pizza topped with ingredients like greens and red toppings. After taking the bite, the person chews the pizza while still holding it with both hands. The restaurant environment remains active in the background, with other diners and warm lighting visible, but the focus stays on the person’s action as they chew the pizza. No further movement or interaction with the pizza is shown beyond the chewing sequence, so the key event after the bite is the person chewing the piece of pizza they just ate.",
+      "image": "results/gallery/4MbIbjWJz7k-0:11:10.219-0:11:16.492/input.webp",
+      "sequence": {
+        "frameCount": 81,
+        "path": "results/gallery/4MbIbjWJz7k-0:11:10.219-0:11:16.492/frames",
+        "worldToCamera": [
+          1.0,
+          -0.00038406788371503353,
+          0.00014078617095947266,
+          0.0002116489049512893,
+          0.00038390682311728597,
+          0.9999991655349731,
+          0.001143310102634132,
+          0.00020374801533762366,
+          -0.00014138221740722656,
+          -0.0011432560859248042,
+          0.9999994039535522,
+          0.0006398408440873027,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          -1.1677041688219938,
+          1.0541727352190282,
+          -3.7644131837684376
+        ],
+        "radius": 3.3948344120600358,
+        "sourcePoints": [
+          141120,
+          141120
+        ],
+        "previewPoints": [
+          16000,
+          16000
+        ],
+        "sourceCase": "4MbIbjWJz7k-0:11:10.219-0:11:16.492",
+        "sha256": "3c4cf3fe19768a58abca4203246127beb3fbfc5e256beb58d472c8f51c3f74a1"
+      },
+      "aggregate": {
+        "path": "results/gallery/4MbIbjWJz7k-0:11:10.219-0:11:16.492/global_pcd_with_camera_trajectory.ply.gz",
+        "worldToCamera": [
+          1.0,
+          -0.00038406788371503353,
+          0.00014078617095947266,
+          0.0002116489049512893,
+          0.00038390682311728597,
+          0.9999991655349731,
+          0.001143310102634132,
+          0.00020374801533762366,
+          -0.00014138221740722656,
+          -0.0011432560859248042,
+          0.9999994039535522,
+          0.0006398408440873027,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          -1.2382651469419406,
+          1.0356190234708662,
+          -3.6275415476665755
+        ],
+        "radius": 5.219248410830773,
+        "sourceCase": "4MbIbjWJz7k-0:11:10.219-0:11:16.492",
+        "frameCount": 1,
+        "sourceFrameCount": 81,
+        "sourcePoints": 1023296,
+        "previewPoints": 223296,
+        "cameraPoints": 23296,
+        "sourceSha256": "9b1b3a4a6c2d8dca07f574ae0d295edce329a4285b48f9e0e4f97e1d1dfea885",
+        "sha256": "852a74b738e9c70b48ff9c7b90d589cad20011ba695a42839126a9c4e61c428f"
+      },
+      "videos": {
+        "rgb": {
+          "mp4": "results/gallery/4MbIbjWJz7k-0:11:10.219-0:11:16.492/rgb.mp4",
+          "webm": "results/gallery/4MbIbjWJz7k-0:11:10.219-0:11:16.492/rgb.webm",
+          "poster": "results/gallery/4MbIbjWJz7k-0:11:10.219-0:11:16.492/rgb.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/4MbIbjWJz7k-0:11:10.219-0:11:16.492/generated_video.mp4",
+          "sha256": "8872485acec9e5c1c078e52da782aeb38a8622e375146e1ae12e90b7e785e809",
+          "webmSha256": "9ab30c126f8efcc4328516a76da4c0c733fa19c17bde4f0a22e822c799287ecb",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 512,
+          "height": 288
+        },
+        "depth": {
+          "mp4": "results/gallery/4MbIbjWJz7k-0:11:10.219-0:11:16.492/depth.mp4",
+          "webm": "results/gallery/4MbIbjWJz7k-0:11:10.219-0:11:16.492/depth.webm",
+          "poster": "results/gallery/4MbIbjWJz7k-0:11:10.219-0:11:16.492/depth.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/4MbIbjWJz7k-0:11:10.219-0:11:16.492/pred_depth_vis.mp4",
+          "sha256": "55858fcbc81700950846767f66e15ff42519a8f5c2b3004e97ce9146441e5d38",
+          "webmSha256": "2d21508db7dab383f7fda2b316e550b2ad670fa465d45f4e186a05bbe2eb26ee",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 504,
+          "height": 280
+        },
+        "flow": {
+          "mp4": "results/gallery/4MbIbjWJz7k-0:11:10.219-0:11:16.492/flow.mp4",
+          "webm": "results/gallery/4MbIbjWJz7k-0:11:10.219-0:11:16.492/flow.webm",
+          "poster": "results/gallery/4MbIbjWJz7k-0:11:10.219-0:11:16.492/flow.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/4MbIbjWJz7k-0:11:10.219-0:11:16.492/notch14_pointcloud_trails/pred_scene_flow_raw_notch14_pointcloud_trails_vis.mp4",
+          "sha256": "4bf3abfb951dc9bbfc9e41837e27b919d78ae4a0246222b66749af2971563d44",
+          "webmSha256": "3d4c5ad461806b865ab518d2119f47cb826176c5b1bbe1a9689721c7be674da5",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 960,
+          "height": 720
+        }
+      },
+      "fps": 15.0
+    },
+    {
+      "id": "EsaTyAI2qxs-0:06:53.371-0:06:59.877",
+      "label": "05 / Slicing a Frosted Cake",
+      "prompt": "A round cake covered in smooth, creamy white frosting sits on a metal cake stand. A person holds a large knife and begins cutting into the cake’s side. As the knife moves through the frosting, the cake stand rotates steadily, allowing the knife to slice cleanly along the cake’s circumference. The frosting yields to the knife’s pressure, with small portions of it being displaced or lifted as the cut progresses. The cake continues to rotate while the knife maintains a consistent, smooth motion, ensuring an even slice. The background shows a kitchen setting with blurred shelves, emphasizing the focused action of cutting the cake. The entire process highlights the precision of the cut, with the cake’s rotation and the knife’s steady movement working together to create a clean division in the frosted surface.",
+      "sourcePrompt": "A round cake covered in smooth, creamy white frosting sits on a metal cake stand. A person holds a large knife and begins cutting into the cake’s side. As the knife moves through the frosting, the cake stand rotates steadily, allowing the knife to slice cleanly along the cake’s circumference. The frosting yields to the knife’s pressure, with small portions of it being displaced or lifted as the cut progresses. The cake continues to rotate while the knife maintains a consistent, smooth motion, ensuring an even slice. The background shows a kitchen setting with blurred shelves, emphasizing the focused action of cutting the cake. The entire process highlights the precision of the cut, with the cake’s rotation and the knife’s steady movement working together to create a clean division in the frosted surface.",
+      "image": "results/gallery/EsaTyAI2qxs-0:06:53.371-0:06:59.877/input.webp",
+      "sequence": {
+        "frameCount": 81,
+        "path": "results/gallery/EsaTyAI2qxs-0:06:53.371-0:06:59.877/frames",
+        "worldToCamera": [
+          0.9986231327056885,
+          -0.03712143376469612,
+          0.03694796934723854,
+          0.0308837890625,
+          0.0381622239947319,
+          0.9989754557609558,
+          -0.024285051971673965,
+          0.031494140625,
+          -0.03590718284249306,
+          0.02567276731133461,
+          0.9990242719650269,
+          0.054931640625,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          0.009261053021137694,
+          0.044620350979084,
+          -1.2249147423577353
+        ],
+        "radius": 0.4141759932044299,
+        "sourcePoints": [
+          141120,
+          141120
+        ],
+        "previewPoints": [
+          16000,
+          16000
+        ],
+        "sourceCase": "EsaTyAI2qxs-0:06:53.371-0:06:59.877",
+        "sha256": "b22aa2f3db8ee075ea83e89ea881103064d5f3024185c2b5985b5fdfc87b2361"
+      },
+      "aggregate": {
+        "path": "results/gallery/EsaTyAI2qxs-0:06:53.371-0:06:59.877/global_pcd_with_camera_trajectory.ply.gz",
+        "worldToCamera": [
+          0.9986231327056885,
+          -0.03712143376469612,
+          0.03694796934723854,
+          0.0308837890625,
+          0.0381622239947319,
+          0.9989754557609558,
+          -0.024285051971673965,
+          0.031494140625,
+          -0.03590718284249306,
+          0.02567276731133461,
+          0.9990242719650269,
+          0.054931640625,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          0.008936829915457356,
+          0.05195392031442919,
+          -0.7832917848593732
+        ],
+        "radius": 0.9607711073840397,
+        "sourceCase": "EsaTyAI2qxs-0:06:53.371-0:06:59.877",
+        "frameCount": 1,
+        "sourceFrameCount": 81,
+        "sourcePoints": 1023296,
+        "previewPoints": 223296,
+        "cameraPoints": 23296,
+        "sourceSha256": "ffd02ab946761691c0c33650b58652a8a7333d6726108d1989c3cd2352d839e1",
+        "sha256": "e664df43df3bf72b88ba616c9569920bb4e99b6675275367dcde0985daa8ece5"
+      },
+      "videos": {
+        "rgb": {
+          "mp4": "results/gallery/EsaTyAI2qxs-0:06:53.371-0:06:59.877/rgb.mp4",
+          "webm": "results/gallery/EsaTyAI2qxs-0:06:53.371-0:06:59.877/rgb.webm",
+          "poster": "results/gallery/EsaTyAI2qxs-0:06:53.371-0:06:59.877/rgb.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/EsaTyAI2qxs-0:06:53.371-0:06:59.877/generated_video.mp4",
+          "sha256": "3b2c2eeb63ab9a881a41623e8d38d2578ee01a12d37955254248078c8fca8f24",
+          "webmSha256": "d5391daff8c6fef452778a6e7785e0b2a9eb090f78fe396a67076c3bdcc3822b",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 512,
+          "height": 288
+        },
+        "depth": {
+          "mp4": "results/gallery/EsaTyAI2qxs-0:06:53.371-0:06:59.877/depth.mp4",
+          "webm": "results/gallery/EsaTyAI2qxs-0:06:53.371-0:06:59.877/depth.webm",
+          "poster": "results/gallery/EsaTyAI2qxs-0:06:53.371-0:06:59.877/depth.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/EsaTyAI2qxs-0:06:53.371-0:06:59.877/pred_depth_vis.mp4",
+          "sha256": "098b8334b1ef40395cd1bb4bcce7ad6bfac30419b5761eb7e93286422630c9d9",
+          "webmSha256": "bed1534d6aa6a95cc50bffc88d25424bae6e96d6a04e541ca0b636036cd7b541",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 504,
+          "height": 280
+        },
+        "flow": {
+          "mp4": "results/gallery/EsaTyAI2qxs-0:06:53.371-0:06:59.877/flow.mp4",
+          "webm": "results/gallery/EsaTyAI2qxs-0:06:53.371-0:06:59.877/flow.webm",
+          "poster": "results/gallery/EsaTyAI2qxs-0:06:53.371-0:06:59.877/flow.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/EsaTyAI2qxs-0:06:53.371-0:06:59.877/notch14_pointcloud_trails/pred_scene_flow_raw_notch14_pointcloud_trails_vis.mp4",
+          "sha256": "d2e44b43e07c8edd60c77aa7270e90d0aff5f4b223a9ac9538c191e9713661c2",
+          "webmSha256": "6c709a89bdde39ac53030e52e191660d187cbdedb2e3e64ed493209964f53c3a",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 960,
+          "height": 720
+        }
+      },
+      "fps": 15.0
+    },
+    {
+      "id": "FyA7Ft2p5b8-0:03:58.371-0:04:05.111",
+      "label": "06 / Spraying a Car Wheel",
+      "prompt": "A person’s arm appears holding a spray bottle, directing a fine mist onto the wheel of a blue car. The spray is applied to both the tire and the alloy rim, coating the wheel’s surface with the liquid from the bottle. As the spray hits the wheel, droplets scatter across the tire and rim, leaving the wheel visibly wet and covered in the sprayed substance. The interaction shows the spray bottle releasing the liquid in a controlled manner, ensuring even coverage over the wheel’s surface, which is then left damp from the application.",
+      "sourcePrompt": "A person’s arm appears holding a spray bottle, directing a fine mist onto the wheel of a blue car. The spray is applied to both the tire and the alloy rim, coating the wheel’s surface with the liquid from the bottle. As the spray hits the wheel, droplets scatter across the tire and rim, leaving the wheel visibly wet and covered in the sprayed substance. The interaction shows the spray bottle releasing the liquid in a controlled manner, ensuring even coverage over the wheel’s surface, which is then left damp from the application.",
+      "image": "results/gallery/FyA7Ft2p5b8-0:03:58.371-0:04:05.111/input.webp",
+      "sequence": {
+        "frameCount": 81,
+        "path": "results/gallery/FyA7Ft2p5b8-0:03:58.371-0:04:05.111/frames",
+        "worldToCamera": [
+          0.9988927841186523,
+          -0.03834214806556702,
+          0.027017461135983467,
+          0.0269775390625,
+          0.039312832057476044,
+          0.9986653327941895,
+          -0.033326927572488785,
+          0.033935546875,
+          -0.025723211467266083,
+          0.03429761528968811,
+          0.9990798830986023,
+          0.07275390625,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          -0.7353119692438939,
+          0.5149500598397887,
+          -2.6136077470402177
+        ],
+        "radius": 1.839093436774283,
+        "sourcePoints": [
+          141120,
+          141120
+        ],
+        "previewPoints": [
+          16000,
+          16000
+        ],
+        "sourceCase": "FyA7Ft2p5b8-0:03:58.371-0:04:05.111",
+        "sha256": "15a308e0ca1b5fd88bed87b1df7404a316118b1253ed4705ed4d8cd321b9ffba"
+      },
+      "aggregate": {
+        "path": "results/gallery/FyA7Ft2p5b8-0:03:58.371-0:04:05.111/global_pcd_with_camera_trajectory.ply.gz",
+        "worldToCamera": [
+          0.9988927841186523,
+          -0.03834214806556702,
+          0.027017461135983467,
+          0.0269775390625,
+          0.039312832057476044,
+          0.9986653327941895,
+          -0.033326927572488785,
+          0.033935546875,
+          -0.025723211467266083,
+          0.03429761528968811,
+          0.9990798830986023,
+          0.07275390625,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          -0.8362717555962347,
+          0.6471035501582425,
+          -2.3402298260646943
+        ],
+        "radius": 2.8816153563034237,
+        "sourceCase": "FyA7Ft2p5b8-0:03:58.371-0:04:05.111",
+        "frameCount": 1,
+        "sourceFrameCount": 81,
+        "sourcePoints": 1023296,
+        "previewPoints": 223296,
+        "cameraPoints": 23296,
+        "sourceSha256": "f6496629b284a72581cc8bc893f3f2bc8fea015a0d042712697abac400270e79",
+        "sha256": "64c1e5ff28896f2da8bb89320da4bc84fff11e56828ee21985d7297da7d6165b"
+      },
+      "videos": {
+        "rgb": {
+          "mp4": "results/gallery/FyA7Ft2p5b8-0:03:58.371-0:04:05.111/rgb.mp4",
+          "webm": "results/gallery/FyA7Ft2p5b8-0:03:58.371-0:04:05.111/rgb.webm",
+          "poster": "results/gallery/FyA7Ft2p5b8-0:03:58.371-0:04:05.111/rgb.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/FyA7Ft2p5b8-0:03:58.371-0:04:05.111/generated_video.mp4",
+          "sha256": "b4ff0609f09f26bd3bc37d456ef7c16155615d0a31637732cc1221aa61850246",
+          "webmSha256": "67469a1ed2dad683a11d832a77faf78d8eb82bab6411b79f0bde9e7dc4801e96",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 512,
+          "height": 288
+        },
+        "depth": {
+          "mp4": "results/gallery/FyA7Ft2p5b8-0:03:58.371-0:04:05.111/depth.mp4",
+          "webm": "results/gallery/FyA7Ft2p5b8-0:03:58.371-0:04:05.111/depth.webm",
+          "poster": "results/gallery/FyA7Ft2p5b8-0:03:58.371-0:04:05.111/depth.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/FyA7Ft2p5b8-0:03:58.371-0:04:05.111/pred_depth_vis.mp4",
+          "sha256": "481ef370f83cc0580e2729286c74e63ffdbe21787adbd3216da65a85dd56e22e",
+          "webmSha256": "2039b370ad3e856a951c232a62eccb47fdcef0930982e97ba98f77a7c244d93d",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 504,
+          "height": 280
+        },
+        "flow": {
+          "mp4": "results/gallery/FyA7Ft2p5b8-0:03:58.371-0:04:05.111/flow.mp4",
+          "webm": "results/gallery/FyA7Ft2p5b8-0:03:58.371-0:04:05.111/flow.webm",
+          "poster": "results/gallery/FyA7Ft2p5b8-0:03:58.371-0:04:05.111/flow.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/FyA7Ft2p5b8-0:03:58.371-0:04:05.111/notch14_pointcloud_trails/pred_scene_flow_raw_notch14_pointcloud_trails_vis.mp4",
+          "sha256": "23ee4489445eb51667f11376ae85ffa0bd079acb6843eb06108c81e06038ba5e",
+          "webmSha256": "454fc4d9f4fb2bb9adff8404e2fd51b44d24139bf37dce20e8e21d621fcbea8a",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 960,
+          "height": 720
+        }
+      },
+      "fps": 15.0
+    },
+    {
+      "id": "Gi56pKL0DpE-0:07:56.480-0:08:03.320",
+      "label": "07 / Shaping a Clay Sculpture",
+      "prompt": "In a well-lit studio adorned with plaster busts mounted on the walls, a person wearing a gray apron over a black turtleneck focuses intently on a clay sculpture of a head mounted on a wooden stand. As the individual moves their hand toward the sculpture, they press firmly into the clay’s surface. The soft, malleable clay responds to the pressure by deforming—the texture shifts and indents where the hand makes contact, reshaping the sculpted form. The person’s deliberate motion emphasizes the clay’s pliable nature, allowing the sculpture to take on new contours as the hand applies force. The surrounding studio, filled with finished busts, underscores the artistic process, where each touch alters the clay’s shape, guiding the creation of the figure.",
+      "sourcePrompt": "In a well-lit studio adorned with plaster busts mounted on the walls, a person wearing a gray apron over a black turtleneck focuses intently on a clay sculpture of a head mounted on a wooden stand. As the individual moves their hand toward the sculpture, they press firmly into the clay’s surface. The soft, malleable clay responds to the pressure by deforming—the texture shifts and indents where the hand makes contact, reshaping the sculpted form. The person’s deliberate motion emphasizes the clay’s pliable nature, allowing the sculpture to take on new contours as the hand applies force. The surrounding studio, filled with finished busts, underscores the artistic process, where each touch alters the clay’s shape, guiding the creation of the figure.",
+      "image": "results/gallery/Gi56pKL0DpE-0:07:56.480-0:08:03.320/input.webp",
+      "sequence": {
+        "frameCount": 81,
+        "path": "results/gallery/Gi56pKL0DpE-0:07:56.480-0:08:03.320/frames",
+        "worldToCamera": [
+          0.9999991655349731,
+          0.0013215421931818128,
+          0.000148773193359375,
+          0.00012384979345370084,
+          -0.0013217077357694507,
+          0.9999985694885254,
+          0.0011178920976817608,
+          -0.0004113948962185532,
+          -0.00014734268188476562,
+          -0.0011180877918377519,
+          0.9999994039535522,
+          -0.00048143527237698436,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          -0.16450228086718022,
+          0.042785408307030925,
+          -3.7893987086081697
+        ],
+        "radius": 1.9102003761685848,
+        "sourcePoints": [
+          141120,
+          141120
+        ],
+        "previewPoints": [
+          16000,
+          16000
+        ],
+        "sourceCase": "Gi56pKL0DpE-0:07:56.480-0:08:03.320",
+        "sha256": "9af60b89cfb1634b71143daa9b0ae03469e7269298a5ba08938934d3120e1d48"
+      },
+      "aggregate": {
+        "path": "results/gallery/Gi56pKL0DpE-0:07:56.480-0:08:03.320/global_pcd_with_camera_trajectory.ply.gz",
+        "worldToCamera": [
+          0.9999991655349731,
+          0.0013215421931818128,
+          0.000148773193359375,
+          0.00012384979345370084,
+          -0.0013217077357694507,
+          0.9999985694885254,
+          0.0011178920976817608,
+          -0.0004113948962185532,
+          -0.00014734268188476562,
+          -0.0011180877918377519,
+          0.9999994039535522,
+          -0.00048143527237698436,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          -0.19103407157197871,
+          0.03110657053657967,
+          -2.8664503928605307
+        ],
+        "radius": 3.2626892949775628,
+        "sourceCase": "Gi56pKL0DpE-0:07:56.480-0:08:03.320",
+        "frameCount": 1,
+        "sourceFrameCount": 81,
+        "sourcePoints": 1023296,
+        "previewPoints": 223296,
+        "cameraPoints": 23296,
+        "sourceSha256": "2db54c85cebe8442f29d5a7623ddd8b5576630c153f6a2fcbaa070805d74697b",
+        "sha256": "bceef5fe9728f98261a1eacef56a0f4b4daccd93821079912e7f0e1f039d4e37"
+      },
+      "videos": {
+        "rgb": {
+          "mp4": "results/gallery/Gi56pKL0DpE-0:07:56.480-0:08:03.320/rgb.mp4",
+          "webm": "results/gallery/Gi56pKL0DpE-0:07:56.480-0:08:03.320/rgb.webm",
+          "poster": "results/gallery/Gi56pKL0DpE-0:07:56.480-0:08:03.320/rgb.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/Gi56pKL0DpE-0:07:56.480-0:08:03.320/generated_video.mp4",
+          "sha256": "9de1feefa879292988ad31c9634d74edc49fbd8a0c49bdd084e2542eb6ae7f7f",
+          "webmSha256": "8783378b0337bbad1ee8f5cbc3ad44af75d62c30c9f4d736c57e8c945f0ed48c",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 512,
+          "height": 288
+        },
+        "depth": {
+          "mp4": "results/gallery/Gi56pKL0DpE-0:07:56.480-0:08:03.320/depth.mp4",
+          "webm": "results/gallery/Gi56pKL0DpE-0:07:56.480-0:08:03.320/depth.webm",
+          "poster": "results/gallery/Gi56pKL0DpE-0:07:56.480-0:08:03.320/depth.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/Gi56pKL0DpE-0:07:56.480-0:08:03.320/pred_depth_vis.mp4",
+          "sha256": "7dcd6d1b6d7cdf872215eff717b7a2d4c2d1bfb20dcca38d54497463e3fa67e3",
+          "webmSha256": "b27f3950f6edc77074e4bb1ff27f2735628f6a930e5f4c8c394d901b607b700e",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 504,
+          "height": 280
+        },
+        "flow": {
+          "mp4": "results/gallery/Gi56pKL0DpE-0:07:56.480-0:08:03.320/flow.mp4",
+          "webm": "results/gallery/Gi56pKL0DpE-0:07:56.480-0:08:03.320/flow.webm",
+          "poster": "results/gallery/Gi56pKL0DpE-0:07:56.480-0:08:03.320/flow.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/Gi56pKL0DpE-0:07:56.480-0:08:03.320/notch14_pointcloud_trails/pred_scene_flow_raw_notch14_pointcloud_trails_vis.mp4",
+          "sha256": "33cb3b443afc83419a75f91623d49c37f8e489a3738972e4886f34e8261d3951",
+          "webmSha256": "1d49011e0b6486b8fce40d90c8e2fdf304f73d5bdb085f0c8631b5baac098fa8",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 960,
+          "height": 720
+        }
+      },
+      "fps": 15.0
+    },
+    {
+      "id": "iXTH_6_bIMw-0:01:47.774-0:01:54.489",
+      "label": "08 / Mixing Broccoli and Pasta",
+      "prompt": "After the broccoli is added to the large metal bowl, it joins a mixture of bow - tie pasta and other ingredients. A hand holding a wooden spoon begins to stir the contents of the bowl in a circular motion. As the spoon moves through the mixture, the broccoli pieces shift and blend with the pasta, gradually becoming evenly distributed throughout the dish. The stirring continues, ensuring that the broccoli is thoroughly incorporated with the pasta and other components, so that each part of the mixture contains a combination of the various ingredients. The motion of the spoon causes the broccoli to move from its initial position among the pasta, mixing it seamlessly into the overall dish.",
+      "sourcePrompt": "After the broccoli is added to the large metal bowl, it joins a mixture of bow - tie pasta and other ingredients. A hand holding a wooden spoon begins to stir the contents of the bowl in a circular motion. As the spoon moves through the mixture, the broccoli pieces shift and blend with the pasta, gradually becoming evenly distributed throughout the dish. The stirring continues, ensuring that the broccoli is thoroughly incorporated with the pasta and other components, so that each part of the mixture contains a combination of the various ingredients. The motion of the spoon causes the broccoli to move from its initial position among the pasta, mixing it seamlessly into the overall dish.",
+      "image": "results/gallery/iXTH_6_bIMw-0:01:47.774-0:01:54.489/input.webp",
+      "sequence": {
+        "frameCount": 81,
+        "path": "results/gallery/iXTH_6_bIMw-0:01:47.774-0:01:54.489/frames",
+        "worldToCamera": [
+          0.9999979138374329,
+          -0.0019985209219157696,
+          0.0004677772521972656,
+          -0.0001388701784890145,
+          0.0019981088116765022,
+          0.999997615814209,
+          0.0008800195646472275,
+          -8.649786468595266e-05,
+          -0.00046956539154052734,
+          -0.0008790830615907907,
+          0.9999995231628418,
+          -0.0001743076427374035,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          -0.0024615161357175175,
+          0.016169295464711367,
+          -0.6793179451224601
+        ],
+        "radius": 0.37973404360994123,
+        "sourcePoints": [
+          141120,
+          141120
+        ],
+        "previewPoints": [
+          16000,
+          16000
+        ],
+        "sourceCase": "iXTH_6_bIMw-0:01:47.774-0:01:54.489",
+        "sha256": "fe2eb2db9db3542dccd6ff1b469aa2fcc98948f5213c61e7c6194f5971f013cc"
+      },
+      "aggregate": {
+        "path": "results/gallery/iXTH_6_bIMw-0:01:47.774-0:01:54.489/global_pcd_with_camera_trajectory.ply.gz",
+        "worldToCamera": [
+          0.9999979138374329,
+          -0.0019985209219157696,
+          0.0004677772521972656,
+          -0.0001388701784890145,
+          0.0019981088116765022,
+          0.999997615814209,
+          0.0008800195646472275,
+          -8.649786468595266e-05,
+          -0.00046956539154052734,
+          -0.0008790830615907907,
+          0.9999995231628418,
+          -0.0001743076427374035,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          -0.008541666703276884,
+          0.013626296921620484,
+          -0.47675207584161305
+        ],
+        "radius": 0.6662720812869422,
+        "sourceCase": "iXTH_6_bIMw-0:01:47.774-0:01:54.489",
+        "frameCount": 1,
+        "sourceFrameCount": 81,
+        "sourcePoints": 1023296,
+        "previewPoints": 223296,
+        "cameraPoints": 23296,
+        "sourceSha256": "0c176715cab040b8a55fa7ddf84af4bf8dfc322c632b21ff1cf2081522183a61",
+        "sha256": "706c38987cda25af2bc27e807a025a392b2a6f97691da8a2ba911ac256295d70"
+      },
+      "videos": {
+        "rgb": {
+          "mp4": "results/gallery/iXTH_6_bIMw-0:01:47.774-0:01:54.489/rgb.mp4",
+          "webm": "results/gallery/iXTH_6_bIMw-0:01:47.774-0:01:54.489/rgb.webm",
+          "poster": "results/gallery/iXTH_6_bIMw-0:01:47.774-0:01:54.489/rgb.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/iXTH_6_bIMw-0:01:47.774-0:01:54.489/generated_video.mp4",
+          "sha256": "f0486b4ff04648b8e0bab56714b9a613cf0dbe344713dd50517d84ac6d321bba",
+          "webmSha256": "d78d271b473ef3a2702ac346e900ae657b3c841fa233b07fe8e198b61f77d6e0",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 512,
+          "height": 288
+        },
+        "depth": {
+          "mp4": "results/gallery/iXTH_6_bIMw-0:01:47.774-0:01:54.489/depth.mp4",
+          "webm": "results/gallery/iXTH_6_bIMw-0:01:47.774-0:01:54.489/depth.webm",
+          "poster": "results/gallery/iXTH_6_bIMw-0:01:47.774-0:01:54.489/depth.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/iXTH_6_bIMw-0:01:47.774-0:01:54.489/pred_depth_vis.mp4",
+          "sha256": "2d8b783969dae11f55c9939432fe79f6216d78e39c3d4a202c34d215cc8e920f",
+          "webmSha256": "c5d9aa3b576ebd5d97cafa55a8c49220950935bd1ea02fb6ea1cafe3c2ea7816",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 504,
+          "height": 280
+        },
+        "flow": {
+          "mp4": "results/gallery/iXTH_6_bIMw-0:01:47.774-0:01:54.489/flow.mp4",
+          "webm": "results/gallery/iXTH_6_bIMw-0:01:47.774-0:01:54.489/flow.webm",
+          "poster": "results/gallery/iXTH_6_bIMw-0:01:47.774-0:01:54.489/flow.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/iXTH_6_bIMw-0:01:47.774-0:01:54.489/notch14_pointcloud_trails/pred_scene_flow_raw_notch14_pointcloud_trails_vis.mp4",
+          "sha256": "dc466c09a3b41c9586c60960ec791fb3204d285ac3a4a51b5b25c5beff75564b",
+          "webmSha256": "c340d9f35e067354569ccebab564b088acbc9dbefe40fee70f0a89a17bddad50",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 960,
+          "height": 720
+        }
+      },
+      "fps": 15.0
+    },
+    {
+      "id": "Lax0Ppfhct4-0:02:32.785-0:02:39.492",
+      "label": "09 / Tasting Fruit",
+      "prompt": "After the man takes the fruit from the woman, he brings it to his mouth and takes a bite. As he chews, he holds the fruit in his hand, examining it closely. The woman stands nearby, and the background shows numerous trays of dried fruits arranged on stands, with a traditional building and greenery surrounding them. The man’s actions suggest he is tasting the fruit to assess its quality or flavor, and the scene captures a moment of interaction between the two individuals in what appears to be a rural or traditional setting focused on fruit drying or processing.",
+      "sourcePrompt": "After the man takes the fruit from the woman, he brings it to his mouth and takes a bite. As he chews, he holds the fruit in his hand, examining it closely. The woman stands nearby, and the background shows numerous trays of dried fruits arranged on stands, with a traditional building and greenery surrounding them. The man’s actions suggest he is tasting the fruit to assess its quality or flavor, and the scene captures a moment of interaction between the two individuals in what appears to be a rural or traditional setting focused on fruit drying or processing.",
+      "image": "results/gallery/Lax0Ppfhct4-0:02:32.785-0:02:39.492/input.webp",
+      "sequence": {
+        "frameCount": 81,
+        "path": "results/gallery/Lax0Ppfhct4-0:02:32.785-0:02:39.492/frames",
+        "worldToCamera": [
+          0.9999980330467224,
+          -0.0004066398832947016,
+          0.0019799470901489258,
+          -0.0006550317048095167,
+          0.00040328060276806355,
+          0.9999986886978149,
+          0.001696555525995791,
+          7.720098801655695e-05,
+          -0.0019807815551757812,
+          -0.0016957534244284034,
+          0.9999966621398926,
+          -0.0001908370468299836,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          0.10500972034063616,
+          0.891587488039967,
+          -3.007230382342193
+        ],
+        "radius": 2.778948301760275,
+        "sourcePoints": [
+          141120,
+          141120
+        ],
+        "previewPoints": [
+          16000,
+          16000
+        ],
+        "sourceCase": "Lax0Ppfhct4-0:02:32.785-0:02:39.492",
+        "sha256": "1368574fe936d03fa7b9fe792782f06df7a36a51319658bc774d81c97b8290e4"
+      },
+      "aggregate": {
+        "path": "results/gallery/Lax0Ppfhct4-0:02:32.785-0:02:39.492/global_pcd_with_camera_trajectory.ply.gz",
+        "worldToCamera": [
+          0.9999980330467224,
+          -0.0004066398832947016,
+          0.0019799470901489258,
+          -0.0006550317048095167,
+          0.00040328060276806355,
+          0.9999986886978149,
+          0.001696555525995791,
+          7.720098801655695e-05,
+          -0.0019807815551757812,
+          -0.0016957534244284034,
+          0.9999966621398926,
+          -0.0001908370468299836,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          0.05517657462102732,
+          1.7986868114460348,
+          -3.2404082806928294
+        ],
+        "radius": 5.159444450718782,
+        "sourceCase": "Lax0Ppfhct4-0:02:32.785-0:02:39.492",
+        "frameCount": 1,
+        "sourceFrameCount": 81,
+        "sourcePoints": 1023296,
+        "previewPoints": 223296,
+        "cameraPoints": 23296,
+        "sourceSha256": "315150004e73b589e90780abeb26379d3f45427462d4afa34d0d9e2aeecbee1e",
+        "sha256": "9296ca8a9aa965e7a6b2da88bca021d3be02e714542eaed62883a775cccc8f5b"
+      },
+      "videos": {
+        "rgb": {
+          "mp4": "results/gallery/Lax0Ppfhct4-0:02:32.785-0:02:39.492/rgb.mp4",
+          "webm": "results/gallery/Lax0Ppfhct4-0:02:32.785-0:02:39.492/rgb.webm",
+          "poster": "results/gallery/Lax0Ppfhct4-0:02:32.785-0:02:39.492/rgb.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/Lax0Ppfhct4-0:02:32.785-0:02:39.492/generated_video.mp4",
+          "sha256": "ca908bc190de099d130241c63b45ac40b0b53c4036c64b41b59cfc99bb886b52",
+          "webmSha256": "3c386507124ac90613443997562555a5d099477438ece073243cae1c5589bf70",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 512,
+          "height": 288
+        },
+        "depth": {
+          "mp4": "results/gallery/Lax0Ppfhct4-0:02:32.785-0:02:39.492/depth.mp4",
+          "webm": "results/gallery/Lax0Ppfhct4-0:02:32.785-0:02:39.492/depth.webm",
+          "poster": "results/gallery/Lax0Ppfhct4-0:02:32.785-0:02:39.492/depth.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/Lax0Ppfhct4-0:02:32.785-0:02:39.492/pred_depth_vis.mp4",
+          "sha256": "b76a8ad94d1c8af8cec89d26a885ada07b465baf07f4873d4c05071c4ce3da08",
+          "webmSha256": "39defc5359358f8215e7f427453689e25749563901df61d083498431476112fa",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 504,
+          "height": 280
+        },
+        "flow": {
+          "mp4": "results/gallery/Lax0Ppfhct4-0:02:32.785-0:02:39.492/flow.mp4",
+          "webm": "results/gallery/Lax0Ppfhct4-0:02:32.785-0:02:39.492/flow.webm",
+          "poster": "results/gallery/Lax0Ppfhct4-0:02:32.785-0:02:39.492/flow.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/Lax0Ppfhct4-0:02:32.785-0:02:39.492/notch14_pointcloud_trails/pred_scene_flow_raw_notch14_pointcloud_trails_vis.mp4",
+          "sha256": "bbe26c755ccbdad41611e7970634a9386ae3cfb5babe1f0977941ea2848e2da6",
+          "webmSha256": "c383a1f66e4c751578c8375068a5af6ae9830ae890fdbd4e30510b5590be2b1f",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 960,
+          "height": 720
+        }
+      },
+      "fps": 15.0
+    },
+    {
+      "id": "LcL2UPoQ1C4-0:06:28.788-0:06:35.745",
+      "label": "10 / Draining Fried Food",
+      "prompt": "As the person lifts the golden-brown fried food from the deep fryer using metal tongs, streams of oil begin to drip from its surface. The oil flows downward in thin, glistening trails, cascading from the crispy exterior of the food as it is raised above the fryer’s oil-filled basin. The tongs hold the item securely, while the other hand grips a blue-handled utensil, likely to support the fryer’s basket. As the food is lifted higher, the oil continues to drip steadily, creating a slow, rhythmic motion of liquid falling away from the fried piece. The surrounding environment, with tables and people in the background, remains static, drawing focus to the interaction between the food and the oil as the excess liquid drains off, highlighting the texture of the fried coating and the movement of the oil as it separates from the food.",
+      "sourcePrompt": "As the person lifts the golden-brown fried food from the deep fryer using metal tongs, streams of oil begin to drip from its surface. The oil flows downward in thin, glistening trails, cascading from the crispy exterior of the food as it is raised above the fryer’s oil-filled basin. The tongs hold the item securely, while the other hand grips a blue-handled utensil, likely to support the fryer’s basket. As the food is lifted higher, the oil continues to drip steadily, creating a slow, rhythmic motion of liquid falling away from the fried piece. The surrounding environment, with tables and people in the background, remains static, drawing focus to the interaction between the food and the oil as the excess liquid drains off, highlighting the texture of the fried coating and the movement of the oil as it separates from the food.",
+      "image": "results/gallery/LcL2UPoQ1C4-0:06:28.788-0:06:35.745/input.webp",
+      "sequence": {
+        "frameCount": 81,
+        "path": "results/gallery/LcL2UPoQ1C4-0:06:28.788-0:06:35.745/frames",
+        "worldToCamera": [
+          0.9999994039535522,
+          -0.0011137231485918164,
+          0.00023311376571655273,
+          4.293995061743772e-06,
+          0.0011137580731883645,
+          0.9999994039535522,
+          -0.00014965864829719067,
+          7.687399192946032e-05,
+          -0.00023305416107177734,
+          0.0001499181817052886,
+          1.0,
+          -7.256916433107108e-05,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          -0.12881856912669776,
+          0.6051045143177026,
+          -1.5949565322848902
+        ],
+        "radius": 1.3361200009799226,
+        "sourcePoints": [
+          141120,
+          141120
+        ],
+        "previewPoints": [
+          16000,
+          16000
+        ],
+        "sourceCase": "LcL2UPoQ1C4-0:06:28.788-0:06:35.745",
+        "sha256": "89b3766ecc037e697e71e83d6eaffb6537603312399d3ef0ec91ef1665bc8b3f"
+      },
+      "aggregate": {
+        "path": "results/gallery/LcL2UPoQ1C4-0:06:28.788-0:06:35.745/global_pcd_with_camera_trajectory.ply.gz",
+        "worldToCamera": [
+          0.9999994039535522,
+          -0.0011137231485918164,
+          0.00023311376571655273,
+          4.293995061743772e-06,
+          0.0011137580731883645,
+          0.9999994039535522,
+          -0.00014965864829719067,
+          7.687399192946032e-05,
+          -0.00023305416107177734,
+          0.0001499181817052886,
+          1.0,
+          -7.256916433107108e-05,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          -0.27314656116357006,
+          0.6877812774001001,
+          -1.5682486086113774
+        ],
+        "radius": 2.4575935866203573,
+        "sourceCase": "LcL2UPoQ1C4-0:06:28.788-0:06:35.745",
+        "frameCount": 1,
+        "sourceFrameCount": 81,
+        "sourcePoints": 1023296,
+        "previewPoints": 223296,
+        "cameraPoints": 23296,
+        "sourceSha256": "b68780ff44efe36d92f323ae065fcdb3aa0e3171cf2f531ed67ad89a0002a60c",
+        "sha256": "0bd0ad100a26f87bc0344ef793ae615fcc05a47f7d572f2c52959a3840d72e59"
+      },
+      "videos": {
+        "rgb": {
+          "mp4": "results/gallery/LcL2UPoQ1C4-0:06:28.788-0:06:35.745/rgb.mp4",
+          "webm": "results/gallery/LcL2UPoQ1C4-0:06:28.788-0:06:35.745/rgb.webm",
+          "poster": "results/gallery/LcL2UPoQ1C4-0:06:28.788-0:06:35.745/rgb.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/LcL2UPoQ1C4-0:06:28.788-0:06:35.745/generated_video.mp4",
+          "sha256": "a93780ec14d93444e435d695352c6bcd9541e3e99affbb7f72bc24daf5390ab1",
+          "webmSha256": "e09b14ec4266c575ba069fdafd850db3dd6f84b0a521dc480e39c832e9e5f49a",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 512,
+          "height": 288
+        },
+        "depth": {
+          "mp4": "results/gallery/LcL2UPoQ1C4-0:06:28.788-0:06:35.745/depth.mp4",
+          "webm": "results/gallery/LcL2UPoQ1C4-0:06:28.788-0:06:35.745/depth.webm",
+          "poster": "results/gallery/LcL2UPoQ1C4-0:06:28.788-0:06:35.745/depth.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/LcL2UPoQ1C4-0:06:28.788-0:06:35.745/pred_depth_vis.mp4",
+          "sha256": "ec4a86c70f4fcdec4e5072e2b8e3f83e3b4bf97f151902815723dc2376b17d8b",
+          "webmSha256": "7f71ebc562ca8d21fb4962a1a8af30666be5f8edb2ff0c972ce3cc4df6bee7e0",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 504,
+          "height": 280
+        },
+        "flow": {
+          "mp4": "results/gallery/LcL2UPoQ1C4-0:06:28.788-0:06:35.745/flow.mp4",
+          "webm": "results/gallery/LcL2UPoQ1C4-0:06:28.788-0:06:35.745/flow.webm",
+          "poster": "results/gallery/LcL2UPoQ1C4-0:06:28.788-0:06:35.745/flow.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/LcL2UPoQ1C4-0:06:28.788-0:06:35.745/notch14_pointcloud_trails/pred_scene_flow_raw_notch14_pointcloud_trails_vis.mp4",
+          "sha256": "6945aed800895153ca36394b1cce85c66c181301182d7c78f18d8cfc713727d2",
+          "webmSha256": "16cf46a914dde2662d012747c07d330a9044c95a5684432963dfce0193986927",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 960,
+          "height": 720
+        }
+      },
+      "fps": 15.0
+    },
+    {
+      "id": "OFI1bV8KPlk-0:01:21.915-0:01:28.354",
+      "label": "11 / Washing Hands",
+      "prompt": "After the person presses the soap dispenser, a stream of liquid soap is dispensed onto their hands. They then bring their hands together under the running water from the faucet, rubbing them thoroughly in a circular motion to lather the soap. The hands move fluidly against one another, ensuring the soap spreads across all surfaces as the water continues to flow. This sequence of actions—dispensing soap, then rubbing hands under the water—creates a steady rhythm of cleaning, with the hands actively interacting with both the soap and the water to achieve a thorough wash.",
+      "sourcePrompt": "After the person presses the soap dispenser, a stream of liquid soap is dispensed onto their hands. They then bring their hands together under the running water from the faucet, rubbing them thoroughly in a circular motion to lather the soap. The hands move fluidly against one another, ensuring the soap spreads across all surfaces as the water continues to flow. This sequence of actions—dispensing soap, then rubbing hands under the water—creates a steady rhythm of cleaning, with the hands actively interacting with both the soap and the water to achieve a thorough wash.",
+      "image": "results/gallery/OFI1bV8KPlk-0:01:21.915-0:01:28.354/input.webp",
+      "sequence": {
+        "frameCount": 81,
+        "path": "results/gallery/OFI1bV8KPlk-0:01:21.915-0:01:28.354/frames",
+        "worldToCamera": [
+          0.9999994039535522,
+          -0.0008550391648896039,
+          0.0007205009460449219,
+          -0.00022299523698166013,
+          0.000854641490150243,
+          0.9999996423721313,
+          0.0005520289996638894,
+          0.00010900959750870243,
+          -0.0007210969924926758,
+          -0.0005514128715731204,
+          0.9999996423721313,
+          -0.00041229312773793936,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          0.30674213646423143,
+          0.17799327985036245,
+          -2.837633463020567
+        ],
+        "radius": 1.6620798691689354,
+        "sourcePoints": [
+          141120,
+          141120
+        ],
+        "previewPoints": [
+          16000,
+          16000
+        ],
+        "sourceCase": "OFI1bV8KPlk-0:01:21.915-0:01:28.354",
+        "sha256": "74577692fbd91fef1d17029b972926d912c5519916f97cd5832198e85d27a414"
+      },
+      "aggregate": {
+        "path": "results/gallery/OFI1bV8KPlk-0:01:21.915-0:01:28.354/global_pcd_with_camera_trajectory.ply.gz",
+        "worldToCamera": [
+          0.9999994039535522,
+          -0.0008550391648896039,
+          0.0007205009460449219,
+          -0.00022299523698166013,
+          0.000854641490150243,
+          0.9999996423721313,
+          0.0005520289996638894,
+          0.00010900959750870243,
+          -0.0007210969924926758,
+          -0.0005514128715731204,
+          0.9999996423721313,
+          -0.00041229312773793936,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          0.27921639781641233,
+          0.22813917728011518,
+          -2.3109278042945482
+        ],
+        "radius": 2.5353675125345254,
+        "sourceCase": "OFI1bV8KPlk-0:01:21.915-0:01:28.354",
+        "frameCount": 1,
+        "sourceFrameCount": 81,
+        "sourcePoints": 1023296,
+        "previewPoints": 223296,
+        "cameraPoints": 23296,
+        "sourceSha256": "35988cbbe0c2b126452b5c3c4f0491819c71bd53046ebb8b992c0c38cdde1c87",
+        "sha256": "1de393f07978c37b2a0221c319f1388d7b557f64c7ff3a6a95aa8400c58aa6da"
+      },
+      "videos": {
+        "rgb": {
+          "mp4": "results/gallery/OFI1bV8KPlk-0:01:21.915-0:01:28.354/rgb.mp4",
+          "webm": "results/gallery/OFI1bV8KPlk-0:01:21.915-0:01:28.354/rgb.webm",
+          "poster": "results/gallery/OFI1bV8KPlk-0:01:21.915-0:01:28.354/rgb.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/OFI1bV8KPlk-0:01:21.915-0:01:28.354/generated_video.mp4",
+          "sha256": "afeb9b8a735ee1d580837f0ed7566f0b3e9724823d58cc5ea39781332a4c2f9e",
+          "webmSha256": "b4aaaa792e00e8fe09ecc4b151ab3b4d07d905aaf2218593eb8d8eccc68c2677",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 512,
+          "height": 288
+        },
+        "depth": {
+          "mp4": "results/gallery/OFI1bV8KPlk-0:01:21.915-0:01:28.354/depth.mp4",
+          "webm": "results/gallery/OFI1bV8KPlk-0:01:21.915-0:01:28.354/depth.webm",
+          "poster": "results/gallery/OFI1bV8KPlk-0:01:21.915-0:01:28.354/depth.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/OFI1bV8KPlk-0:01:21.915-0:01:28.354/pred_depth_vis.mp4",
+          "sha256": "cc63e5e19933206a461a7bef2fcbc2ad87e74ff51c82e1e3ea8b2aaaf294a7e6",
+          "webmSha256": "c4c8e64a273f43499747deb01329cb84f89fc086ea2d7537b3aa6ac9b6683695",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 504,
+          "height": 280
+        },
+        "flow": {
+          "mp4": "results/gallery/OFI1bV8KPlk-0:01:21.915-0:01:28.354/flow.mp4",
+          "webm": "results/gallery/OFI1bV8KPlk-0:01:21.915-0:01:28.354/flow.webm",
+          "poster": "results/gallery/OFI1bV8KPlk-0:01:21.915-0:01:28.354/flow.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/OFI1bV8KPlk-0:01:21.915-0:01:28.354/notch14_pointcloud_trails/pred_scene_flow_raw_notch14_pointcloud_trails_vis.mp4",
+          "sha256": "838bdafdca14de514f976114ab6170191928f9c24b80be8aafd22398cae8ddf2",
+          "webmSha256": "56518e48d23515135dd16e0c44be322bbfe77c5faee39c225d7fc46ed4d1b966",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 960,
+          "height": 720
+        }
+      },
+      "fps": 15.0
+    },
+    {
+      "id": "omniworld_047cd85f5ef7_005257_005337__ti2v",
+      "label": "12 / Walking a Neon-Lit Street",
+      "prompt": "A solitary figure walks along a rainslicked urban street at night, illuminated by vibrant neon lights and digital billboards. The individual moves steadily forward along the sidewalk, positioned near the center of the frame, progressing from the foreground towards the middle distance. On the left, tall buildings feature large digital displays with vivid, colorful imagery. In the center, a prominent skyscraper rises into the dark sky, its windows glowing faintly. To the right, another building with horizontal lines and illuminated windows stands out. The street is wet, reflecting the lights and creating a glossy surface. A sleek blue car speeds past on the right, leaving streaks of light behind it. The camera remains stationary, capturing the scene from a fixed perspective, maintaining a wideangle view that encompasses both the moving subject and the dynamic urban backdrop. The angle slightly shifts to follow the subject's movement, ensuring they remain centered in the frame.",
+      "sourcePrompt": "A solitary figure walks along a rainslicked urban street at night, illuminated by vibrant neon lights and digital billboards. The individual moves steadily forward along the sidewalk, positioned near the center of the frame, progressing from the foreground towards the middle distance. On the left, tall buildings feature large digital displays with vivid, colorful imagery. In the center, a prominent skyscraper rises into the dark sky, its windows glowing faintly. To the right, another building with horizontal lines and illuminated windows stands out. The street is wet, reflecting the lights and creating a glossy surface. A sleek blue car speeds past on the right, leaving streaks of light behind it. The camera remains stationary, capturing the scene from a fixed perspective, maintaining a wideangle view that encompasses both the moving subject and the dynamic urban backdrop. The angle slightly shifts to follow the subject's movement, ensuring they remain centered in the frame.",
+      "image": "results/gallery/omniworld_047cd85f5ef7_005257_005337__ti2v/input.webp",
+      "sequence": {
+        "frameCount": 81,
+        "path": "results/gallery/omniworld_047cd85f5ef7_005257_005337__ti2v/frames",
+        "worldToCamera": [
+          0.9980493783950806,
+          -0.03569164499640465,
+          0.05121671035885811,
+          0.06591796875,
+          0.03729216754436493,
+          0.9987295866012573,
+          -0.03361096605658531,
+          0.036376953125,
+          -0.04993629455566406,
+          0.03553159162402153,
+          0.9981194138526917,
+          0.11328125,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          0.6467059608316291,
+          0.6881883389978946,
+          -1.6823903243214866
+        ],
+        "radius": 1.4790808091667598,
+        "sourcePoints": [
+          141120,
+          141120
+        ],
+        "previewPoints": [
+          16000,
+          16000
+        ],
+        "sourceCase": "omniworld_047cd85f5ef7_005257_005337__ti2v",
+        "sha256": "86a694460af163081290d0186ecffbc6a3951addb51d79847206327afb527e40"
+      },
+      "aggregate": {
+        "path": "results/gallery/omniworld_047cd85f5ef7_005257_005337__ti2v/global_pcd_with_camera_trajectory.ply.gz",
+        "worldToCamera": [
+          0.9980493783950806,
+          -0.03569164499640465,
+          0.05121671035885811,
+          0.06591796875,
+          0.03729216754436493,
+          0.9987295866012573,
+          -0.03361096605658531,
+          0.036376953125,
+          -0.04993629455566406,
+          0.03553159162402153,
+          0.9981194138526917,
+          0.11328125,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          0.7608188391648301,
+          0.7655167926446926,
+          -1.7379703252924597
+        ],
+        "radius": 2.324351769149192,
+        "sourceCase": "omniworld_047cd85f5ef7_005257_005337__ti2v",
+        "frameCount": 1,
+        "sourceFrameCount": 81,
+        "sourcePoints": 1023296,
+        "previewPoints": 223296,
+        "cameraPoints": 23296,
+        "sourceSha256": "0087557913644c5cd184ecef1ddf0d13a966d072189b0bd73ec2836f5af185f7",
+        "sha256": "d749678cd34917bee70de6c026bf9cc39e79f70fccb9ec205e2458e0286c51fd"
+      },
+      "videos": {
+        "rgb": {
+          "mp4": "results/gallery/omniworld_047cd85f5ef7_005257_005337__ti2v/rgb.mp4",
+          "webm": "results/gallery/omniworld_047cd85f5ef7_005257_005337__ti2v/rgb.webm",
+          "poster": "results/gallery/omniworld_047cd85f5ef7_005257_005337__ti2v/rgb.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/omniworld_047cd85f5ef7_005257_005337__ti2v/generated_video.mp4",
+          "sha256": "abaac13a3a3d86f0aaece6568ccaa9b8171a752702d429762cbb81c4c02a5934",
+          "webmSha256": "d13625eece5e692fff4d2504ea29b42bd13016691b4e80aeafa82e8851a63d16",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 512,
+          "height": 288
+        },
+        "depth": {
+          "mp4": "results/gallery/omniworld_047cd85f5ef7_005257_005337__ti2v/depth.mp4",
+          "webm": "results/gallery/omniworld_047cd85f5ef7_005257_005337__ti2v/depth.webm",
+          "poster": "results/gallery/omniworld_047cd85f5ef7_005257_005337__ti2v/depth.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/omniworld_047cd85f5ef7_005257_005337__ti2v/pred_depth_vis.mp4",
+          "sha256": "e5b84cc36f8b20e22024388499340fcc021de02eac5fe0a40f6f741fd486b93e",
+          "webmSha256": "945e4aec22e3a1d073a5eb6038f547a0bce5b00498666c3d469bd90be1b6093b",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 504,
+          "height": 280
+        },
+        "flow": {
+          "mp4": "results/gallery/omniworld_047cd85f5ef7_005257_005337__ti2v/flow.mp4",
+          "webm": "results/gallery/omniworld_047cd85f5ef7_005257_005337__ti2v/flow.webm",
+          "poster": "results/gallery/omniworld_047cd85f5ef7_005257_005337__ti2v/flow.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/omniworld_047cd85f5ef7_005257_005337__ti2v/notch14_pointcloud_trails/pred_scene_flow_raw_notch14_pointcloud_trails_vis.mp4",
+          "sha256": "e63e1302566d065b40f8e10fe533e49bf2aa2ac5fb9353a7f067d5c227c04c99",
+          "webmSha256": "91d2b46344f88a2d18d4d82a13c9c6f283cbf5ffb1b300cb820a78a4afe8145e",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 960,
+          "height": 720
+        }
+      },
+      "fps": 15.0
+    },
+    {
+      "id": "Phu_HyoQWVU-0:00:00.867-0:00:07.841",
+      "label": "13 / Pipetting Pink Liquid",
+      "prompt": "Hold the small glass dish. Dispense pink liquid using a pipette. Release the liquid smoothly. Fill the dish gradually.",
+      "sourcePrompt": "In the video, a person carefully dispenses a pink liquid using a pipette into a small glass dish held in their other hand. As the liquid is released from the pipette, it flows smoothly into the dish, gradually filling it. The hands move with precision, ensuring the liquid is transferred without spilling, and the small glass dish now contains the pink liquid after the dispensing process is complete. The surrounding laboratory equipment, like the rotating platform and other tools, remains visible in the background, emphasizing the controlled environment of the task.",
+      "image": "results/gallery/Phu_HyoQWVU-0:00:00.867-0:00:07.841/input.webp",
+      "sequence": {
+        "frameCount": 81,
+        "path": "results/gallery/Phu_HyoQWVU-0:00:00.867-0:00:07.841/frames",
+        "worldToCamera": [
+          0.9985848069190979,
+          -0.03946344554424286,
+          0.035743530839681625,
+          0.03271484375,
+          0.040757328271865845,
+          0.9983624219894409,
+          -0.03994864970445633,
+          0.02880859375,
+          -0.034126173704862595,
+          0.041242532432079315,
+          0.998564600944519,
+          0.06689453125,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          0.0393905201601456,
+          0.06981274576428262,
+          -1.0901021474789998
+        ],
+        "radius": 0.5865226662922864,
+        "sourcePoints": [
+          141120,
+          141120
+        ],
+        "previewPoints": [
+          16000,
+          16000
+        ],
+        "sourceCase": "Phu_HyoQWVU-0:00:00.867-0:00:07.841",
+        "sha256": "66c3a5aedccdcf927071a7c18931a5887211cb9d9fcbbb6c8f4dc92a257aa627"
+      },
+      "aggregate": {
+        "path": "results/gallery/Phu_HyoQWVU-0:00:00.867-0:00:07.841/global_pcd_with_camera_trajectory.ply.gz",
+        "worldToCamera": [
+          0.9985848069190979,
+          -0.03946344554424286,
+          0.035743530839681625,
+          0.03271484375,
+          0.040757328271865845,
+          0.9983624219894409,
+          -0.03994864970445633,
+          0.02880859375,
+          -0.034126173704862595,
+          0.041242532432079315,
+          0.998564600944519,
+          0.06689453125,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          0.026238603606767108,
+          0.07399942217064673,
+          -0.7577861274462042
+        ],
+        "radius": 1.0744354567366943,
+        "sourceCase": "Phu_HyoQWVU-0:00:00.867-0:00:07.841",
+        "frameCount": 1,
+        "sourceFrameCount": 81,
+        "sourcePoints": 1023296,
+        "previewPoints": 223296,
+        "cameraPoints": 23296,
+        "sourceSha256": "16845b82f043e5b4a41b21713a6b61bf141288a36821ec57fa14bde551956e35",
+        "sha256": "54f35c41a9a1d1e697078c0ac937a6fe6b1693ebe26d0fb01e1e608d092260ee"
+      },
+      "videos": {
+        "rgb": {
+          "mp4": "results/gallery/Phu_HyoQWVU-0:00:00.867-0:00:07.841/rgb.mp4",
+          "webm": "results/gallery/Phu_HyoQWVU-0:00:00.867-0:00:07.841/rgb.webm",
+          "poster": "results/gallery/Phu_HyoQWVU-0:00:00.867-0:00:07.841/rgb.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/Phu_HyoQWVU-0:00:00.867-0:00:07.841/generated_video.mp4",
+          "sha256": "68d88aeb8f04ff47086e2aa3b7ede73d938539249d426b2de751d88bb963c55d",
+          "webmSha256": "676ccf9ac0d7348288fc606e20c17fbae6a3c4295532b6390dfd38dee97bb008",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 512,
+          "height": 288
+        },
+        "depth": {
+          "mp4": "results/gallery/Phu_HyoQWVU-0:00:00.867-0:00:07.841/depth.mp4",
+          "webm": "results/gallery/Phu_HyoQWVU-0:00:00.867-0:00:07.841/depth.webm",
+          "poster": "results/gallery/Phu_HyoQWVU-0:00:00.867-0:00:07.841/depth.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/Phu_HyoQWVU-0:00:00.867-0:00:07.841/pred_depth_vis.mp4",
+          "sha256": "8b0a7ba624ee38701af07c4311c2df28d9d6f76085dcadc37d6c2836a0a49cee",
+          "webmSha256": "224955d3c862499927b86a3ec2475380124cbe112ee4f7d8ca7a450f6c8310dd",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 504,
+          "height": 280
+        },
+        "flow": {
+          "mp4": "results/gallery/Phu_HyoQWVU-0:00:00.867-0:00:07.841/flow.mp4",
+          "webm": "results/gallery/Phu_HyoQWVU-0:00:00.867-0:00:07.841/flow.webm",
+          "poster": "results/gallery/Phu_HyoQWVU-0:00:00.867-0:00:07.841/flow.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/Phu_HyoQWVU-0:00:00.867-0:00:07.841/notch14_pointcloud_trails/pred_scene_flow_raw_notch14_pointcloud_trails_vis.mp4",
+          "sha256": "52653ddfc276544cf36576fe971fdd0c5f810fd4eb632f25ba6137318758a4b1",
+          "webmSha256": "1539efdee0aa0c2c83de4f89f052ddcbc9c12849da92954e8233be0a38a9a476",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 960,
+          "height": 720
+        }
+      },
+      "fps": 15.0
+    },
+    {
+      "id": "rPT0zZRAzIs-0:05:52.880-0:05:59.160",
+      "label": "14 / Stethoscope Check-Up",
+      "prompt": "After the doctor lifts the child’s shirt to expose the back, the doctor carefully places a stethoscope against the child’s skin, pressing it gently to listen to the heart or lungs. The doctor’s hands adjust the stethoscope slightly as they move it across the child’s back, ensuring a thorough examination. Meanwhile, another person—likely a parent—holds a colorful, rainbow-shaped toy in the child’s line of sight, using it to distract and soothe the child during the check-up. The child remains seated, with the doctor’s other hand keeping the shirt lifted to maintain access to the back. The scene conveys a calm, clinical environment where the medical professional focuses on the examination while the parent provides comfort through the toy.",
+      "sourcePrompt": "After the doctor lifts the child’s shirt to expose the back, the doctor carefully places a stethoscope against the child’s skin, pressing it gently to listen to the heart or lungs. The doctor’s hands adjust the stethoscope slightly as they move it across the child’s back, ensuring a thorough examination. Meanwhile, another person—likely a parent—holds a colorful, rainbow-shaped toy in the child’s line of sight, using it to distract and soothe the child during the check-up. The child remains seated, with the doctor’s other hand keeping the shirt lifted to maintain access to the back. The scene conveys a calm, clinical environment where the medical professional focuses on the examination while the parent provides comfort through the toy.",
+      "image": "results/gallery/rPT0zZRAzIs-0:05:52.880-0:05:59.160/input.webp",
+      "sequence": {
+        "frameCount": 81,
+        "path": "results/gallery/rPT0zZRAzIs-0:05:52.880-0:05:59.160/frames",
+        "worldToCamera": [
+          0.9999912977218628,
+          -0.004185162018984556,
+          0.00017523765563964844,
+          -2.07277262234129e-05,
+          0.004185090307146311,
+          0.9999910593032837,
+          0.00041080109076574445,
+          9.750504978001118e-05,
+          -0.00017714500427246094,
+          -0.00041006444371305406,
+          1.0,
+          -0.0005584792816080153,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          -0.08314110061424404,
+          0.05209598040068736,
+          -1.7076574484705627
+        ],
+        "radius": 0.7008645977993324,
+        "sourcePoints": [
+          141120,
+          141120
+        ],
+        "previewPoints": [
+          16000,
+          16000
+        ],
+        "sourceCase": "rPT0zZRAzIs-0:05:52.880-0:05:59.160",
+        "sha256": "edff0da7fbf2f8a23f10e1948b1e33fbb7878d514548755f205adb100d52e549"
+      },
+      "aggregate": {
+        "path": "results/gallery/rPT0zZRAzIs-0:05:52.880-0:05:59.160/global_pcd_with_camera_trajectory.ply.gz",
+        "worldToCamera": [
+          0.9999912977218628,
+          -0.004185162018984556,
+          0.00017523765563964844,
+          -2.07277262234129e-05,
+          0.004185090307146311,
+          0.9999910593032837,
+          0.00041080109076574445,
+          9.750504978001118e-05,
+          -0.00017714500427246094,
+          -0.00041006444371305406,
+          1.0,
+          -0.0005584792816080153,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          -0.06342612022010999,
+          0.05511933430091279,
+          -1.2892336567934368
+        ],
+        "radius": 1.4000539948190072,
+        "sourceCase": "rPT0zZRAzIs-0:05:52.880-0:05:59.160",
+        "frameCount": 1,
+        "sourceFrameCount": 81,
+        "sourcePoints": 1023296,
+        "previewPoints": 223296,
+        "cameraPoints": 23296,
+        "sourceSha256": "0ff658b61113e0b7e397fa2708d78a7643339e04af76a3b72cfeaeedbc705042",
+        "sha256": "f3b45835994ba19b859ca3b4283d25e5ba1fc52d47e3dc6acf59ba4de34bb36b"
+      },
+      "videos": {
+        "rgb": {
+          "mp4": "results/gallery/rPT0zZRAzIs-0:05:52.880-0:05:59.160/rgb.mp4",
+          "webm": "results/gallery/rPT0zZRAzIs-0:05:52.880-0:05:59.160/rgb.webm",
+          "poster": "results/gallery/rPT0zZRAzIs-0:05:52.880-0:05:59.160/rgb.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/rPT0zZRAzIs-0:05:52.880-0:05:59.160/generated_video.mp4",
+          "sha256": "f7be58ee0ce1aab43fc61156f08debd27c0f92d39d47d2e810d1addbde4312aa",
+          "webmSha256": "92e4fd3fc02c4e67ee2b3571f9a83e585ab708747e0b1c880760bd51e89b5c6f",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 512,
+          "height": 288
+        },
+        "depth": {
+          "mp4": "results/gallery/rPT0zZRAzIs-0:05:52.880-0:05:59.160/depth.mp4",
+          "webm": "results/gallery/rPT0zZRAzIs-0:05:52.880-0:05:59.160/depth.webm",
+          "poster": "results/gallery/rPT0zZRAzIs-0:05:52.880-0:05:59.160/depth.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/rPT0zZRAzIs-0:05:52.880-0:05:59.160/pred_depth_vis.mp4",
+          "sha256": "8669313b37f024f1152ce9fd9f1a019af5cf8f890a4aec9a3b995cbaad31dcec",
+          "webmSha256": "bc88bc47d2451911577402d1ef05435916d15e90d90b996b3a8bd25ba15ae137",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 504,
+          "height": 280
+        },
+        "flow": {
+          "mp4": "results/gallery/rPT0zZRAzIs-0:05:52.880-0:05:59.160/flow.mp4",
+          "webm": "results/gallery/rPT0zZRAzIs-0:05:52.880-0:05:59.160/flow.webm",
+          "poster": "results/gallery/rPT0zZRAzIs-0:05:52.880-0:05:59.160/flow.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/rPT0zZRAzIs-0:05:52.880-0:05:59.160/notch14_pointcloud_trails/pred_scene_flow_raw_notch14_pointcloud_trails_vis.mp4",
+          "sha256": "3f4498839ad96d883aef3a37b996659f3ade0e5e016f7243be65f17e90052ac8",
+          "webmSha256": "b3c470b15c963cd8d91db4d45f2eb21da6f8a53630f9d1a00f043091c5ae7eb3",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 960,
+          "height": 720
+        }
+      },
+      "fps": 15.0
+    },
+    {
+      "id": "test_423875-3_obj_source_right_00486_00567",
+      "label": "15 / Bending Forward",
+      "prompt": "The person bends forward while keeping arms extended, maintaining a steady posture throughout the sequence.",
+      "sourcePrompt": "The person bends forward while keeping arms extended, maintaining a steady posture throughout the sequence.",
+      "image": "results/gallery/test_423875-3_obj_source_right_00486_00567/input.webp",
+      "sequence": {
+        "frameCount": 81,
+        "path": "results/gallery/test_423875-3_obj_source_right_00486_00567/frames",
+        "worldToCamera": [
+          0.9984395503997803,
+          -0.03495374694466591,
+          0.04400427266955376,
+          0.04931640625,
+          0.03682627156376839,
+          0.9982835054397583,
+          -0.045876793563365936,
+          0.033935546875,
+          -0.04213175177574158,
+          0.04712514206767082,
+          0.9980006814002991,
+          0.09521484375,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          0.17472186271319162,
+          0.21384027671861494,
+          -1.0740882158886436
+        ],
+        "radius": 0.7889429866212438,
+        "sourcePoints": [
+          141120,
+          141120
+        ],
+        "previewPoints": [
+          16000,
+          16000
+        ],
+        "sourceCase": "test_423875-3_obj_source_right_00486_00567",
+        "sha256": "138d1c38eca568daa1191ae67403493dca0930ecb8be23fcfa6fdfd3d0ac2140"
+      },
+      "aggregate": {
+        "path": "results/gallery/test_423875-3_obj_source_right_00486_00567/global_pcd_with_camera_trajectory.ply.gz",
+        "worldToCamera": [
+          0.9984395503997803,
+          -0.03495374694466591,
+          0.04400427266955376,
+          0.04931640625,
+          0.03682627156376839,
+          0.9982835054397583,
+          -0.045876793563365936,
+          0.033935546875,
+          -0.04213175177574158,
+          0.04712514206767082,
+          0.9980006814002991,
+          0.09521484375,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          0.1838930168879953,
+          0.24719492822881123,
+          -0.8596078936077824
+        ],
+        "radius": 1.3131087205503058,
+        "sourceCase": "test_423875-3_obj_source_right_00486_00567",
+        "frameCount": 1,
+        "sourceFrameCount": 81,
+        "sourcePoints": 1023296,
+        "previewPoints": 223296,
+        "cameraPoints": 23296,
+        "sourceSha256": "21a46c2d1123a7037e7d7dbd869726cc06d22fd61047e5f47b1c3d98c9a9b2b9",
+        "sha256": "f20937968e38f0e7e484db916befe20e1fe4747424de3d7f3ff824c668fb7ed7"
+      },
+      "videos": {
+        "rgb": {
+          "mp4": "results/gallery/test_423875-3_obj_source_right_00486_00567/rgb.mp4",
+          "webm": "results/gallery/test_423875-3_obj_source_right_00486_00567/rgb.webm",
+          "poster": "results/gallery/test_423875-3_obj_source_right_00486_00567/rgb.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/test_423875-3_obj_source_right_00486_00567/generated_video.mp4",
+          "sha256": "66019ea78315eb71727405003f6c864feac41182907703703052ff126ced3b06",
+          "webmSha256": "86a7272f44b743b1cb6eef83bad4dd9701548a18437a6bfe838c5c4f024d9030",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 512,
+          "height": 288
+        },
+        "depth": {
+          "mp4": "results/gallery/test_423875-3_obj_source_right_00486_00567/depth.mp4",
+          "webm": "results/gallery/test_423875-3_obj_source_right_00486_00567/depth.webm",
+          "poster": "results/gallery/test_423875-3_obj_source_right_00486_00567/depth.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/test_423875-3_obj_source_right_00486_00567/pred_depth_vis.mp4",
+          "sha256": "25a42225e24ce44070afca18b85ac34cd9976318009c6bd8d4a76f5f69feb388",
+          "webmSha256": "61b8e5cf073efd5422bcd8875037735249a1f2e7f468d9237346566f31092b4f",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 504,
+          "height": 280
+        },
+        "flow": {
+          "mp4": "results/gallery/test_423875-3_obj_source_right_00486_00567/flow.mp4",
+          "webm": "results/gallery/test_423875-3_obj_source_right_00486_00567/flow.webm",
+          "poster": "results/gallery/test_423875-3_obj_source_right_00486_00567/flow.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/test_423875-3_obj_source_right_00486_00567/notch14_pointcloud_trails/pred_scene_flow_raw_notch14_pointcloud_trails_vis.mp4",
+          "sha256": "e240009dd6810d344275b05d17843117cc791e3b193be16be4780b2dbf5ebbc7",
+          "webmSha256": "9a806316cbad50e773b1ea88c450443599f8f2c5bf30373e8c04ffb9b14d1d43",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 960,
+          "height": 720
+        }
+      },
+      "fps": 15.0
+    },
+    {
+      "id": "test_90ac3c-3_obj_source_right_00729_00810",
+      "label": "16 / Man and Animals in Motion",
+      "prompt": "Man lifts leg, monkey stands and walks, cow shifts position in room.",
+      "sourcePrompt": "Man lifts leg, monkey stands and walks, cow shifts position in room.",
+      "image": "results/gallery/test_90ac3c-3_obj_source_right_00729_00810/input.webp",
+      "sequence": {
+        "frameCount": 81,
+        "path": "results/gallery/test_90ac3c-3_obj_source_right_00729_00810/frames",
+        "worldToCamera": [
+          0.9985467791557312,
+          -0.03464376926422119,
+          0.04151010513305664,
+          0.052001953125,
+          0.03651640564203262,
+          0.9983029365539551,
+          -0.045567482709884644,
+          0.038330078125,
+          -0.03979352116584778,
+          0.0468159057199955,
+          0.9981078505516052,
+          0.080078125,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          -0.12065133594421967,
+          0.18645545384909493,
+          -1.0417145650986468
+        ],
+        "radius": 0.7281885817689884,
+        "sourcePoints": [
+          141120,
+          141120
+        ],
+        "previewPoints": [
+          16000,
+          16000
+        ],
+        "sourceCase": "test_90ac3c-3_obj_source_right_00729_00810",
+        "sha256": "a048776cc2984a231a9c3a3f17adfb096c429eb475fb1590dd3f541d756efcab"
+      },
+      "aggregate": {
+        "path": "results/gallery/test_90ac3c-3_obj_source_right_00729_00810/global_pcd_with_camera_trajectory.ply.gz",
+        "worldToCamera": [
+          0.9985467791557312,
+          -0.03464376926422119,
+          0.04151010513305664,
+          0.052001953125,
+          0.03651640564203262,
+          0.9983029365539551,
+          -0.045567482709884644,
+          0.038330078125,
+          -0.03979352116584778,
+          0.0468159057199955,
+          0.9981078505516052,
+          0.080078125,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          -0.17222234687066545,
+          0.20411836517427304,
+          -0.7959108955425056
+        ],
+        "radius": 1.227432939658312,
+        "sourceCase": "test_90ac3c-3_obj_source_right_00729_00810",
+        "frameCount": 1,
+        "sourceFrameCount": 81,
+        "sourcePoints": 1023296,
+        "previewPoints": 223296,
+        "cameraPoints": 23296,
+        "sourceSha256": "f34f35446c7015fb08e8c8ecc354e0d0008a6fc1bd3ce97434c9aaa3ab4a5ea2",
+        "sha256": "519a141cdf4904a1dc7d47a9e4a16daa4e8ff1ed4872cec05d4e7aeae5d40394"
+      },
+      "videos": {
+        "rgb": {
+          "mp4": "results/gallery/test_90ac3c-3_obj_source_right_00729_00810/rgb.mp4",
+          "webm": "results/gallery/test_90ac3c-3_obj_source_right_00729_00810/rgb.webm",
+          "poster": "results/gallery/test_90ac3c-3_obj_source_right_00729_00810/rgb.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/test_90ac3c-3_obj_source_right_00729_00810/generated_video.mp4",
+          "sha256": "23fd94763de4096ea6b8d9e25c67c1c0cf9f3fad7d19fff1f9034b0bae481cd2",
+          "webmSha256": "e837661639de88c266950b721493b3694e267472db70d508019ee18f46d351d3",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 512,
+          "height": 288
+        },
+        "depth": {
+          "mp4": "results/gallery/test_90ac3c-3_obj_source_right_00729_00810/depth.mp4",
+          "webm": "results/gallery/test_90ac3c-3_obj_source_right_00729_00810/depth.webm",
+          "poster": "results/gallery/test_90ac3c-3_obj_source_right_00729_00810/depth.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/test_90ac3c-3_obj_source_right_00729_00810/pred_depth_vis.mp4",
+          "sha256": "6ae6d5324846d9861edc991d4547b59a1b1799b366ad159ccb6686cd0042d4b9",
+          "webmSha256": "51b6deba98353d2766873f81c7b1390b96106217d25c710c553b1b1ec35ee370",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 504,
+          "height": 280
+        },
+        "flow": {
+          "mp4": "results/gallery/test_90ac3c-3_obj_source_right_00729_00810/flow.mp4",
+          "webm": "results/gallery/test_90ac3c-3_obj_source_right_00729_00810/flow.webm",
+          "poster": "results/gallery/test_90ac3c-3_obj_source_right_00729_00810/flow.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/test_90ac3c-3_obj_source_right_00729_00810/notch14_pointcloud_trails/pred_scene_flow_raw_notch14_pointcloud_trails_vis.mp4",
+          "sha256": "734abddf78408a7d07ca7073a32b0577dae2e744c5a2eb339e6c5eea0eb70945",
+          "webmSha256": "d8061220026d2a643ffec7122e2b25a387757d0128bb2b15b2d44a848dd19c6d",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 960,
+          "height": 720
+        }
+      },
+      "fps": 15.0
+    },
+    {
+      "id": "u0SFYiZcQG4-0:06:16.709-0:06:23.216",
+      "label": "17 / Drizzling Takoyaki Sauce",
+      "prompt": "After the person removes the red cap from the squeeze bottle, they hold the bottle with both hands and begin squeezing it. As they apply pressure, a smooth stream of sauce flows from the bottle’s opening, drizzling over the golden-brown takoyaki on the white plate. The sauce cascades in a controlled pattern, coating the tops of the round balls, which already have a drizzle of dark sauce from earlier. The green container with shredded cabbage and the packaged item on the right remain stationary on the table, while the person’s blue apron and striped sleeves stay in focus as they carefully finish adding the sauce.",
+      "sourcePrompt": "After the person removes the red cap from the squeeze bottle, they hold the bottle with both hands and begin squeezing it. As they apply pressure, a smooth stream of sauce flows from the bottle’s opening, drizzling over the golden-brown takoyaki on the white plate. The sauce cascades in a controlled pattern, coating the tops of the round balls, which already have a drizzle of dark sauce from earlier. The green container with shredded cabbage and the packaged item on the right remain stationary on the table, while the person’s blue apron and striped sleeves stay in focus as they carefully finish adding the sauce.",
+      "image": "results/gallery/u0SFYiZcQG4-0:06:16.709-0:06:23.216/input.webp",
+      "sequence": {
+        "frameCount": 81,
+        "path": "results/gallery/u0SFYiZcQG4-0:06:16.709-0:06:23.216/frames",
+        "worldToCamera": [
+          0.9985293745994568,
+          -0.039056792855262756,
+          0.037616174668073654,
+          0.0322265625,
+          0.04065748304128647,
+          0.9983392953872681,
+          -0.04081755131483078,
+          0.03271484375,
+          -0.03601548448204994,
+          0.04225816950201988,
+          0.9984593391418457,
+          0.0732421875,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          0.09775712908914774,
+          0.16416928758686447,
+          -1.3764122762134354
+        ],
+        "radius": 0.9488283751444782,
+        "sourcePoints": [
+          141120,
+          141120
+        ],
+        "previewPoints": [
+          16000,
+          16000
+        ],
+        "sourceCase": "u0SFYiZcQG4-0:06:16.709-0:06:23.216",
+        "sha256": "555ede4e6e642cef9cf1b5a7ef3d43aaa4215b3d7fcead85fe7bf3299d2f8349"
+      },
+      "aggregate": {
+        "path": "results/gallery/u0SFYiZcQG4-0:06:16.709-0:06:23.216/global_pcd_with_camera_trajectory.ply.gz",
+        "worldToCamera": [
+          0.9985293745994568,
+          -0.039056792855262756,
+          0.037616174668073654,
+          0.0322265625,
+          0.04065748304128647,
+          0.9983392953872681,
+          -0.04081755131483078,
+          0.03271484375,
+          -0.03601548448204994,
+          0.04225816950201988,
+          0.9984593391418457,
+          0.0732421875,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "center": [
+          0.09447902474635189,
+          0.18638859534623176,
+          -1.0000317052456427
+        ],
+        "radius": 1.4925852151340506,
+        "sourceCase": "u0SFYiZcQG4-0:06:16.709-0:06:23.216",
+        "frameCount": 1,
+        "sourceFrameCount": 81,
+        "sourcePoints": 1023296,
+        "previewPoints": 223296,
+        "cameraPoints": 23296,
+        "sourceSha256": "1bc9422e759c25fe30f51e919d3a7404df2c5614ed451f389599edc8b1ea5fd5",
+        "sha256": "073489bb796ed985085fca3971fb5a590d78152222c6c9aac887c3ce7b8e9b9f"
+      },
+      "videos": {
+        "rgb": {
+          "mp4": "results/gallery/u0SFYiZcQG4-0:06:16.709-0:06:23.216/rgb.mp4",
+          "webm": "results/gallery/u0SFYiZcQG4-0:06:16.709-0:06:23.216/rgb.webm",
+          "poster": "results/gallery/u0SFYiZcQG4-0:06:16.709-0:06:23.216/rgb.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/u0SFYiZcQG4-0:06:16.709-0:06:23.216/generated_video.mp4",
+          "sha256": "7382ef70a8b824f1c35c93d1aaf1a5c3e90ebd4c019064f199c8416c5f8810e4",
+          "webmSha256": "27acd683ed1de9268c571215a94402c8daf1ec7bc6fb26e263c00e39bf5ab54d",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 512,
+          "height": 288
+        },
+        "depth": {
+          "mp4": "results/gallery/u0SFYiZcQG4-0:06:16.709-0:06:23.216/depth.mp4",
+          "webm": "results/gallery/u0SFYiZcQG4-0:06:16.709-0:06:23.216/depth.webm",
+          "poster": "results/gallery/u0SFYiZcQG4-0:06:16.709-0:06:23.216/depth.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/u0SFYiZcQG4-0:06:16.709-0:06:23.216/pred_depth_vis.mp4",
+          "sha256": "a1bec422366b4da3655710b942a86a99d9b3a2cae4fa0d645f111e0654e0122b",
+          "webmSha256": "7fdb699b59929a2e31c2b8bb1f83bebe530022c510f1c72f2062b91b6d94a40f",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 504,
+          "height": 280
+        },
+        "flow": {
+          "mp4": "results/gallery/u0SFYiZcQG4-0:06:16.709-0:06:23.216/flow.mp4",
+          "webm": "results/gallery/u0SFYiZcQG4-0:06:16.709-0:06:23.216/flow.webm",
+          "poster": "results/gallery/u0SFYiZcQG4-0:06:16.709-0:06:23.216/flow.webp",
+          "source": "/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-best/u0SFYiZcQG4-0:06:16.709-0:06:23.216/notch14_pointcloud_trails/pred_scene_flow_raw_notch14_pointcloud_trails_vis.mp4",
+          "sha256": "e3b12ed399fe928f129f8dc925f8ab9230ae488cebf96c41418c45aa8e3cb802",
+          "webmSha256": "6bdf49e9687edc1105f1992304062b4298e561551f0ffef850d833997aacfba2",
+          "fps": 15.0,
+          "frameCount": 81,
+          "width": 960,
+          "height": 720
+        }
+      },
+      "fps": 15.0
+    }
+  ]
+}

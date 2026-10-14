@@ -2,9 +2,15 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { PLYLoader } from "three/addons/loaders/PLYLoader.js";
 import results from "../data/results.json";
+import aggregated from "../data/aggregated.json";
 
-type Sequence = (typeof results.sequences)[keyof typeof results.sequences];
-const sequences: Record<string, Sequence> = results.sequences;
+type Sequence =
+  | (typeof results.sequences)[keyof typeof results.sequences]
+  | (typeof aggregated.sequences)[keyof typeof aggregated.sequences];
+const sequences: Record<string, Sequence> = {
+  ...results.sequences,
+  ...aggregated.sequences,
+};
 const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 const loader = new PLYLoader();
 const cache = new Map<string, THREE.BufferGeometry>();
@@ -12,8 +18,8 @@ const pending = new Map<string, Promise<THREE.BufferGeometry>>();
 const waiting: Array<() => void> = [];
 const rows: ComparisonRow[] = [];
 const linked = document.querySelector<HTMLInputElement>("#sync-views")!;
-const scrollRegion = document.querySelector<HTMLElement>(
-  "[data-comparison-scroll]",
+const aggregateLinked = document.querySelector<HTMLInputElement>(
+  "#aggregate-sync-views",
 )!;
 const dialog = document.querySelector<HTMLDialogElement>("#cloud-dialog")!;
 const dialogSurface = dialog.querySelector<HTMLElement>(".dialog-surface")!;
@@ -21,6 +27,11 @@ const dialogSlider = dialog.querySelector<HTMLInputElement>(".dialog-slider")!;
 const dialogPlay = dialog.querySelector<HTMLButtonElement>(".dialog-play")!;
 const material = new THREE.PointsMaterial({
   size: 0.03,
+  vertexColors: true,
+  sizeAttenuation: true,
+});
+const aggregateMaterial = new THREE.PointsMaterial({
+  size: 0.009,
   vertexColors: true,
   sizeAttenuation: true,
 });
@@ -70,7 +81,10 @@ async function geometryFor(
   if (existing) return existing;
   const sequence = sequences[sequenceId];
   const promise = withFetchSlot(async () => {
-    const url = `${base}${sequence.path}/${String(frame).padStart(4, "0")}.ply.gz`;
+    const url =
+      sequence.frameCount === 1
+        ? `${base}${sequence.path}`
+        : `${base}${sequence.path}/${String(frame).padStart(4, "0")}.ply.gz`;
     const response = await fetch(url);
     if (!response.ok)
       throw new Error(`Point cloud request failed: ${response.status}`);
@@ -134,8 +148,13 @@ function trimCache() {
   }
 }
 
-function resetCamera(camera: THREE.PerspectiveCamera, controls: OrbitControls) {
-  camera.position.set(0.12, 0.05, 2.8);
+function resetCamera(
+  camera: THREE.PerspectiveCamera,
+  controls: OrbitControls,
+  isAggregate = false,
+) {
+  if (isAggregate) camera.position.set(1.25, 0.65, 2.5);
+  else camera.position.set(0.12, 0.05, 2.8);
   camera.up.set(0, 1, 0);
   controls.target.set(0, 0, 0);
   controls.update();
@@ -158,6 +177,7 @@ function copyCamera(
 function configureControls(
   camera: THREE.PerspectiveCamera,
   surface: HTMLElement,
+  isAggregate = false,
 ) {
   const controls = new OrbitControls(camera, surface);
   controls.enableDamping = false;
@@ -165,7 +185,7 @@ function configureControls(
   controls.maxDistance = 15;
   controls.zoomSpeed = 0.7;
   controls.rotateSpeed = 0.65;
-  resetCamera(camera, controls);
+  resetCamera(camera, controls, isAggregate);
   return controls;
 }
 
@@ -190,7 +210,8 @@ function cameraChanged(
   controls: OrbitControls,
 ) {
   dirty = true;
-  if (syncingCamera || !linked.checked) return;
+  if (syncingCamera || !(row.isAggregate ? aggregateLinked : linked).checked)
+    return;
   syncingCamera = true;
   for (const view of row.views) {
     if (view.camera !== camera)
@@ -223,14 +244,19 @@ class CloudView {
     this.background = new THREE.Color(
       cell.dataset.method === "plan4d" ? 0xeef5f1 : 0xf0f3f2,
     );
+    this.points.material = row.isAggregate ? aggregateMaterial : material;
     this.points.frustumCulled = false;
     this.scene.add(this.points);
-    this.controls = configureControls(this.camera, this.surface);
+    this.controls = configureControls(
+      this.camera,
+      this.surface,
+      row.isAggregate,
+    );
     this.controls.addEventListener("change", () =>
       cameraChanged(row, this.camera, this.controls),
     );
     cell.querySelector(".reset-view")!.addEventListener("click", () => {
-      resetCamera(this.camera, this.controls);
+      resetCamera(this.camera, this.controls, row.isAggregate);
       cameraChanged(row, this.camera, this.controls);
     });
     cell.querySelector(".expand-view")!.addEventListener("click", () => {
@@ -276,8 +302,9 @@ class CloudView {
     this.ready = true;
     this.status.hidden = true;
     this.cell.querySelector<HTMLElement>(".retry-button")!.hidden = true;
-    this.cell.querySelector(".cloud-frame")!.textContent =
-      `${String(frame + 1).padStart(2, "0")} / 81`;
+    const counter = this.cell.querySelector(".cloud-frame");
+    if (counter)
+      counter.textContent = `${String(frame + 1).padStart(2, "0")} / 81`;
     this.cell.querySelector<HTMLButtonElement>(".expand-view")!.disabled =
       false;
     this.cell.dataset.frame = String(frame);
@@ -288,7 +315,9 @@ class CloudView {
   showError() {
     this.status.hidden = false;
     this.status.dataset.error = "true";
-    this.status.textContent = "Could not load this frame";
+    this.status.textContent = this.row.isAggregate
+      ? "Could not load point cloud"
+      : "Could not load this frame";
     this.cell.querySelector<HTMLElement>(".retry-button")!.hidden = false;
     this.cell.dataset.state = "error";
   }
@@ -305,21 +334,28 @@ class ComparisonRow {
   revision = 0;
   timer = 0;
   scrubTimer = 0;
-  slider: HTMLInputElement;
-  playButton: HTMLButtonElement;
+  slider: HTMLInputElement | null;
+  playButton: HTMLButtonElement | null;
   state: HTMLElement;
   fps: number;
+  isAggregate: boolean;
+  scrollRegion: HTMLElement;
 
   constructor(public element: HTMLElement) {
+    this.isAggregate = element.classList.contains("aggregate-row");
+    this.scrollRegion = element.closest<HTMLElement>(
+      "[data-comparison-scroll]",
+    )!;
     this.slider = element.querySelector(".frame-slider")!;
     this.playButton = element.querySelector(".playback-button")!;
     this.state = element.querySelector(".row-state")!;
     this.fps = Number(element.dataset.fps) || 16;
-    this.playButton.addEventListener("click", () =>
+    if (this.isAggregate) return;
+    this.playButton!.addEventListener("click", () =>
       this.setPlaying(!this.playing),
     );
-    this.slider.addEventListener("input", () =>
-      this.scrub(Number(this.slider.value)),
+    this.slider!.addEventListener("input", () =>
+      this.scrub(Number(this.slider!.value)),
     );
     element.querySelector(".previous-frame")!.addEventListener("click", () => {
       this.setPlaying(false);
@@ -383,16 +419,19 @@ class ComparisonRow {
         view.setGeometry(geometries[index], frame);
       this.frame = frame;
       this.ready = true;
-      this.slider.value = String(frame);
+      if (this.slider) this.slider.value = String(frame);
       this.element.dataset.frame = String(frame);
       this.element.dataset.state = "ready";
-      this.element.querySelector(".frame-counter")!.textContent =
-        `${String(frame + 1).padStart(2, "0")} / 81`;
+      const counter = this.element.querySelector(".frame-counter");
+      if (counter)
+        counter.textContent = `${String(frame + 1).padStart(2, "0")} / 81`;
       for (const control of this.element.querySelectorAll<
         HTMLInputElement | HTMLButtonElement
       >(".row-timeline [disabled]"))
         control.disabled = false;
-      this.state.textContent = `${(frame / this.fps).toFixed(2)} s`;
+      this.state.textContent = this.isAggregate
+        ? ""
+        : `${(frame / this.fps).toFixed(2)} s`;
       if (expanded?.row === this) {
         expanded.points.geometry = expanded.view.points.geometry;
         dialog.querySelector(".dialog-state")!.textContent = "";
@@ -420,6 +459,7 @@ class ComparisonRow {
   }
 
   setPlaying(playing: boolean) {
+    if (!this.playButton || this.isAggregate) return;
     this.playing = playing && this.ready;
     window.clearTimeout(this.timer);
     this.playButton.setAttribute("aria-pressed", String(this.playing));
@@ -454,6 +494,13 @@ class ComparisonRow {
 
 function updateExpandedTimeline() {
   if (!expanded) return;
+  for (const control of [
+    dialogSlider,
+    dialogPlay,
+    dialog.querySelector<HTMLElement>(".dialog-counter")!,
+  ])
+    control.hidden = expanded.row.isAggregate;
+  if (expanded.row.isAggregate) return;
   dialogSlider.value = String(expanded.row.frame);
   dialog.querySelector(".dialog-counter")!.textContent =
     `${String(expanded.row.frame + 1).padStart(2, "0")} / 81`;
@@ -476,10 +523,10 @@ function openExpanded(row: ComparisonRow, view: CloudView) {
   modalRenderer.setClearColor(view.background);
   dialogSurface.append(modalRenderer.domElement);
   const camera = new THREE.PerspectiveCamera(45, 1, 0.01, 200);
-  const controls = configureControls(camera, dialogSurface);
+  const controls = configureControls(camera, dialogSurface, row.isAggregate);
   copyCamera(view.camera, view.controls, camera, controls);
   const scene = new THREE.Scene();
-  const points = new THREE.Points(view.points.geometry, material);
+  const points = new THREE.Points(view.points.geometry, view.points.material);
   points.frustumCulled = false;
   scene.add(points);
   expanded = {
@@ -500,7 +547,12 @@ function openExpanded(row: ComparisonRow, view: CloudView) {
     vist3a: "VIST3A",
     plan4d: "Plan4D (ours)",
   };
-  const prompt = row.element.querySelector(".prompt-cell > p")!.textContent;
+  const prompt = row.isAggregate
+    ? "Aggregated 4D Point Cloud"
+    : row.element.querySelector(".prompt-cell > p")!.textContent;
+  dialog.querySelector(".dialog-heading .eyebrow")!.textContent =
+    row.isAggregate ? "Aggregated 4D Point Cloud" : "Interactive 4D output";
+  dialog.querySelector(".dialog-state")!.textContent = "";
   dialog.querySelector("#cloud-dialog-title")!.textContent =
     `${names[view.cell.dataset.method!]} · ${prompt}`;
   dialog.showModal();
@@ -535,8 +587,16 @@ dialogSlider.addEventListener("input", () =>
   expanded?.row.scrub(Number(dialogSlider.value)),
 );
 dialog.querySelector(".dialog-reset")!.addEventListener("click", () => {
-  if (expanded) resetCamera(expanded.camera, expanded.controls);
+  if (expanded)
+    resetCamera(expanded.camera, expanded.controls, expanded.row.isAggregate);
 });
+document
+  .querySelector<HTMLInputElement>("#aggregate-point-size")!
+  .addEventListener("input", (event) => {
+    aggregateMaterial.size =
+      Number((event.target as HTMLInputElement).value) * 0.009;
+    dirty = true;
+  });
 document
   .querySelector<HTMLInputElement>("#point-size")!
   .addEventListener("input", (event) => {
@@ -565,13 +625,13 @@ function render() {
     expanded.renderer.render(expanded.scene, expanded.camera);
     return;
   }
-  const container = scrollRegion.getBoundingClientRect();
   const headerBottom = document
     .querySelector(".site-header")!
     .getBoundingClientRect().bottom;
   renderer.setScissorTest(true);
   for (const row of rows) {
     if (!row.visible) continue;
+    const container = row.scrollRegion.getBoundingClientRect();
     for (const view of row.views) {
       if (!view.ready) continue;
       const bounds = view.surface.getBoundingClientRect();
@@ -610,7 +670,7 @@ try {
   renderer.domElement.setAttribute("aria-hidden", "true");
   document.body.append(renderer.domElement);
   for (const element of document.querySelectorAll<HTMLElement>(
-    ".comparison-row",
+    ".comparison-row, .aggregate-row",
   ))
     rows.push(new ComparisonRow(element));
   const observer = new IntersectionObserver(
@@ -663,6 +723,7 @@ try {
     }
     for (const geometry of cache.values()) geometry.dispose();
     material.dispose();
+    aggregateMaterial.dispose();
     renderer.dispose();
     renderer.forceContextLoss();
     renderer.domElement.remove();

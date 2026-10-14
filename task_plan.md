@@ -19,3 +19,23 @@
 ## 环境记录
 - openspec-aone 命令不可用，已读取工作区 OpenSpec 规则和现有变更目录，未发现网页相关变更。
 - 使用现成 Node 22.18.0（code-server 内置），项目 npm 依赖和 Playwright 已安装。
+
+## 聚合点云更新（2026-10-14）
+- [x] 核对指定三个场景及四种方法的 global_pcd_with_camera_trajectory.ply。
+- [x] 导出可追溯的聚合点云和输入图片，保留全部相机轨迹顶点。
+- [x] 添加三列聚合对比，第三列包含四种方法；移除 RGB/depth 视频区及其运行逻辑。
+- [x] 验证原始数据对应关系、浏览器桌面/移动端交互并更新代理预览。
+- 用户已明确授权上述展示调整；已有逐帧六场景及 VIST3A 来源纠正保持不变。
+
+## Gallery（2026-10-14）
+- [x] 核对用户指定 17 个场景的五种输出和参考 Gallery。
+- [x] 生成独立可复现资源、清单和来源校验。
+- [x] 实现场景下拉、单输出框、五模态左右切换和播放器。
+- [x] 验证全部场景/模态、桌面/手机与旧区回归，更新转发预览。
+- 五模态固定为 INTERACTIVE 4D OUTPUT、RGB Video、Depth Video、Aggregated 4D Point Cloud、Scene Flow。
+- Scene Flow 仅用 notch14_pointcloud_trails/pred_scene_flow_raw_notch14_pointcloud_trails_vis.mp4，不使用 raw_vis 或其他版本。
+- Phu_HyoQWVU 的展示 prompt 使用用户原文；旧聚合 01/02 文案和全部旧对比保持不变。
+
+## Gallery 菜单命名
+- [x] 根据 17 个输入文本提炼动作名称，仅更新菜单 label 和导出规则。
+- [x] 验证名称与场景对应关系，构建并刷新 4321 转发预览。

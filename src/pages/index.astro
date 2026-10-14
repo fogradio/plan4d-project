@@ -1,7 +1,8 @@
 ---
 import { Icon } from "astro-icon/components";
 import ResultsComparison from "../components/ResultsComparison.astro";
-import results from "../data/results.json";
+import AggregatedComparison from "../components/AggregatedComparison.astro";
+import Gallery from "../components/Gallery.astro";
 import {
   benchmarks,
   metricNames,
@@ -14,15 +15,6 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 const title = "Plan4D: Generative Plannable 4D Worlds";
 const description =
   "Plan4D predicts future RGB video and dense 4D geometry from an observed scene and text-specified actions.";
-const firstScene = results.cases[0];
-const sceneLabels: Record<string, string> = {
-  P02_122_161: "Pour ingredients into a pan",
-  P02_129_354: "Brush a garlic presser",
-  P02_135_92: "Spread jam on a bagel",
-  P06_102_75: "Knead dough",
-  P07_116_25: "Put rice onto a plate",
-  P25_104_94: "Stir pasta",
-};
 const authors = [
   ["Hangwei Zhang", "1,2"],
   ["Rujing Dang", "2"],
@@ -64,7 +56,9 @@ const citation = `@misc{zhang2026plan4d,
         <div class="nav-links">
           <a href="#abstract">Abstract</a><a href="#method">Method</a><a
             href="#comparisons">Comparisons</a
-          ><a href="#quantitative">Results</a><a href="#citation">BibTeX</a>
+          ><a href="#gallery">Gallery</a><a href="#quantitative">Results</a><a
+            href="#citation">BibTeX</a
+          >
         </div>
       </nav>
     </header>
@@ -168,78 +162,8 @@ const citation = `@misc{zhang2026plan4d,
 
       <ResultsComparison />
 
-      <section class="section outputs-section" id="outputs">
-        <div class="section-heading content-shell">
-          <div>
-            <p class="eyebrow">Multimodal predictions</p><h2>
-              Appearance and geometry, together.
-            </h2>
-          </div><label class="select-control" for="output-scene"
-            >Scene <select id="output-scene"
-              >{
-                results.cases.map((scene) => (
-                  <option
-                    value={scene.id}
-                    data-video={base + scene.video}
-                    data-depth={base + scene.depthVideo}
-                    data-image={base + scene.image}
-                    data-depth-poster={base + `results/${scene.id}-depth.webp`}
-                  >
-                    {sceneLabels[scene.id]}
-                  </option>
-                ))
-              }</select
-            ></label
-          >
-        </div>
-        <div class="video-pair content-shell">
-          <figure>
-            <div class="media-label">
-              <span class="rgb-dot"></span> Generated RGB
-            </div><video
-              id="rgb-video"
-              poster={base + firstScene.image}
-              controls
-              playsinline
-              muted
-              loop
-              preload="none"
-              aria-label="Plan4D generated RGB video"
-            >
-              <source
-                src={base + firstScene.video}
-                type='video/mp4; codecs="avc1.64001f"'
-              />
-              <source
-                src={base + firstScene.video.replace(/\.mp4$/, ".webm")}
-                type='video/webm; codecs="vp9"'
-              />
-            </video>
-          </figure><figure>
-            <div class="media-label">
-              <span class="depth-dot"></span> Predicted depth
-            </div><video
-              id="depth-video"
-              poster={base + `results/${firstScene.id}-depth.webp`}
-              controls
-              playsinline
-              muted
-              loop
-              preload="none"
-              aria-label="Plan4D predicted depth video"
-            >
-              <source
-                src={base + firstScene.depthVideo}
-                type='video/mp4; codecs="avc1.64001f"'
-              />
-              <source
-                src={base + firstScene.depthVideo.replace(/\.mp4$/, ".webm")}
-                type='video/webm; codecs="vp9"'
-              />
-            </video>
-          </figure>
-        </div>
-      </section>
+      <AggregatedComparison />
+      <Gallery />
 
       <section class="section" id="method">
         <div class="section-heading content-shell">

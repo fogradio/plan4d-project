@@ -2,11 +2,51 @@
 
 ## 内容与范围
 
-页面包括论文标题与作者、teaser、摘要、六场景交互式方法对比、RGB/深度视频、方法图、四个数据集的论文定量结果和 BibTeX。
+页面包括论文标题与作者、teaser、摘要、六场景逐帧交互式方法对比、三场景聚合点云对比、17 场景 Gallery、方法图、四个数据集的论文定量结果和 BibTeX。旧的双窗口 RGB/depth 视频对比及其同步脚本已移除；新 Gallery 使用单窗口切换模态，原视频文件保留。
 
 Plan4D 仅来自 `../../plan4d_final_outputs-best`。排除 `P28_101_119`，使用 `P02_122_161`、`P02_129_354`、`P02_135_92`、`P06_102_75`、`P07_116_25`、`P25_104_94`。各方法严格按场景 ID 匹配，共 24 组序列、1,944 帧。对比区不显示数据集名称，不包含额外版本切换。
 
+VIST3A 指原始 Wan2.1 + AnySplat baseline，原始结果来自 `../../ti2v_bench_anysplat_outputs/epic_kitchens100_81`，整理副本位于 `../../plan4d_final_outputs-baselines/vist3a`。它的相机取自 `decode_outputs.pt` 的 `extrinsic_w2c`，不使用 DA3 后处理几何或基于 VIST3A 的 Plan4D 输出。
+
 列顺序固定为输入文本、输入图像、Gen3R、TesserAct、VIST3A、Plan4D。对比支持同步播放/暂停、帧滑块、前后帧、倍速、相机联动、旋转/平移/缩放、点大小、视角复位、放大和失败重试。手机保留六列，可横向浏览并放大单项。
+
+聚合对比位于 `#aggregated`，三列为 `Input text`、`Input image`、`Aggregated 4D Point Cloud`。第三列按 Gen3R、TesserAct、VIST3A、Plan4D 顺序并排展示，使用三个指定场景：
+
+- `iaHNa6cm64k-0:02:50.044-0:02:56.759`
+- `test_cab_e_3rd_00000_00081`
+- `ZHwqSpZfPCI-0:05:13.280-0:05:19.640`
+
+12 份来源均为对应目录下的 `point_cloud/global_pcd_with_camera_trajectory.ply`，包含 TesserAct 的 test_cab 结果。输入文本与图像来自 best 目录。聚合查看器复用共享 WebGL、旋转/平移/缩放、相机联动、复位、放大和重试；它展示单份聚合几何，不显示时间轴，也不使用视频替代。
+
+网页默认对每份聚合文件的场景顶点均匀采样最多 200,000 个，完整保留相机视锥与轨迹顶点，不过滤或重建几何。坐标转为 float32、颜色不变，以 gzip PLY 发布；输入图像无损转换为 WebP。显示以第一相机方向对齐，使用独立尺度，不声称公制对齐。`src/data/aggregated.json` 与 `public/results/aggregated/provenance.json` 记录来源哈希、数量和变换；原文件只读。
+
+## Gallery
+
+`#gallery` 按用户指定顺序提供 17 个 best 场景的下拉菜单。页面仅有一个 Gallery 输出框，左右箭头循环切换以下五种模态，也可以使用底部图标直接选择；导航条支持左右键和触摸滑动，不与点云旋转手势冲突。
+
+1. `INTERACTIVE 4D OUTPUT`：81 帧真实 PLY，可播放/暂停、拖动时间轴、调速、旋转/平移/缩放、调整点大小、复位、放大和失败重试。
+2. `RGB Video`：来自 `generated_video.mp4`。
+3. `Depth Video`：来自 `pred_depth_vis.mp4`。
+4. `Aggregated 4D Point Cloud`：来自 `point_cloud/global_pcd_with_camera_trajectory.ply`，完整保留相机视锥和轨迹顶点。
+5. `Scene Flow`：严格使用 `notch14_pointcloud_trails/pred_scene_flow_raw_notch14_pointcloud_trails_vis.mp4`，不回退到 raw_vis 或其他场景流版本。
+
+场景切换同步更新输入图像和文本，保持当前模态；切换模态或场景、离开可视区域、隐藏页面和关闭放大窗口时暂停旧播放器。快速切换会中止过期点云请求。放大时将同一输出框移入对话框，不创建第二套播放器。
+
+`Phu_HyoQWVU-0:00:00.867-0:00:07.841` 的展示文本固定为：
+
+> Hold the small glass dish. Dispense pink liquid using a pipette. Release the liquid smoothly. Fill the dish gradually.
+
+源 prompt 另外保存在 `sourcePrompt` 和 provenance 中，源结果不改。此前聚合区 01/02 的用户指定文本保持不变。
+
+Gallery 派生资源位于 `public/results/gallery/`，约 594 MiB，按当前场景/模态延迟加载。每帧最多均匀采样 16,000 点，保留全部 81 帧；聚合场景采样上限为 200,000，保留所有相机顶点。输入图像为无损 WebP。视频包含与源逐字节一致的 MP4 和同尺寸/同帧数的 VP9 WebM，避免浏览器缺少 H.264 时无法播放。只有当前视频被加载，点云 LRU 上限为 24 份几何。
+
+```bash
+/mnt/workspace/hwzhang/miniconda3/envs/dav3/bin/python scripts/prepare_gallery.py
+/mnt/workspace/hwzhang/miniconda3/envs/dav3/bin/python scripts/prepare_gallery.py --validate
+PLAYWRIGHT_BROWSERS_PATH=/tmp/plan4d-browsers node scripts/verify_gallery.mjs
+```
+
+`--resume` 可复用中断导出已完成的场景；普通重跑会将旧资源及清单归档到 `artifacts/gallery-时间戳/`，不删除文件。数据验证覆盖 1,377 帧全部采样 XYZ/RGB、17 个聚合文件、无损输入图像、51 个视频来源哈希及转码尺寸/帧数；报告在 `artifacts/gallery-validation.json`。浏览器验证覆盖 17×5 种结果、视频实际解码/播放、逐帧变化、旋转、快速切换、失败重试、放大、手机布局和关闭/离屏暂停。
 
 ## 本地运行
 
@@ -21,16 +61,44 @@ npm run dev -- --host 0.0.0.0 --port 4321
 
 访问 `http://localhost:4321/`。远程机器可通过编辑器转发 4321 端口访问。
 
+Nebula 的转发域名 `nebula-notebook2.alibaba-inc.com` 已加入 `astro.config.ts` 的 `server.allowedHosts`，同时适用于开发和构建预览。修改此配置后，需要重启已运行的预览服务。
+
+本机现有的转发构建位于 `artifacts/forwarded-preview`，资源前缀为 `/notebook-331e09bc81d9-code/proxy/4321/`。启动方式：
+
+```bash
+npm run preview -- --outDir artifacts/forwarded-preview --base / --host 0.0.0.0 --port 4321
+```
+
+浏览器访问 `https://nebula-notebook2.alibaba-inc.com/notebook-331e09bc81d9-code/proxy/4321/`。Nebula 代理会剥离转发路径，因此构建资源使用完整转发前缀，而预览服务使用 `--base /`。更换 notebook 或端口、更新页面内容时，应重新构建，例如：
+
+```bash
+npm run build -- --base /notebook-331e09bc81d9-code/proxy/4321/ --outDir artifacts/forwarded-preview
+```
+
 ## 资源生成
 
 ```bash
 /mnt/workspace/hwzhang/miniconda3/envs/dav3/bin/python scripts/prepare_assets.py
 /mnt/workspace/hwzhang/miniconda3/envs/dav3/bin/python scripts/validate_assets.py
+/mnt/workspace/hwzhang/miniconda3/envs/dav3/bin/python scripts/prepare_aggregates.py
+/mnt/workspace/hwzhang/miniconda3/envs/dav3/bin/python scripts/prepare_aggregates.py --validate
 ```
+
+聚合导出器自动验证全部采样坐标/颜色、完整轨迹、三个输入图像和来源哈希；报告为 `artifacts/aggregated-validation.json`。可用 `--max-scene-points 0` 导出全部场景点。重新导出会将旧聚合资源和清单移动到 `artifacts/aggregated-时间戳/` 保留。
+
+只更新 VIST3A baseline，保留其他方法、输入图像和 Plan4D 视频：
+
+```bash
+/mnt/workspace/hwzhang/miniconda3/envs/dav3/bin/python scripts/prepare_assets.py --refresh-vist3a
+```
+
+导出前检查 Wan2.1 模型、VIST3A 官方 LoRA、AnySplat 相机 bundle 和原始来源清单；错误来源会被拒绝。新 VIST3A 资源路径带 `-wan21-anysplat`，避免复用旧的浏览器缓存。替换前的 VIST3A 资产和清单保留在 `artifacts/vist3a-source-correction-时间戳/`。
+
+2026-10-13 已完成 VIST3A 来源纠正，普通构建和 4321 转发构建均已更新。验证覆盖六组 VIST3A 的全部 486 帧源点云、AnySplat 相机、与 Plan4D 的差异，以及桌面/手机显示和交互。报告见 `artifacts/assets-validation.json` 和 `artifacts/browser/report.json`。
 
 导出器只读原始结果。点云保留 81 个时间步，每帧最多均匀采样 16,000 个顶点，以 gzip 压缩的 binary PLY 存储。原始世界坐标和颜色保留，double 坐标转换为 float32。浏览器使用第一帧相机与整个序列的固定显示尺度，不按帧重新居中。此展示尺度不是跨方法的公制对齐，页面中有相应说明。
 
-`src/data/results.json` 记录场景、点数、相机和 SHA-256；`public/results/provenance.json` 记录原始目录。图像和视频来自同一个 best 结果。视频同时提供原始 H.264 MP4 与 VP9 WebM，兼容未安装 H.264 解码器的浏览器。WebM 使用现有 dav3 环境的 imageio-ffmpeg 导出。论文图由 PDF 转换，定量数据来自论文 `tables/4d_generation_subset.tex`，未更改数值。输入图像保持完整，不裁切。
+`src/data/results.json` 记录场景、点数、相机和 SHA-256；`public/results/provenance.json` 记录整理目录，并为 VIST3A 额外记录原始 AnySplat 来源、模型与相机来源。图像和视频来自同一个 best 结果。视频同时提供原始 H.264 MP4 与 VP9 WebM，兼容未安装 H.264 解码器的浏览器。WebM 使用现有 dav3 环境的 imageio-ffmpeg 导出。论文图由 PDF 转换，定量数据来自论文 `tables/4d_generation_subset.tex`，未更改数值。输入图像保持完整，不裁切。
 
 `public/results/` 约 380 MiB，作为可复现产物被 Git 忽略。初次范围更正前生成的资源保留在 `artifacts/initial-results-original-source/`，不参与页面或构建。
 
@@ -44,6 +112,8 @@ npm run validate:page
 ```
 
 本机 Playwright 浏览器已安装在 `/tmp/plan4d-browsers`，运行验证时设置 `PLAYWRIGHT_BROWSERS_PATH=/tmp/plan4d-browsers`。可通过 `PLAN4D_TEST_URL` 指定验证地址或带子路径的构建预览地址。浏览器检查覆盖首尾帧、点云像素、播放/暂停、快速拖动、重试、放大、手机布局、定量表切换和引用复制。截图与报告保存到 `artifacts/browser/`。
+
+浏览器检查还覆盖 12 份聚合点云非空与方法差异、TesserAct test_cab 失败重试、相机联动开关、无时间轴的聚合放大窗口、返回逐帧窗口、320px 手机无溢出，以及视频元素确实移除。可用 `PLAN4D_TEST_OUTPUT` 为本轮截图和报告指定独立目录。
 
 构建器会先检查必需媒体，避免发布空 viewer。已有 `dist` 会被移动到 `artifacts/build-时间戳/dist` 保留，之后再生成新构建，不主动删除旧产物。
 
@@ -64,8 +134,12 @@ npm run preview -- --host 0.0.0.0 --port 4322
 
 - `src/pages/index.astro`：论文页面。
 - `src/components/ResultsComparison.astro`：六列对比及控制项。
+- `src/components/AggregatedComparison.astro`：三列聚合对比及四方法查看器。
+- `src/components/Gallery.astro`、`src/scripts/gallery.ts`：17 场景、单输出框及五模态交互。
 - `src/scripts/comparison.ts`：Three.js、PLY 解码、加载缓存和时间同步。
 - `src/styles/plan4d.css`：响应式样式。
 - `src/data/benchmarks.ts`：论文定量结果。
 - `scripts/prepare_assets.py`：生成网页资源。
+- `scripts/prepare_aggregates.py`：生成并验证聚合点云资源。
+- `scripts/prepare_gallery.py`、`scripts/verify_gallery.mjs`：Gallery 来源与浏览器验证。
 - `scripts/validate_assets.py`、`scripts/verify_page.mjs`：数据与浏览器验证。
