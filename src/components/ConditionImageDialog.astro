@@ -1,0 +1,68 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<dialog id="condition-dialog" aria-labelledby="condition-dialog-title">
+  <div class="condition-dialog-heading">
+    <h3 id="condition-dialog-title">Input image</h3>
+    <button
+      type="button"
+      class="icon-button"
+      data-condition-close
+      aria-label="Close input image"
+      title="Close input image"><Icon name="ri:close-line" /></button
+    >
+  </div>
+  <img id="condition-dialog-image" alt="" />
+  <p id="condition-dialog-prompt"></p>
+</dialog>
+
+<script>
+  const dialog =
+    document.querySelector<HTMLDialogElement>("#condition-dialog")!;
+  const image = dialog.querySelector<HTMLImageElement>("img")!;
+  const prompt = dialog.querySelector<HTMLElement>("#condition-dialog-prompt")!;
+  let trigger: HTMLButtonElement | null = null;
+  let previousOverflow = "";
+
+  for (const button of document.querySelectorAll<HTMLButtonElement>(
+    "[data-condition-image]",
+  )) {
+    button.addEventListener("click", () => {
+      const source = button.querySelector<HTMLImageElement>("img")!;
+      trigger = button;
+      image.src = button.dataset.fullImage || source.currentSrc || source.src;
+      image.alt = source.alt;
+      prompt.textContent = button.dataset.prompt || "";
+      previousOverflow = document.body.style.overflow;
+      dialog.showModal();
+      document.body.style.overflow = "hidden";
+    });
+  }
+  dialog
+    .querySelector("[data-condition-close]")!
+    .addEventListener("click", () => dialog.close());
+  dialog.addEventListener("click", (event) => {
+    if (event.target !== dialog) return;
+    const bounds = dialog.getBoundingClientRect();
+    if (
+      event.clientX < bounds.left ||
+      event.clientX > bounds.right ||
+      event.clientY < bounds.top ||
+      event.clientY > bounds.bottom
+    )
+      dialog.close();
+  });
+  dialog.addEventListener("close", () => {
+    document.body.style.overflow = previousOverflow;
+    trigger?.focus({ preventScroll: true });
+  });
+  dialog.addEventListener("keydown", (event) => {
+    if (event.key === "Tab") {
+      event.preventDefault();
+      dialog
+        .querySelector<HTMLButtonElement>("[data-condition-close]")!
+        .focus();
+    }
+  });
+</script>

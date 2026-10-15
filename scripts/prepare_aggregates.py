@@ -1,4 +1,4 @@
-"""Export and validate the three requested aggregated point-cloud comparisons."""
+"""Export and validate the aggregated point-cloud comparisons."""
 
 from __future__ import annotations
 
@@ -22,6 +22,9 @@ CASES = (
     "iaHNa6cm64k-0:02:50.044-0:02:56.759",
     "test_cab_e_3rd_00000_00081",
     "ZHwqSpZfPCI-0:05:13.280-0:05:19.640",
+    "epic_kitchens100_P02_122_161",
+    "epic_kitchens100_P02_129_354",
+    "epic_kitchens100_P07_116_25-勉强尚可",
 )
 FILENAME = "global_pcd_with_camera_trajectory.ply"
 OUTPUT = PROJECT / "public/results/aggregated"
@@ -155,7 +158,7 @@ def export(max_points: int) -> None:
 def validate() -> None:
     manifest = read_json(MANIFEST)
     assert [scene["id"] for scene in manifest["cases"]] == list(CASES)
-    assert len(manifest["sequences"]) == 12
+    assert len(manifest["sequences"]) == len(CASES) * len(METHODS)
     report = []
     for scene in manifest["cases"]:
         plan4d = source_directory(scene["id"], "plan4d")

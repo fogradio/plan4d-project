@@ -2,8 +2,9 @@
 import { Icon } from "astro-icon/components";
 import results from "../data/results.json";
 import ComparisonSelector from "./ComparisonSelector.astro";
+import ConditioningInput from "./ConditioningInput.astro";
+import BaselineSelector from "./BaselineSelector.astro";
 
-const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 const methods = [
   { id: "gen3r", name: "Gen3R" },
   { id: "tesseract", name: "TesserAct" },
@@ -33,16 +34,6 @@ const methods = [
 
   <ComparisonSelector id="comparisons" scenes={results.cases} />
   <div class="comparison-options wide-shell">
-    <label class="baseline-control" for="comparison-baseline">
-      Compare with
-      <select id="comparison-baseline" data-baseline-select>
-        {
-          methods
-            .filter((method) => method.id !== "plan4d")
-            .map((method) => <option value={method.id}>{method.name}</option>)
-        }
-      </select>
-    </label>
     <label class="check-control"
       ><input id="sync-views" type="checkbox" checked /> Linked views</label
     >
@@ -78,25 +69,12 @@ const methods = [
             data-fps={scene.fps}
             aria-label={`${scene.id}: ${scene.prompt}`}
           >
-            <div class="comparison-input">
-              <div class="prompt-cell">
-                <span class="case-label">
-                  <span>{String(index + 1).padStart(2, "0")}</span> {scene.id}
-                </span>
-                <span class="input-label">Input text</span>
-                <p>{scene.prompt}</p>
-              </div>
-              <div class="input-cell">
-                <img
-                  src={base + scene.image}
-                  alt={`Observed input for ${scene.prompt}`}
-                  loading="lazy"
-                  width="512"
-                  height="288"
-                />
-                <span class="input-label">Input image</span>
-              </div>
-            </div>
+            <ConditioningInput
+              image={scene.image}
+              prompt={scene.prompt}
+              index={index}
+              label={scene.id}
+            />
             <div class="comparison-pair">
               {methods.map((method) => (
                 <div
@@ -114,10 +92,19 @@ const methods = [
                       { "ours-heading": method.id === "plan4d" },
                     ]}
                   >
-                    <span>
+                    <span
+                      data-method-name
+                      hidden={index === 0 && method.id === "gen3r"}
+                    >
                       {method.name}
                       {method.id === "plan4d" && <small>Ours</small>}
                     </span>
+                    {index === 0 && method.id === "gen3r" && (
+                      <BaselineSelector
+                        id="comparison-baseline"
+                        methods={methods}
+                      />
+                    )}
                     <span class="pair-output-label">Interactive 4D output</span>
                   </div>
                   <div

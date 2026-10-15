@@ -12,6 +12,9 @@ const paperRoot =
   process.env.PLAN4D_PAPER_ROOT ||
   "/mnt/workspace/hwzhang/69e090695f534d4b6292331f";
 const normalize = (text) => text.replace(/\s+/g, " ").trim();
+const aggregated = JSON.parse(
+  await readFile("src/data/aggregated.json", "utf8"),
+);
 await mkdir(output, { recursive: true });
 const browser = await chromium.launch({
   headless: true,
@@ -83,8 +86,14 @@ try {
   assert.equal(await page.locator("#teaser-video source").count(), 2);
   assert.equal(await page.locator("#comparisons .comparison-row").count(), 6);
   assert.equal(await page.locator("#comparisons .cloud-cell").count(), 24);
-  assert.equal(await page.locator("#aggregated .aggregate-row").count(), 3);
-  assert.equal(await page.locator("#aggregated .cloud-cell").count(), 12);
+  assert.equal(
+    await page.locator("#aggregated .aggregate-row").count(),
+    aggregated.cases.length,
+  );
+  assert.equal(
+    await page.locator("#aggregated .cloud-cell").count(),
+    Object.keys(aggregated.sequences).length,
+  );
   for (const section of ["#comparisons", "#aggregated"]) {
     assert.equal(
       await page.locator(`${section} article:not([hidden])`).count(),
@@ -158,7 +167,7 @@ try {
   );
   report.checks.push(
     "Title, author affiliations, both corresponding authors and four resource entries match",
-    "Teaser, six frame comparisons, three aggregated comparisons and 17-scene Gallery are restored",
+    `Teaser, six frame comparisons, ${aggregated.cases.length} aggregated comparisons and 17-scene Gallery are present`,
     "Quantitative tables and dataset tabs are absent",
   );
   assert.equal(

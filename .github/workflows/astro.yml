@@ -83,6 +83,17 @@ jobs:
           printf '%s  %s\n' "$PLAN4D_TEASER_ARCHIVE_SHA256" "$RUNNER_TEMP/plan4d-teaser.tar.gz" | sha256sum --check
           tar -xzf "$RUNNER_TEMP/plan4d-teaser.tar.gz" -C public
         working-directory: ${{ env.BUILD_PATH }}
+      - name: Restore additional aggregated comparisons
+        if: ${{ vars.PLAN4D_AGGREGATES_ARCHIVE_URL != '' }}
+        env:
+          PLAN4D_AGGREGATES_ARCHIVE_URL: ${{ vars.PLAN4D_AGGREGATES_ARCHIVE_URL }}
+          PLAN4D_AGGREGATES_ARCHIVE_SHA256: ${{ vars.PLAN4D_AGGREGATES_ARCHIVE_SHA256 }}
+        run: |
+          test -n "$PLAN4D_AGGREGATES_ARCHIVE_SHA256"
+          curl --fail --location --retry 3 "$PLAN4D_AGGREGATES_ARCHIVE_URL" --output "$RUNNER_TEMP/plan4d-aggregates.tar.gz"
+          printf '%s  %s\n' "$PLAN4D_AGGREGATES_ARCHIVE_SHA256" "$RUNNER_TEMP/plan4d-aggregates.tar.gz" | sha256sum --check
+          tar -xzf "$RUNNER_TEMP/plan4d-aggregates.tar.gz" -C public
+        working-directory: ${{ env.BUILD_PATH }}
       - name: Build with Astro
         env:
           ASTRO_TELEMETRY_DISABLED: "1"

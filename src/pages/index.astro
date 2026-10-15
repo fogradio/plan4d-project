@@ -4,6 +4,7 @@ import ResultsComparison from "../components/ResultsComparison.astro";
 import AggregatedComparison from "../components/AggregatedComparison.astro";
 import Gallery from "../components/Gallery.astro";
 import Teaser from "../components/Teaser.astro";
+import ConditionImageDialog from "../components/ConditionImageDialog.astro";
 import "../styles/plan4d.css";
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
@@ -232,6 +233,7 @@ const citation = `@inproceedings{zhang2026plan4d,
         </p>
       </section>
     </main>
+    <ConditionImageDialog />
     <footer class="site-footer content-shell">
       <a class="wordmark" href="#top">Plan<span>4D</span></a><p>
         Nanyang Technological University &amp; AMAP, Alibaba Group

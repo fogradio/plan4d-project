@@ -334,6 +334,7 @@ class ComparisonRow {
   frame = 0;
   requestedFrame = 0;
   playing = false;
+  pendingPlayback = false;
   visible = false;
   initialized = false;
   ready = false;
@@ -393,8 +394,9 @@ class ComparisonRow {
     window.clearTimeout(this.scrubTimer);
   }
 
-  select(frame: number) {
+  select(frame: number, resumePlayback = false, keepGeometry = false) {
     this.deactivate();
+    this.pendingPlayback = resumePlayback;
     if (!this.initialized) {
       this.initialize();
       return;
@@ -407,6 +409,12 @@ class ComparisonRow {
     >(".row-timeline input, .row-timeline button"))
       control.disabled = true;
     for (const view of this.activeViews) {
+      if (
+        keepGeometry &&
+        view.ready &&
+        view.cell.dataset.frame === String(frame)
+      )
+        continue;
       view.points.visible = false;
       view.cell.dataset.state = "loading";
       view.status.hidden = false;
@@ -418,7 +426,9 @@ class ComparisonRow {
         true;
     }
     dirty = true;
-    void this.showFrame(frame);
+    void this.showFrame(frame).then((displayed) => {
+      if (displayed && this.pendingPlayback) this.setPlaying(true);
+    });
   }
 
   scrub(frame: number) {
@@ -507,6 +517,7 @@ class ComparisonRow {
   }
 
   setPlaying(playing: boolean) {
+    this.pendingPlayback = false;
     if (!this.playButton || this.isAggregate) return;
     this.playing = playing && this.ready && !this.element.hidden;
     window.clearTimeout(this.timer);
@@ -715,7 +726,41 @@ function setupSelection(section: HTMLElement) {
   const baseline = section.querySelector<HTMLSelectElement>(
     "[data-baseline-select]",
   )!;
+  const baselineControl = baseline.closest<HTMLElement>(".baseline-control")!;
   let current = sectionRows[0];
+  function placeBaselineControl() {
+    for (const option of baseline.options) {
+      const available = Boolean(
+        current.element.querySelector(`[data-method="${option.value}"]`),
+      );
+      option.disabled = !available;
+      option.hidden = !available;
+    }
+    if (baseline.selectedOptions[0].disabled)
+      baseline.value = Array.from(baseline.options).find(
+        (option) => !option.disabled,
+      )!.value;
+    for (const name of section.querySelectorAll<HTMLElement>(
+      "[data-method-name]",
+    ))
+      name.hidden = false;
+    for (const row of sectionRows) {
+      const available = Boolean(
+        row.element.querySelector(`[data-method="${baseline.value}"]`),
+      );
+      for (const cell of row.element.querySelectorAll<HTMLElement>(
+        ".cloud-cell",
+      ))
+        cell.hidden =
+          cell.dataset.method !== "plan4d" &&
+          cell.dataset.method !== (available ? baseline.value : "gen3r");
+    }
+    const heading = current.element.querySelector<HTMLElement>(
+      `[data-method="${baseline.value}"] .pair-method-heading`,
+    )!;
+    heading.querySelector<HTMLElement>("[data-method-name]")!.hidden = true;
+    heading.prepend(baselineControl);
+  }
   for (const choice of choices) {
     choice.addEventListener("click", () => {
       const next = sectionRows.find(
@@ -730,6 +775,7 @@ function setupSelection(section: HTMLElement) {
       current.visible = false;
       current.element.hidden = true;
       current = next;
+      placeBaselineControl();
       current.element.hidden = false;
       const bounds = current.element.getBoundingClientRect();
       current.visible =
@@ -745,18 +791,29 @@ function setupSelection(section: HTMLElement) {
       dialog.close();
       closeExpanded();
     }
-    for (const row of sectionRows)
-      for (const cell of row.element.querySelectorAll<HTMLElement>(
-        ".cloud-cell",
-      ))
-        cell.hidden =
-          cell.dataset.method !== "plan4d" &&
-          cell.dataset.method !== baseline.value;
-    current.select(current.requestedFrame);
-    const ours = current.views.find(
-      (view) => view.cell.dataset.method === "plan4d",
-    )!;
-    cameraChanged(current, ours.camera, ours.controls);
+    const previous = current.activeViews.find(
+      (view) => view.cell.dataset.method !== "plan4d",
+    );
+    const next = current.views.find(
+      (view) => view.cell.dataset.method === baseline.value,
+    );
+    if (previous && next && previous !== next) {
+      syncingCamera = true;
+      copyCamera(
+        previous.camera,
+        previous.controls,
+        next.camera,
+        next.controls,
+      );
+      syncingCamera = false;
+    }
+    placeBaselineControl();
+    baseline.focus({ preventScroll: true });
+    current.select(
+      current.requestedFrame,
+      current.playing || current.pendingPlayback,
+      true,
+    );
   });
 }
 

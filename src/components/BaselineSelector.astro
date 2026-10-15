@@ -1,0 +1,18 @@
+---
+interface Props {
+  id: string;
+  methods: readonly { id: string; name: string }[];
+}
+const { id, methods } = Astro.props;
+---
+
+<label class="baseline-control" for={id}>
+  <span>Compare with</span>
+  <select id={id} data-baseline-select>
+    {
+      methods
+        .filter((method) => method.id !== "plan4d")
+        .map((method) => <option value={method.id}>{method.name}</option>)
+    }
+  </select>
+</label>

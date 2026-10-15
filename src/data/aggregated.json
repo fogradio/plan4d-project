@@ -33,6 +33,39 @@
         "vist3a": "vist3a-ZHwqSpZfPCI-0:05:13.280-0:05:19.640",
         "plan4d": "plan4d-ZHwqSpZfPCI-0:05:13.280-0:05:19.640"
       }
+    },
+    {
+      "id": "epic_kitchens100_P02_122_161",
+      "prompt": "pour eggs, tomatoes and pepper from plate into pan",
+      "image": "results/aggregated-extra/epic_kitchens100_P02_122_161.webp",
+      "methods": {
+        "gen3r": "gen3r-epic_kitchens100_P02_122_161",
+        "tesseract": "tesseract-epic_kitchens100_P02_122_161",
+        "vist3a": "vist3a-epic_kitchens100_P02_122_161",
+        "plan4d": "plan4d-epic_kitchens100_P02_122_161"
+      }
+    },
+    {
+      "id": "epic_kitchens100_P02_129_354",
+      "prompt": "brush garlic presser",
+      "image": "results/aggregated-extra/epic_kitchens100_P02_129_354.webp",
+      "methods": {
+        "gen3r": "gen3r-epic_kitchens100_P02_129_354",
+        "tesseract": "tesseract-epic_kitchens100_P02_129_354",
+        "vist3a": "vist3a-epic_kitchens100_P02_129_354",
+        "plan4d": "plan4d-epic_kitchens100_P02_129_354"
+      }
+    },
+    {
+      "id": "epic_kitchens100_P07_116_25-勉强尚可",
+      "prompt": "put rice onto plate",
+      "image": "results/aggregated-extra/epic_kitchens100_P07_116_25-勉强尚可.webp",
+      "methods": {
+        "gen3r": "gen3r-epic_kitchens100_P07_116_25-勉强尚可",
+        "tesseract": "tesseract-epic_kitchens100_P07_116_25-勉强尚可",
+        "vist3a": "vist3a-epic_kitchens100_P07_116_25-勉强尚可",
+        "plan4d": "plan4d-epic_kitchens100_P07_116_25-勉强尚可"
+      }
     }
   ],
   "sequences": {
@@ -276,6 +309,248 @@
       "cameraPoints": 23296,
       "sourceSha256": "a5b558977282bb3a7167a1e4ac0bb7da2b53834ad87fe1a91b26f1e39b4dcea2",
       "sha256": "b6130ed864dd3eea729c68c7500753ede2cf842fe2ce4af24deb47b84dd195b0"
+    },
+    "gen3r-epic_kitchens100_P02_122_161": {
+      "path": "results/aggregated-extra/gen3r-epic_kitchens100_P02_122_161/global_pcd_with_camera_trajectory.ply.gz",
+      "worldToCamera": [
+        1.0, -3.7401914596557617e-6, -0.0003757476806640625,
+        0.00012874603271484375, 3.7401914596557617e-6, 1.0,
+        -1.621246337890625e-5, -0.00013065338134765625, 0.0003757476806640625,
+        1.621246337890625e-5, 1.0, 0.00011110305786132812, 0.0, 0.0, 0.0, 1.0
+      ],
+      "center": [
+        -0.06271862326230454, -0.07146360212024247, -0.5947737788678209
+      ],
+      "radius": 0.981872212398155,
+      "sourceCase": "epic_kitchens100_P02_122_161",
+      "frameCount": 1,
+      "sourceFrameCount": 81,
+      "sourcePoints": 512178,
+      "previewPoints": 223296,
+      "cameraPoints": 23296,
+      "sourceSha256": "b6dcacd8fe3e8265a70cab2882786b02ca3bf9d6542e40758e7e75bc84f47305",
+      "sha256": "6e25acd41f085add51ab32cc571db6ec123d5d9ce2651ec4069185b2b2fbae1b"
+    },
+    "tesseract-epic_kitchens100_P02_122_161": {
+      "path": "results/aggregated-extra/tesseract-epic_kitchens100_P02_122_161/global_pcd_with_camera_trajectory.ply.gz",
+      "worldToCamera": [
+        1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0,
+        0.0, 1.0
+      ],
+      "center": [0.0200372272729874, 0.002198778986930938, -1.1909627062268555],
+      "radius": 1.810013128097262,
+      "sourceCase": "epic_kitchens100_P02_122_161",
+      "frameCount": 1,
+      "sourceFrameCount": 81,
+      "sourcePoints": 523296,
+      "previewPoints": 223296,
+      "cameraPoints": 23296,
+      "sourceSha256": "e315a6be7679d325f3b6d1b44f6214ccd1b9226963833dae8a6936ee2ee9622a",
+      "sha256": "30ecd592aa8c9bd15ef34989548d21892fe2f852fd3e9a5c392ade4fabf1a57d"
+    },
+    "vist3a-epic_kitchens100_P02_122_161": {
+      "path": "results/aggregated-extra/vist3a-epic_kitchens100_P02_122_161/global_pcd_with_camera_trajectory.ply.gz",
+      "worldToCamera": [
+        0.9999732375144958, 0.007229416165500879, -0.0011902557453140616,
+        -0.00237727677449584, -0.007219086401164532, 0.9999380111694336,
+        0.008467107079923153, -0.00879601389169693, 0.0012513941619545221,
+        -0.00845828652381897, 0.9999635219573975, -0.01034806203097105, 0.0,
+        0.0, 0.0, 1.0
+      ],
+      "center": [
+        -0.10773255468326233, -0.1024384846663586, -0.3533457708296667
+      ],
+      "radius": 0.616679040058138,
+      "sourceCase": "epic_kitchens100_P02_122_161",
+      "frameCount": 1,
+      "sourceFrameCount": 81,
+      "sourcePoints": 1023296,
+      "previewPoints": 223296,
+      "cameraPoints": 23296,
+      "sourceSha256": "b680b3258bec349d7ea2c570db896d992c13476ddec49653c5955c8ffcb3f907",
+      "sha256": "83f036c3bbb8e4e4f6503ee8697b39f9eaedc1824089899ac8ad5348e2085ccf"
+    },
+    "plan4d-epic_kitchens100_P02_122_161": {
+      "path": "results/aggregated-extra/plan4d-epic_kitchens100_P02_122_161/global_pcd_with_camera_trajectory.ply.gz",
+      "worldToCamera": [
+        0.9984977841377258, -0.04370070993900299, 0.03277553245425224,
+        0.0400390625, 0.04494930058717728, 0.9982539415359497,
+        -0.038082048296928406, 0.033935546875, -0.030902644619345665,
+        0.039642784744501114, 0.9987319111824036, 0.0830078125, 0.0, 0.0, 0.0,
+        1.0
+      ],
+      "center": [0.0396848960563741, 0.007371445359520612, -0.6486177726479002],
+      "radius": 1.1315641141661614,
+      "sourceCase": "epic_kitchens100_P02_122_161",
+      "frameCount": 1,
+      "sourceFrameCount": 81,
+      "sourcePoints": 1023296,
+      "previewPoints": 223296,
+      "cameraPoints": 23296,
+      "sourceSha256": "f6792adf72eafed237ce5f08802841827a5dbac32923b30c32c3d2770b1598c0",
+      "sha256": "123d3b6f3d192e3af86dc54a04007d658652ac408cff6d20504999e07743eb14"
+    },
+    "gen3r-epic_kitchens100_P02_129_354": {
+      "path": "results/aggregated-extra/gen3r-epic_kitchens100_P02_129_354/global_pcd_with_camera_trajectory.ply.gz",
+      "worldToCamera": [
+        1.0, -0.0004367828369140625, 6.616115570068359e-6,
+        1.1920928955078125e-6, 0.0004367828369140625, 1.0,
+        0.0003414154052734375, -0.0001468658447265625, -6.735324859619141e-6,
+        -0.0003414154052734375, 1.0, 7.724761962890625e-5, 0.0, 0.0, 0.0, 1.0
+      ],
+      "center": [
+        -0.10903218248088431, -0.1786600634563921, -0.5028394290654894
+      ],
+      "radius": 0.991571941099138,
+      "sourceCase": "epic_kitchens100_P02_129_354",
+      "frameCount": 1,
+      "sourceFrameCount": 81,
+      "sourcePoints": 443626,
+      "previewPoints": 223296,
+      "cameraPoints": 23296,
+      "sourceSha256": "a372ba1d27aa2243a6146aa0d54cb8a6c5e50a37b5bda325e4f7880e97b86eee",
+      "sha256": "dc3b4f296169d0b827e5e408883e8562c1d8a40c8f4fcd817f6bed9de9fe840c"
+    },
+    "tesseract-epic_kitchens100_P02_129_354": {
+      "path": "results/aggregated-extra/tesseract-epic_kitchens100_P02_129_354/global_pcd_with_camera_trajectory.ply.gz",
+      "worldToCamera": [
+        1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0,
+        0.0, 1.0
+      ],
+      "center": [
+        -0.005287480354309038, -0.015654066056013105, -1.1814980008639395
+      ],
+      "radius": 1.8225559273731367,
+      "sourceCase": "epic_kitchens100_P02_129_354",
+      "frameCount": 1,
+      "sourceFrameCount": 81,
+      "sourcePoints": 523296,
+      "previewPoints": 223296,
+      "cameraPoints": 23296,
+      "sourceSha256": "c8843e20944d9daa81558c746a4316bca92e72c06d4a3482773c33d1efc5f4d9",
+      "sha256": "4eac2a9957d29650deb85dd29e8b64ece234aec31b4bb688bc5356954650f64b"
+    },
+    "vist3a-epic_kitchens100_P02_129_354": {
+      "path": "results/aggregated-extra/vist3a-epic_kitchens100_P02_129_354/global_pcd_with_camera_trajectory.ply.gz",
+      "worldToCamera": [
+        0.9999563694000244, -0.0025990507565438747, 0.008972367271780968,
+        0.001953497529029846, 0.0024765620473772287, 0.9999039769172668,
+        0.013635965064167976, -0.009899391792714596, -0.009006946347653866,
+        -0.013613150455057621, 0.9998668432235718, -0.018744489178061485, 0.0,
+        0.0, 0.0, 1.0
+      ],
+      "center": [
+        0.23529706675572218, -0.3639749316449277, -0.33396460859833565
+      ],
+      "radius": 0.9588428697470932,
+      "sourceCase": "epic_kitchens100_P02_129_354",
+      "frameCount": 1,
+      "sourceFrameCount": 81,
+      "sourcePoints": 1023296,
+      "previewPoints": 223296,
+      "cameraPoints": 23296,
+      "sourceSha256": "68d58bc45c12adca454fc3641604fdc123988c728f2aea804647e4c8507bce82",
+      "sha256": "d0c100a730039863e721eff813b3f9a1588217c3ca043c42e148ba7b11e0571f"
+    },
+    "plan4d-epic_kitchens100_P02_129_354": {
+      "path": "results/aggregated-extra/plan4d-epic_kitchens100_P02_129_354/global_pcd_with_camera_trajectory.ply.gz",
+      "worldToCamera": [
+        0.9982317686080933, -0.043053172528743744, 0.04090051352977753,
+        0.043212890625, 0.04428326338529587, 0.9984816312789917,
+        -0.032751161605119705, 0.031982421875, -0.0396704226732254,
+        0.03459629788994789, 0.9986161589622498, 0.07470703125, 0.0, 0.0, 0.0,
+        1.0
+      ],
+      "center": [0.2226410193378029, -0.06852403453053607, -0.5960785913027625],
+      "radius": 1.1136460710039187,
+      "sourceCase": "epic_kitchens100_P02_129_354",
+      "frameCount": 1,
+      "sourceFrameCount": 81,
+      "sourcePoints": 1023296,
+      "previewPoints": 223296,
+      "cameraPoints": 23296,
+      "sourceSha256": "4f4aa78b589f007a77cae62f2e22f392f618f1566f82eb0d4cc59895f180d585",
+      "sha256": "6de36d77089b0fe6886aef046fd7c23665260f8698bac04823f0d680d3ca996e"
+    },
+    "gen3r-epic_kitchens100_P07_116_25-勉强尚可": {
+      "path": "results/aggregated-extra/gen3r-epic_kitchens100_P07_116_25-勉强尚可/global_pcd_with_camera_trajectory.ply.gz",
+      "worldToCamera": [
+        1.0, 0.00030517578125, 5.340576171875e-5, 0.0002613067626953125,
+        -0.00030517578125, 1.0, 0.00017833709716796875, -8.0108642578125e-5,
+        -5.340576171875e-5, -0.00017833709716796875, 1.0, -0.000408172607421875,
+        0.0, 0.0, 0.0, 1.0
+      ],
+      "center": [
+        -0.13387021597921744, 0.01769141975670696, -0.5741773655074063
+      ],
+      "radius": 1.0321366608234581,
+      "sourceCase": "epic_kitchens100_P07_116_25-勉强尚可",
+      "frameCount": 1,
+      "sourceFrameCount": 81,
+      "sourcePoints": 458122,
+      "previewPoints": 223296,
+      "cameraPoints": 23296,
+      "sourceSha256": "d90a537caf80920bd57b86b78e7d16f4f5d0aa71f402199d576887627dca52b5",
+      "sha256": "eefed78fb9bdd5cb7652b05c81bc65da006d4068e377cb1d5385a758325fe6f6"
+    },
+    "tesseract-epic_kitchens100_P07_116_25-勉强尚可": {
+      "path": "results/aggregated-extra/tesseract-epic_kitchens100_P07_116_25-勉强尚可/global_pcd_with_camera_trajectory.ply.gz",
+      "worldToCamera": [
+        1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0,
+        0.0, 1.0
+      ],
+      "center": [
+        -0.010631378293037397, -0.006140574812888988, -1.180637056240812
+      ],
+      "radius": 1.807981743105009,
+      "sourceCase": "epic_kitchens100_P07_116_25-勉强尚可",
+      "frameCount": 1,
+      "sourceFrameCount": 81,
+      "sourcePoints": 523296,
+      "previewPoints": 223296,
+      "cameraPoints": 23296,
+      "sourceSha256": "f1c4f8101054b8b01f2cda1df461988056d4f42e64d57070fae29cf3e91c0aa7",
+      "sha256": "09721fb8d18e6ca0997b3260731fffbf6f680b159e375e6a71e32707eeffc498"
+    },
+    "vist3a-epic_kitchens100_P07_116_25-勉强尚可": {
+      "path": "results/aggregated-extra/vist3a-epic_kitchens100_P07_116_25-勉强尚可/global_pcd_with_camera_trajectory.ply.gz",
+      "worldToCamera": [
+        0.9993290305137634, 0.02343454398214817, -0.02814563363790512,
+        -0.0023456590715795755, -0.022933533415198326, 0.999575138092041,
+        0.01799336075782776, -0.010145636275410652, 0.02855534292757511,
+        -0.017335807904601097, 0.999441921710968, -0.037701744586229324, 0.0,
+        0.0, 0.0, 1.0
+      ],
+      "center": [0.15986060373156039, -0.3128531613900257, -0.1257060057168893],
+      "radius": 0.9240756181175841,
+      "sourceCase": "epic_kitchens100_P07_116_25-勉强尚可",
+      "frameCount": 1,
+      "sourceFrameCount": 81,
+      "sourcePoints": 1023296,
+      "previewPoints": 223296,
+      "cameraPoints": 23296,
+      "sourceSha256": "1c02640363957143a6fee2d90d06fe8b58fa753aa05e3deb43ed7c0edf6ee754",
+      "sha256": "28d56826cf1c7a8a75cfa415e82d7cfe477c9347325f966ac1769d5bcdb5f8de"
+    },
+    "plan4d-epic_kitchens100_P07_116_25-勉强尚可": {
+      "path": "results/aggregated-extra/plan4d-epic_kitchens100_P07_116_25-勉强尚可/global_pcd_with_camera_trajectory.ply.gz",
+      "worldToCamera": [
+        0.9986928701400757, -0.04026683419942856, 0.03183889389038086,
+        0.041015625, 0.04151541739702225, 0.9982051849365234,
+        -0.04307615011930466, 0.031982421875, -0.029966015368700027,
+        0.044324733316898346, 0.9985660910606384, 0.07861328125, 0.0, 0.0, 0.0,
+        1.0
+      ],
+      "center": [0.07263666010410597, 0.06546605076078335, -0.6243153915557609],
+      "radius": 1.11780695178549,
+      "sourceCase": "epic_kitchens100_P07_116_25-勉强尚可",
+      "frameCount": 1,
+      "sourceFrameCount": 81,
+      "sourcePoints": 1023296,
+      "previewPoints": 223296,
+      "cameraPoints": 23296,
+      "sourceSha256": "04e09adfd1f27a4fa2f28b193370354cd0449bc059ebfd1fa7fda9fc1d4c94e1",
+      "sha256": "001ef64eb900ba11be573267cd080814a9270c54c613bf34e99f09b005391027"
     }
   }
 }

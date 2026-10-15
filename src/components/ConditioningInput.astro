@@ -1,0 +1,50 @@
+---
+import { Icon } from "astro-icon/components";
+import conditioningImages from "../data/conditioning-images.json";
+
+interface Props {
+  image: string;
+  prompt: string;
+  index: number;
+  label?: string;
+}
+const { image, prompt, index, label } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const fullImage = conditioningImages[image as keyof typeof conditioningImages];
+---
+
+<div class="comparison-input">
+  <div class="input-cell">
+    <button
+      type="button"
+      class="condition-image-button"
+      data-condition-image
+      data-prompt={prompt}
+      data-full-image={base + (fullImage?.path ?? image)}
+      aria-label={`Enlarge input image, scene ${index + 1}`}
+      aria-haspopup="dialog"
+      aria-controls="condition-dialog"
+      title="Enlarge input image"
+    >
+      <img
+        src={base + image}
+        alt={`Observed input for ${prompt}`}
+        loading="lazy"
+        width="512"
+        height="288"
+      />
+      <span class="condition-zoom-icon" aria-hidden="true">
+        <Icon name="ri:zoom-in-line" />
+      </span>
+    </button>
+    <span class="input-label">Input image</span>
+  </div>
+  <div class="prompt-cell">
+    <span class="case-label">
+      <span>{String(index + 1).padStart(2, "0")}</span>
+      {label}
+    </span>
+    <span class="input-label">Input text</span>
+    <p>{prompt}</p>
+  </div>
+</div>

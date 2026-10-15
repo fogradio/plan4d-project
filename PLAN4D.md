@@ -154,7 +154,7 @@ GitHub Pages 目标为 `https://fogradio.github.io/plan4d-project/`，仓库 Set
 
 - `src/pages/index.astro`：论文页面。
 - `src/components/ResultsComparison.astro`：六场景双方法逐帧对比及控制项。
-- `src/components/AggregatedComparison.astro`：三场景双方法聚合对比。
+- `src/components/AggregatedComparison.astro`：六场景双方法聚合对比。
 - `src/components/ComparisonSelector.astro`：两类对比共用的输入缩略图选择器。
 - `src/components/Gallery.astro`、`src/scripts/gallery.ts`：17 场景、单输出框及五模态交互。
 - `src/scripts/comparison.ts`：Three.js、PLY 解码、加载缓存和时间同步。
@@ -164,3 +164,30 @@ GitHub Pages 目标为 `https://fogradio.github.io/plan4d-project/`，仓库 Set
 - `scripts/prepare_aggregates.py`：生成并验证聚合点云资源。
 - `scripts/prepare_gallery.py`、`scripts/verify_gallery.mjs`：Gallery 来源与浏览器验证。
 - `scripts/validate_assets.py`、`scripts/verify_page.mjs`：数据与浏览器验证。
+
+## 导师反馈展示优化（2026-10-15）
+
+- 主要内容容器共用 `--content-width: 1360px` 和响应式边距；全部主要 h2 居中，面板标题、正文和控制项保留适合阅读的对齐。
+- 两个比较区共用 `ConditioningInput.astro` 和 `ConditionImageDialog.astro`。条件图按原比例展示，点击按需加载 832×480、960×540 或 1280×720 的无损原始条件图；按钮、Escape、背景均能关闭并恢复焦点，支持手机，不重新合成细节。
+- `BaselineSelector.astro` 位于左侧结果面板标题栏；单一选择器随场景和方法移动，不阻挡 OrbitControls。切方法保持当前请求帧、播放状态和左/右视角，Plan4D 不闪回首帧。
+- 原三个聚合案例完全保留，新增 `epic_kitchens100_P02_122_161`（倒食材）、`epic_kitchens100_P02_129_354`（清理压蒜器）、`epic_kitchens100_P07_116_25-勉强尚可`（盛米饭）。四方法各 81 帧，全局点云使用同样的 200,000 场景点采样和完整相机顶点；按当前场景/双方法懒加载。
+- 原始 Plan4D 来自 `/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs/<case>/point_cloud/merged.ply`；与 `plan4d_final_outputs-best/<case>` 的 metadata、条件图、merged 与相机文件逐一哈希一致后，使用其 `point_cloud/global_pcd_with_camera_trajectory.ply`。
+- 基线来自 `/mnt/workspace/hwzhang/code/VIST3A/plan4d_final_outputs-baselines/{gen3r,tesseract,vist3a}/<case>/point_cloud/global_pcd_with_camera_trajectory.ply`。Gen3R、TesserAct 输入路径和 prompt 直接匹配；VIST3A 使用原 AnySplat 来源、prompt、81 帧和首帧图像证据，meta 本身未记录输入路径。
+- 模型保留各自原生种子、预处理与几何尺度；不是 metric 空间对齐。HOIGen TesserAct 多为 49 帧 DA3 后处理，因此未作为本次新增的严格 81 帧配对。OmniWorld 无基线，另有 Dynamic Replica 缺 TesserAct，不补造。
+
+可复现导出与核验：
+
+```bash
+/mnt/workspace/hwzhang/miniconda3/envs/dav3/bin/python scripts/extend_aggregates.py
+/mnt/workspace/hwzhang/miniconda3/envs/dav3/bin/python scripts/extend_aggregates.py --validate
+/mnt/workspace/hwzhang/miniconda3/envs/dav3/bin/python scripts/prepare_condition_images.py
+PLAYWRIGHT_BROWSERS_PATH=/tmp/plan4d-browsers node scripts/verify_comparison_layout.mjs
+```
+
+源配对完整报告为 `artifacts/comparison-refinement/asset-audit.json`，新增媒体独立位于 `public/results/aggregated-extra/`，不会覆盖原媒体。导出仍使用已有 `prepare_aggregates.py` 的 XYZ/RGB、坐标和哈希校验。
+
+新增媒体不会进入 Git 历史。用户后续已明确授权上传发布，媒体作为公开 Release `plan4d-aggregates-20261015` 的附件上传，Actions 变量 `PLAN4D_AGGREGATES_ARCHIVE_URL`、`PLAN4D_AGGREGATES_ARCHIVE_SHA256` 已配置；工作流在已有媒体后校验并恢复增量包。未配置时构建器会明确报告缺少资源，不会部署空查看器。独立 group demo 视频和制作脚本不纳入此次发布。
+
+已准备增量包 `artifacts/comparison-refinement/plan4d-aggregates-extra-20261015.tar.gz`（约 38 MiB），SHA-256 为 `5ea58656bf6b42806f24b1e316585b88f75972763a9cddbc2d7e70b29d3ab803`，包括新增聚合点云、输入图及两区无损放大图。预览构建为 `artifacts/comparison-refinement-preview-20261015`，HTTP 端口 4329。
+
+正式发布构建为 `artifacts/comparison-refinement-release-20261015`，使用 `/plan4d-project/` 资源前缀；正式站点为 `https://fogradio.github.io/plan4d-project/`。媒体地址为 `https://github.com/fogradio/plan4d-project/releases/download/plan4d-aggregates-20261015/plan4d-aggregates-extra-20261015.tar.gz`。

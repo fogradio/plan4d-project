@@ -20,6 +20,9 @@ const report = { url, scenes: [], aggregated: [], checks: [], errors: [] };
 const sourceCases = JSON.parse(
   await readFile("src/data/results.json", "utf8"),
 ).cases;
+const aggregateManifest = JSON.parse(
+  await readFile("src/data/aggregated.json", "utf8"),
+);
 const cloudRequests = [];
 const page = await browser.newPage({
   viewport: { width: 1440, height: 1000 },
@@ -139,9 +142,15 @@ try {
   assert.equal(await page.title(), "Plan4D: Generative Plannable 4D Worlds");
   assert.equal(await page.locator(".comparison-row").count(), 6);
   assert.equal(await page.locator("#comparisons .cloud-cell").count(), 24);
-  assert.equal(await page.locator("#aggregated .cloud-cell").count(), 12);
+  assert.equal(
+    await page.locator("#aggregated .cloud-cell").count(),
+    Object.keys(aggregateManifest.sequences).length,
+  );
   assert.equal(await page.locator("#comparisons .scene-choice").count(), 6);
-  assert.equal(await page.locator("#aggregated .scene-choice").count(), 3);
+  assert.equal(
+    await page.locator("#aggregated .scene-choice").count(),
+    aggregateManifest.cases.length,
+  );
   assert.equal(await page.locator("#point-size").inputValue(), "1");
   assert.equal(await page.locator("#aggregate-point-size").inputValue(), "0.5");
   assert.equal(
@@ -156,7 +165,12 @@ try {
     .locator("img")
     .evaluateAll((elements) =>
       elements
-        .filter((element) => element.complete && !element.naturalWidth)
+        .filter(
+          (element) =>
+            element.hasAttribute("src") &&
+            element.complete &&
+            !element.naturalWidth,
+        )
         .map((element) => element.src),
     );
   assert.deepEqual(images, []);
@@ -331,7 +345,7 @@ try {
   report.checks.push("Expanded viewer renders, seeks, and closes with Escape");
 
   const aggregateRows = await page.locator(".aggregate-row").all();
-  assert.equal(aggregateRows.length, 3);
+  assert.equal(aggregateRows.length, aggregateManifest.cases.length);
   await page.route(
     "**/aggregated/tesseract-test_cab_e_3rd_00000_00081/*.ply.gz",
     (route) => route.abort("failed"),
@@ -435,7 +449,7 @@ try {
   assert(await page.locator(".dialog-slider").isVisible());
   await page.keyboard.press("Escape");
   report.checks.push(
-    "All 12 aggregated clouds render, TesserAct test_cab retries, linked/unlinked orbit works, aggregate modal hides only playback controls, frame modal still works",
+    `All ${Object.keys(aggregateManifest.sequences).length} aggregated clouds render, TesserAct test_cab retries, linked/unlinked orbit works, aggregate modal hides only playback controls, frame modal still works`,
   );
 
   assert.equal(
