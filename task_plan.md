@@ -3,8 +3,8 @@
 ## 提交、推送与发布（2026-10-15）
 - [x] 核对 Git 改动、远端 main、GitHub 登录、Pages 配置与已有媒体 Release。
 - [x] 准备 teaser 增量媒体 Release 和工作流，验证正式子路径构建。
-- [ ] 提交并推送 main，跟踪 GitHub Actions 部署。
-- [ ] 检查公开页面、视频与原定性结果资源。
+- [x] 提交并推送 main，跟踪 GitHub Actions 部署。
+- [x] 检查公开页面、视频与原定性结果资源。
 - 用户已明确授权本次提交、推送与发布。16.2 秒 group publication 视频仅保留在本地 artifacts，不上传公开 Release 或页面。
 - 起始远端 main 为 c26ec9a，当前 Pages 最近部署成功，GitHub 账号 fogradio 权限有效；原媒体包变量继续指向 plan4d-media-20261014。
 

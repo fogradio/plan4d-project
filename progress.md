@@ -6,6 +6,12 @@
 - 工作流新增下载 teaser、SHA-256 校验和解压步骤；原定性媒体 Release 与变量保留。组内 16.2 秒独立短片不在媒体包、Git 或公开站点内。
 - /plan4d-project/ 正式构建、五视口 teaser 播放验证、九视口论文页面回归、格式检查和 git diff --check 通过，浏览器错误为零。
 - 构建保留原模板未使用字段提示与 Three.js 大包提示；实际页面和媒体均可用。
+- 发布提交 52ce6f8 已推送 main，Actions 38671318990 的 Build 与 Deploy 均成功，线上地址 https://fogradio.github.io/plan4d-project/。
+- GitHub 构建日志确认 teaser 压缩包 SHA-256 校验 OK，远端 Release digest 与本地一致。一次本机 Release 全包下载因速度慢超时，没有将空流哈希作为验证通过依据。
+- 线上 smoke 确认 54 秒 VP9 实际解码、播放进度推进、画面非空，1440/390px 无溢出，6 个逐帧对比、3 个聚合对比、17 场景 Gallery 均存在，浏览器错误为零。
+- 公开 MP4/WebM/1080p 的首 256 KiB 分段内容与本地逐字节一致；抽查输入图像、首尾 PLY、聚合 PLY 与场景流完整文件 SHA-256 均一致，1080p 下载返回 200 且大小匹配。
+- 两个完整线上浏览器回归因当前服务器到 GitHub Pages 下载速度慢而超时；正式子路径完整回归已在发布前通过，线上改用实际播放和针对性资源检查。报告位于 artifacts/teaser-published-smoke-20261015 与 artifacts/teaser-published-assets-20261015.json。
+- gh 日志命令默认缓存目录只读，指定工作区 XDG_CACHE_HOME 后成功读取。独立 group publication 视频未上传公开 Release 或加入页面，原本地预览和下载服务保留。
 
 ## 2026-10-14 NeurIPS 2026 BibTeX
 - 按用户要求将页面引用从 `@misc` 改为 `@inproceedings`，会议为 Advances in Neural Information Processing Systems (NeurIPS)，年份 2026；保留论文标题和作者顺序，用花括号保护 Plan4D、4D 大小写。
