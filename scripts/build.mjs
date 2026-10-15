@@ -5,6 +5,7 @@ import { spawnSync } from "node:child_process";
 const manifest = JSON.parse(readFileSync("src/data/results.json", "utf8"));
 const aggregated = JSON.parse(readFileSync("src/data/aggregated.json", "utf8"));
 const gallery = JSON.parse(readFileSync("src/data/gallery.json", "utf8"));
+const teaser = JSON.parse(readFileSync("src/data/teaser.json", "utf8"));
 const conditioningImages = JSON.parse(
   readFileSync("src/data/conditioning-images.json", "utf8"),
 );
@@ -12,10 +13,9 @@ const files = [
   "plan4d.svg",
   "figures/teaser.webp",
   "figures/method-chuanxia-20261014.webp",
-  "results/teaser/plan4d-teaser.mp4",
-  "results/teaser/plan4d-teaser.webm",
-  "results/teaser/plan4d-teaser-1080p.mp4",
-  "results/teaser/plan4d-teaser-poster.webp",
+  ...[".mp4", ".webm", "-1080p.mp4", "-poster.webp"].map(
+    (suffix) => teaser.directory + teaser.basename + suffix,
+  ),
 ];
 for (const scene of [...manifest.cases, ...aggregated.cases])
   files.push(scene.image);

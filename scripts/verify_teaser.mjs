@@ -1,10 +1,13 @@
 import assert from "node:assert/strict";
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { chromium } from "playwright";
 
 const url = process.env.PLAN4D_TEST_URL || "http://127.0.0.1:4323/";
 const output =
   process.env.PLAN4D_TEST_OUTPUT || "artifacts/teaser-20261015/browser";
+const teaser = JSON.parse(
+  await readFile(new URL("../src/data/teaser.json", import.meta.url), "utf8"),
+);
 await mkdir(output, { recursive: true });
 const browser = await chromium.launch({
   headless: true,
@@ -21,7 +24,7 @@ async function ready(page) {
   await page.waitForFunction(
     () => {
       const video = document.querySelector("#teaser-video");
-      return video.readyState >= 2 && video.duration > 50;
+      return video.readyState >= 2 && video.duration > 0;
     },
     null,
     { timeout: 60000 },
@@ -81,15 +84,17 @@ try {
     controls: element.controls,
     source: element.currentSrc,
   }));
-  assert.equal(metadata.duration, 54);
-  assert.equal(metadata.width, 1280);
-  assert.equal(metadata.height, 720);
+  assert.equal(metadata.duration, teaser.duration);
+  assert.equal(metadata.width, teaser.width);
+  assert.equal(metadata.height, teaser.height);
   assert(metadata.muted && metadata.loop && metadata.controls);
   report.metadata = metadata;
   for (const [start, end] of [
-    [1.2, 4.2],
-    [22.5, 25.2],
-    [33.4, 36.2],
+    [1.3, 3.0],
+    [7.4, 10.4],
+    [19.4, 22.4],
+    [31.4, 34.4],
+    [43.4, 46.4],
   ]) {
     const first = await pixels(page, start);
     const second = await pixels(page, end);
@@ -97,8 +102,12 @@ try {
     assert.notEqual(first.checksum, second.checksum);
   }
   report.checks.push(
-    "Decoded RGB, animated PLY and aggregate shots contain changing colored pixels",
+    "Generated RGB and four future point-cloud tracking shots contain changing colored pixels",
   );
+  for (const time of [0.6, 2.1, 4.5, 6.5, 9.0, 21.0, 33.0, 45.0]) {
+    await pixels(page, time);
+    await video.screenshot({ path: `${output}/stage-${time}.png` });
+  }
   await video.evaluate((element) => element.play());
   await page.locator("#citation").scrollIntoViewIfNeeded();
   await page.waitForFunction(

@@ -83,6 +83,15 @@ jobs:
           printf '%s  %s\n' "$PLAN4D_TEASER_ARCHIVE_SHA256" "$RUNNER_TEMP/plan4d-teaser.tar.gz" | sha256sum --check
           tar -xzf "$RUNNER_TEMP/plan4d-teaser.tar.gz" -C public
         working-directory: ${{ env.BUILD_PATH }}
+      - name: Restore Plan4D future teaser
+        env:
+          PLAN4D_FUTURE_TEASER_ARCHIVE_URL: https://github.com/fogradio/plan4d-project/releases/download/plan4d-future-teaser-20261015/plan4d-future-teaser-20261015-release.tar.gz
+          PLAN4D_FUTURE_TEASER_ARCHIVE_SHA256: 646c6f704ced9ceeb076266eb46f4e92b929bda7c7e9caf9f89ad4931a70dc7a
+        run: |
+          curl --fail --location --retry 3 "$PLAN4D_FUTURE_TEASER_ARCHIVE_URL" --output "$RUNNER_TEMP/plan4d-future-teaser.tar.gz"
+          printf '%s  %s\n' "$PLAN4D_FUTURE_TEASER_ARCHIVE_SHA256" "$RUNNER_TEMP/plan4d-future-teaser.tar.gz" | sha256sum --check
+          tar -xzf "$RUNNER_TEMP/plan4d-future-teaser.tar.gz" -C public
+        working-directory: ${{ env.BUILD_PATH }}
       - name: Restore additional aggregated comparisons
         if: ${{ vars.PLAN4D_AGGREGATES_ARCHIVE_URL != '' }}
         env:

@@ -5,6 +5,7 @@ import AggregatedComparison from "../components/AggregatedComparison.astro";
 import Gallery from "../components/Gallery.astro";
 import Teaser from "../components/Teaser.astro";
 import ConditionImageDialog from "../components/ConditionImageDialog.astro";
+import teaser from "../data/teaser.json";
 import "../styles/plan4d.css";
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
@@ -40,7 +41,7 @@ const citation = `@inproceedings{zhang2026plan4d,
     <meta property="og:type" content="website" />
     <meta
       property="og:image"
-      content={base + "results/teaser/plan4d-teaser-poster.webp"}
+      content={base + teaser.directory + teaser.basename + "-poster.webp"}
     />
     <link rel="icon" href={base + "plan4d.svg"} type="image/svg+xml" />
     <title>{title}</title>

@@ -1,8 +1,9 @@
 ---
 import { Icon } from "astro-icon/components";
+import teaser from "../data/teaser.json";
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
-const media = base + "results/teaser/";
+const media = base + teaser.directory + teaser.basename;
 ---
 
 <figure class="teaser content-shell" id="teaser">
@@ -10,27 +11,28 @@ const media = base + "results/teaser/";
     id="teaser-video"
     width="1280"
     height="720"
-    poster={media + "plan4d-teaser-poster.webp"}
+    poster={media + "-poster.webp"}
     muted
     loop
     playsinline
     controls
     preload="metadata"
-    aria-label="Plan4D teaser: observed images and planned actions become generated video, depth, dynamic point clouds and scene flow."
+    aria-label="Plan4D: one image and a text action generate a future video, depth, dynamic 4D geometry and tracked motion."
     aria-describedby="teaser-caption"
   >
-    <source src={media + "plan4d-teaser.mp4"} type="video/mp4" />
-    <source src={media + "plan4d-teaser.webm"} type="video/webm" />
-    <a href={media + "plan4d-teaser.mp4"}>Download the Plan4D teaser</a>
+    <source src={media + ".mp4"} type="video/mp4" />
+    <source src={media + ".webm"} type="video/webm" />
+    <a href={media + ".mp4"}>Download the Plan4D teaser</a>
   </video>
   <figcaption id="teaser-caption">
     <span
-      ><strong>From planned actions to dynamic 4D worlds.</strong> An observed scene
-      and a text-specified action become synchronized video, geometry, and motion.</span
+      ><strong>One image + text. A generated 4D future.</strong> Future RGB, depth,
+      and dynamic geometry from a single observed frame and an action. Tracks are
+      visualized from the generated RGB and predicted geometry.</span
     >
     <a
       class="teaser-download"
-      href={media + "plan4d-teaser-1080p.mp4"}
+      href={media + "-1080p.mp4"}
       download
       title="Download the 1080p teaser"
       ><Icon name="ri:download-2-line" /> 1080p</a

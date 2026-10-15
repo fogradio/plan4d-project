@@ -2,7 +2,7 @@
 
 ## 开场视频（2026-10-15）
 
-首屏 teaser 更新为 54 秒真实结果视频，提供 1080p MP4 下载与 720p MP4/WebM 网页播放，英文短字幕、无配音。素材来源、分镜、复现和验证方式见 [TEASER.md](TEASER.md)。旧静态 teaser 与所有定性结果保留。
+首屏 teaser 按导师意见更新为 48 秒版本：顶部持续显示单帧图像与文本输入，未来 RGB 依次显现为深度、三维和跟踪轨迹。提供 1080p MP4 下载与 720p MP4/WebM 网页播放，英文短标签、无配音。详见 [FUTURE_TEASER.md](FUTURE_TEASER.md)。旧 54 秒视频的制作记录见 [TEASER.md](TEASER.md)，所有旧媒体保留；发布工作流从独立的 `plan4d-future-teaser-20261015` Release 校验并恢复新媒体。
 
 ## 内容与范围
 
