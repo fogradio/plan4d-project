@@ -57,7 +57,7 @@ try {
     if (response.status() >= 400)
       report.errors.push(`${response.status()} ${response.url()}`);
   });
-  await page.goto(url, { waitUntil: "networkidle", timeout: 60000 });
+  await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
   assert.equal(await page.title(), "Plan4D: Generative Plannable 4D Worlds");
   assert.equal(
     normalize(await page.locator("h1").innerText()),
@@ -85,6 +85,22 @@ try {
   assert.equal(await page.locator("#comparisons .cloud-cell").count(), 24);
   assert.equal(await page.locator("#aggregated .aggregate-row").count(), 3);
   assert.equal(await page.locator("#aggregated .cloud-cell").count(), 12);
+  for (const section of ["#comparisons", "#aggregated"]) {
+    assert.equal(
+      await page.locator(`${section} article:not([hidden])`).count(),
+      1,
+    );
+    assert.equal(
+      await page
+        .locator(`${section} article:not([hidden]) .cloud-cell:not([hidden])`)
+        .count(),
+      2,
+    );
+    assert.equal(
+      await page.locator(`${section} [data-baseline-select] option`).count(),
+      3,
+    );
+  }
   assert.equal(await page.locator("#gallery-case option").count(), 17);
   assert.equal(await page.locator(".gallery-mode").count(), 5);
   assert.deepEqual(

@@ -26,12 +26,17 @@ const dialogSurface = dialog.querySelector<HTMLElement>(".dialog-surface")!;
 const dialogSlider = dialog.querySelector<HTMLInputElement>(".dialog-slider")!;
 const dialogPlay = dialog.querySelector<HTMLButtonElement>(".dialog-play")!;
 const material = new THREE.PointsMaterial({
-  size: 0.03,
+  size:
+    Number(document.querySelector<HTMLInputElement>("#point-size")!.value) *
+    0.012,
   vertexColors: true,
   sizeAttenuation: true,
 });
 const aggregateMaterial = new THREE.PointsMaterial({
-  size: 0.009,
+  size:
+    Number(
+      document.querySelector<HTMLInputElement>("#aggregate-point-size")!.value,
+    ) * 0.009,
   vertexColors: true,
   sizeAttenuation: true,
 });
@@ -299,6 +304,7 @@ class CloudView {
   setGeometry(geometry: THREE.BufferGeometry, frame: number) {
     if (!this.ready) this.points.geometry.dispose();
     this.points.geometry = geometry;
+    this.points.visible = true;
     this.ready = true;
     this.status.hidden = true;
     this.cell.querySelector<HTMLElement>(".retry-button")!.hidden = true;
@@ -377,6 +383,44 @@ class ComparisonRow {
     void this.showFrame(0);
   }
 
+  get activeViews() {
+    return this.views.filter((view) => !view.cell.hidden);
+  }
+
+  deactivate() {
+    this.setPlaying(false);
+    this.revision++;
+    window.clearTimeout(this.scrubTimer);
+  }
+
+  select(frame: number) {
+    this.deactivate();
+    if (!this.initialized) {
+      this.initialize();
+      return;
+    }
+    this.ready = false;
+    this.element.dataset.state = "loading";
+    this.state.textContent = "Loading";
+    for (const control of this.element.querySelectorAll<
+      HTMLInputElement | HTMLButtonElement
+    >(".row-timeline input, .row-timeline button"))
+      control.disabled = true;
+    for (const view of this.activeViews) {
+      view.points.visible = false;
+      view.cell.dataset.state = "loading";
+      view.status.hidden = false;
+      view.status.dataset.error = "false";
+      view.status.textContent = this.isAggregate
+        ? "Loading point cloud"
+        : "Loading 4D scene";
+      view.cell.querySelector<HTMLButtonElement>(".expand-view")!.disabled =
+        true;
+    }
+    dirty = true;
+    void this.showFrame(frame);
+  }
+
   scrub(frame: number) {
     this.setPlaying(false);
     this.revision++;
@@ -388,15 +432,19 @@ class ComparisonRow {
   }
 
   async showFrame(frame: number) {
+    if (this.element.hidden) return false;
     const revision = ++this.revision;
+    const views = this.activeViews;
     this.requestedFrame = frame;
     this.state.dataset.error = "false";
-    for (const view of this.views) {
+    for (const view of views) {
       view.cell.querySelector<HTMLElement>(".retry-button")!.hidden = true;
       if (!view.ready) {
         view.status.hidden = false;
         view.status.dataset.error = "false";
-        view.status.textContent = "Loading 4D scene";
+        view.status.textContent = this.isAggregate
+          ? "Loading point cloud"
+          : "Loading 4D scene";
       }
     }
     const loadingTimer = window.setTimeout(() => {
@@ -405,7 +453,7 @@ class ComparisonRow {
     }, 120);
     try {
       const geometries = await Promise.all(
-        this.views.map(async (view) => {
+        views.map(async (view) => {
           try {
             return await geometryFor(view.sequenceId, frame);
           } catch (error) {
@@ -415,7 +463,7 @@ class ComparisonRow {
         }),
       );
       if (revision !== this.revision) return false;
-      for (const [index, view] of this.views.entries())
+      for (const [index, view] of views.entries())
         view.setGeometry(geometries[index], frame);
       this.frame = frame;
       this.ready = true;
@@ -460,7 +508,7 @@ class ComparisonRow {
 
   setPlaying(playing: boolean) {
     if (!this.playButton || this.isAggregate) return;
-    this.playing = playing && this.ready;
+    this.playing = playing && this.ready && !this.element.hidden;
     window.clearTimeout(this.timer);
     this.playButton.setAttribute("aria-pressed", String(this.playing));
     this.playButton.setAttribute(
@@ -630,9 +678,9 @@ function render() {
     .getBoundingClientRect().bottom;
   renderer.setScissorTest(true);
   for (const row of rows) {
-    if (!row.visible) continue;
+    if (!row.visible || row.element.hidden) continue;
     const container = row.scrollRegion.getBoundingClientRect();
-    for (const view of row.views) {
+    for (const view of row.activeViews) {
       if (!view.ready) continue;
       const bounds = view.surface.getBoundingClientRect();
       const left = Math.max(bounds.left, container.left, 0);
@@ -659,6 +707,59 @@ function markDirty() {
   dirty = true;
 }
 
+function setupSelection(section: HTMLElement) {
+  const sectionRows = rows.filter((row) => section.contains(row.element));
+  const choices = Array.from(
+    section.querySelectorAll<HTMLButtonElement>("[data-select-case]"),
+  );
+  const baseline = section.querySelector<HTMLSelectElement>(
+    "[data-baseline-select]",
+  )!;
+  let current = sectionRows[0];
+  for (const choice of choices) {
+    choice.addEventListener("click", () => {
+      const next = sectionRows.find(
+        (row) => row.element.dataset.case === choice.dataset.selectCase,
+      )!;
+      if (current === next) return;
+      if (expanded?.row === current) {
+        dialog.close();
+        closeExpanded();
+      }
+      current.deactivate();
+      current.visible = false;
+      current.element.hidden = true;
+      current = next;
+      current.element.hidden = false;
+      const bounds = current.element.getBoundingClientRect();
+      current.visible =
+        bounds.bottom >= -120 && bounds.top <= innerHeight + 120;
+      for (const button of choices)
+        button.setAttribute("aria-pressed", String(button === choice));
+      current.select(0);
+      dirty = true;
+    });
+  }
+  baseline.addEventListener("change", () => {
+    if (expanded?.row === current) {
+      dialog.close();
+      closeExpanded();
+    }
+    for (const row of sectionRows)
+      for (const cell of row.element.querySelectorAll<HTMLElement>(
+        ".cloud-cell",
+      ))
+        cell.hidden =
+          cell.dataset.method !== "plan4d" &&
+          cell.dataset.method !== baseline.value;
+    current.select(current.requestedFrame);
+    const ours = current.views.find(
+      (view) => view.cell.dataset.method === "plan4d",
+    )!;
+    cameraChanged(current, ours.camera, ours.controls);
+  });
+}
+
 try {
   renderer = new THREE.WebGLRenderer({
     antialias: true,
@@ -673,13 +774,17 @@ try {
     ".comparison-row, .aggregate-row",
   ))
     rows.push(new ComparisonRow(element));
+  for (const section of document.querySelectorAll<HTMLElement>(
+    "[data-pairwise-comparison]",
+  ))
+    setupSelection(section);
   const observer = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
         const row = rows.find(
           (candidate) => candidate.element === entry.target,
         )!;
-        row.visible = entry.isIntersecting;
+        row.visible = entry.isIntersecting && !row.element.hidden;
         if (row.visible) row.initialize();
         else if (expanded?.row !== row) row.setPlaying(false);
       }

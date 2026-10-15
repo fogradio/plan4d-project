@@ -1,6 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import results from "../data/results.json";
+import ComparisonSelector from "./ComparisonSelector.astro";
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 const methods = [
@@ -11,11 +12,15 @@ const methods = [
 ] as const;
 ---
 
-<section id="comparisons" class="section comparison-section">
+<section
+  id="comparisons"
+  class="section comparison-section"
+  data-pairwise-comparison
+>
   <div class="section-heading wide-shell">
     <div>
       <p class="eyebrow">Action-conditioned world generation</p>
-      <h2>One observation. Four possible futures.</h2>
+      <h2>Action-conditioned 4D generation</h2>
       <p class="section-description">
         Everyday interactions, generated from an observed image and a
         text-specified action.
@@ -26,7 +31,18 @@ const methods = [
     >
   </div>
 
+  <ComparisonSelector id="comparisons" scenes={results.cases} />
   <div class="comparison-options wide-shell">
+    <label class="baseline-control" for="comparison-baseline">
+      Compare with
+      <select id="comparison-baseline" data-baseline-select>
+        {
+          methods
+            .filter((method) => method.id !== "plan4d")
+            .map((method) => <option value={method.id}>{method.name}</option>)
+        }
+      </select>
+    </label>
     <label class="check-control"
       ><input id="sync-views" type="checkbox" checked /> Linked views</label
     >
@@ -34,10 +50,10 @@ const methods = [
       ><Icon name="ri:focus-3-line" /> Point size <input
         id="point-size"
         type="range"
-        min="1"
+        min="0.5"
         max="5"
         step="0.25"
-        value="2.5"
+        value="1"
       /></label
     >
     <div class="comparison-legend">
@@ -47,47 +63,27 @@ const methods = [
 
   <div
     class="comparison-scroll wide-shell"
-    tabindex="0"
     role="region"
-    aria-label="Method comparison, six columns"
+    aria-label="Selected scene, baseline and Plan4D comparison"
     data-comparison-scroll
   >
     <div class="comparison-table">
-      <div class="comparison-header comparison-grid">
-        <div>Input text</div>
-        <div>Input image</div>
-        {
-          methods.map((method) => (
-            <div
-              class:list={[
-                "method-heading",
-                { "ours-heading": method.id === "plan4d" },
-              ]}
-            >
-              <Fragment>
-                <span>
-                  {method.name}
-                  {method.id === "plan4d" && <small>Ours</small>}
-                </span>
-                <span class="column-kicker">Interactive 4D output</span>
-              </Fragment>
-            </div>
-          ))
-        }
-      </div>
       {
         results.cases.map((scene, index) => (
           <article
             class="comparison-row"
+            id={`comparisons-scene-${index}`}
+            hidden={index !== 0}
             data-case={scene.id}
             data-fps={scene.fps}
             aria-label={`${scene.id}: ${scene.prompt}`}
           >
-            <div class="comparison-grid">
+            <div class="comparison-input">
               <div class="prompt-cell">
                 <span class="case-label">
                   <span>{String(index + 1).padStart(2, "0")}</span> {scene.id}
                 </span>
+                <span class="input-label">Input text</span>
                 <p>{scene.prompt}</p>
               </div>
               <div class="input-cell">
@@ -98,7 +94,10 @@ const methods = [
                   width="512"
                   height="288"
                 />
+                <span class="input-label">Input image</span>
               </div>
+            </div>
+            <div class="comparison-pair">
               {methods.map((method) => (
                 <div
                   class:list={[
@@ -107,7 +106,20 @@ const methods = [
                   ]}
                   data-method={method.id}
                   data-sequence={scene.methods[method.id]}
+                  hidden={method.id !== "gen3r" && method.id !== "plan4d"}
                 >
+                  <div
+                    class:list={[
+                      "pair-method-heading",
+                      { "ours-heading": method.id === "plan4d" },
+                    ]}
+                  >
+                    <span>
+                      {method.name}
+                      {method.id === "plan4d" && <small>Ours</small>}
+                    </span>
+                    <span class="pair-output-label">Interactive 4D output</span>
+                  </div>
                   <div
                     class="viewer-surface"
                     tabindex="0"

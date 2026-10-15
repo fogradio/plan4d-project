@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { chromium } from "playwright";
 import sharp from "sharp";
@@ -17,11 +17,18 @@ const browser = await chromium.launch({
   ],
 });
 const report = { url, scenes: [], aggregated: [], checks: [], errors: [] };
+const sourceCases = JSON.parse(
+  await readFile("src/data/results.json", "utf8"),
+).cases;
+const cloudRequests = [];
 const page = await browser.newPage({
   viewport: { width: 1440, height: 1000 },
   deviceScaleFactor: 1,
 });
 page.on("pageerror", (error) => report.errors.push(error.message));
+page.on("request", (request) => {
+  if (request.url().endsWith(".ply.gz")) cloudRequests.push(request.url());
+});
 page.on("response", (response) => {
   if (response.status() >= 400)
     report.errors.push(`${response.status()} ${response.url()}`);
@@ -32,8 +39,10 @@ async function waitFrame(row, frame) {
     ({ caseId, frame }) => {
       const element = document.querySelector(`[data-case="${caseId}"]`);
       return (
+        !element.hidden &&
+        element.dataset.state === "ready" &&
         element.dataset.frame === String(frame) &&
-        [...element.querySelectorAll(".cloud-cell")].every(
+        [...element.querySelectorAll(".cloud-cell:not([hidden])")].every(
           (cell) =>
             cell.dataset.frame === String(frame) &&
             cell.dataset.state === "ready",
@@ -44,6 +53,49 @@ async function waitFrame(row, frame) {
     { timeout: 45000 },
   );
   await page.waitForTimeout(80);
+}
+
+async function selectScene(section, row) {
+  const caseId = await row.getAttribute("data-case");
+  await page.locator(`${section} [data-select-case="${caseId}"]`).click();
+  await row.evaluate((element) =>
+    element.scrollIntoView({ block: "center", behavior: "instant" }),
+  );
+  await waitFrame(row, 0);
+  assert.equal(
+    await page.locator(`${section} article:not([hidden])`).count(),
+    1,
+  );
+  assert.equal(await row.locator(".cloud-cell:not([hidden])").count(), 2);
+  assert.equal(
+    await page
+      .locator(`${section} [data-select-case="${caseId}"]`)
+      .getAttribute("aria-pressed"),
+    "true",
+  );
+  const thumbnail = page.locator(
+    `${section} [data-select-case="${caseId}"] img`,
+  );
+  assert.equal(
+    await row.locator(".input-cell img").getAttribute("src"),
+    await thumbnail.getAttribute("src"),
+  );
+  if (section === "#comparisons")
+    assert.equal(
+      await row.locator(".prompt-cell > p").innerText(),
+      sourceCases.find((scene) => scene.id === caseId).prompt,
+    );
+}
+
+async function selectBaseline(section, row, method, frame = 0) {
+  await page.locator(`${section} [data-baseline-select]`).selectOption(method);
+  await waitFrame(row, frame);
+  assert.deepEqual(
+    await row
+      .locator(".cloud-cell:not([hidden])")
+      .evaluateAll((cells) => cells.map((cell) => cell.dataset.method)),
+    [method, "plan4d"],
+  );
 }
 
 async function setFrame(row, frame) {
@@ -83,11 +135,15 @@ async function assertPixels(surface, label) {
 }
 
 try {
-  await page.goto(url, { waitUntil: "networkidle", timeout: 60000 });
+  await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
   assert.equal(await page.title(), "Plan4D: Generative Plannable 4D Worlds");
   assert.equal(await page.locator(".comparison-row").count(), 6);
   assert.equal(await page.locator("#comparisons .cloud-cell").count(), 24);
   assert.equal(await page.locator("#aggregated .cloud-cell").count(), 12);
+  assert.equal(await page.locator("#comparisons .scene-choice").count(), 6);
+  assert.equal(await page.locator("#aggregated .scene-choice").count(), 3);
+  assert.equal(await page.locator("#point-size").inputValue(), "1");
+  assert.equal(await page.locator("#aggregate-point-size").inputValue(), "0.5");
   assert.equal(
     await page
       .locator("#outputs, #output-scene, #rgb-video, #depth-video")
@@ -108,10 +164,21 @@ try {
 
   const allRows = await page.locator(".comparison-row").all();
   for (const row of allRows) {
-    await row.evaluate((element) =>
-      element.scrollIntoView({ block: "center", behavior: "instant" }),
-    );
-    await waitFrame(row, 0);
+    await selectScene("#comparisons", row);
+    if (row === allRows[0]) {
+      const initialRequests = cloudRequests.filter((request) =>
+        /\/(gen3r|tesseract|vist3a|plan4d)-P\d/.test(request),
+      );
+      assert.equal(initialRequests.length, 2);
+      assert(
+        initialRequests.every((request) =>
+          /\/(gen3r|plan4d)-P02_122_161\/0000.ply.gz$/.test(request),
+        ),
+      );
+      report.checks.push(
+        "Initial comparison fetches only the selected scene's two methods; input image and prompt match every scene",
+      );
+    }
     const caseId = await row.getAttribute("data-case");
     const methods = await row
       .locator(".cloud-cell")
@@ -122,13 +189,22 @@ try {
       /-wan21-anysplat$/,
     );
     const pixels = [];
-    for (const cell of await row.locator(".cloud-cell").all())
+    for (const method of ["gen3r", "tesseract", "vist3a"]) {
+      await selectBaseline("#comparisons", row, method);
+      const cell = row.locator(`[data-method="${method}"]`);
       pixels.push(
         await assertPixels(
           cell.locator(".viewer-surface"),
           `${caseId}/${await cell.getAttribute("data-method")}`,
         ),
       );
+    }
+    pixels.push(
+      await assertPixels(
+        row.locator(".ours-cell .viewer-surface"),
+        `${caseId}/plan4d`,
+      ),
+    );
     assert.notEqual(
       pixels[2].hash,
       pixels[3].hash,
@@ -157,10 +233,12 @@ try {
     await setFrame(row, 0);
   }
   report.checks.push(
-    "Six scenes, correct column order, all 24 canvases nonblank, original VIST3A differs from Plan4D, all first/last frames differ",
+    "Six selectable scenes and all three baselines render as pairs, all 24 clouds nonblank, original VIST3A differs from Plan4D, all first/last frames differ",
   );
 
   const first = allRows[0];
+  await selectScene("#comparisons", first);
+  await selectBaseline("#comparisons", first, "gen3r");
   await first.evaluate((element) =>
     element.scrollIntoView({ block: "center", behavior: "instant" }),
   );
@@ -208,6 +286,8 @@ try {
     }
   });
   await waitFrame(first, 12);
+  await selectBaseline("#comparisons", first, "tesseract", 12);
+  await selectBaseline("#comparisons", first, "gen3r", 12);
   report.checks.push(
     "Orbit changes pixels; playback advances; pause and rapid seek work",
   );
@@ -252,27 +332,13 @@ try {
 
   const aggregateRows = await page.locator(".aggregate-row").all();
   assert.equal(aggregateRows.length, 3);
-  assert.deepEqual(
-    await page
-      .locator(".aggregate-table .comparison-header > div")
-      .allTextContents(),
-    ["Input text", "Input image", "Aggregated 4D Point Cloud"],
-  );
   await page.route(
     "**/aggregated/tesseract-test_cab_e_3rd_00000_00081/*.ply.gz",
     (route) => route.abort("failed"),
     { times: 1 },
   );
   for (const [index, row] of aggregateRows.entries()) {
-    await row.evaluate((element) =>
-      element.scrollIntoView({ block: "center", behavior: "instant" }),
-    );
-    if (index === 1) {
-      const retry = row.locator('[data-method="tesseract"] .retry-button');
-      await retry.waitFor({ state: "visible" });
-      await retry.click();
-    }
-    await waitFrame(row, 0);
+    await selectScene("#aggregated", row);
     assert.deepEqual(
       await row
         .locator(".cloud-cell")
@@ -280,7 +346,17 @@ try {
       ["gen3r", "tesseract", "vist3a", "plan4d"],
     );
     const pixels = [];
-    for (const cell of await row.locator(".cloud-cell").all()) {
+    for (const method of ["gen3r", "tesseract", "vist3a", "plan4d"]) {
+      if (method !== "plan4d") {
+        await page.locator("#aggregate-baseline").selectOption(method);
+        if (index === 1 && method === "tesseract") {
+          const retry = row.locator('[data-method="tesseract"] .retry-button');
+          await retry.waitFor({ state: "visible" });
+          await retry.click();
+        }
+        await waitFrame(row, 0);
+      }
+      const cell = row.locator(`[data-method="${method}"]`);
       assert(Number(await cell.getAttribute("data-points")) > 200000);
       pixels.push(
         await assertPixels(
@@ -297,6 +373,8 @@ try {
     await page.screenshot({ path: `${output}/aggregated-${index + 1}.png` });
   }
   const aggregateFirst = aggregateRows[0];
+  await selectScene("#aggregated", aggregateFirst);
+  await selectBaseline("#aggregated", aggregateFirst, "gen3r");
   await aggregateFirst.evaluate((element) =>
     element.scrollIntoView({ block: "center", behavior: "instant" }),
   );
@@ -379,6 +457,7 @@ try {
   );
 
   await setFrame(first, 0);
+  await selectBaseline("#comparisons", first, "vist3a");
   await page.setViewportSize({ width: 390, height: 844 });
   await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
   await page.waitForTimeout(150);
@@ -391,9 +470,14 @@ try {
   await first.evaluate((element) =>
     element.scrollIntoView({ block: "center", behavior: "instant" }),
   );
-  await page.locator("#comparisons .comparison-scroll").evaluate((element) => {
-    element.scrollLeft = element.scrollWidth;
-  });
+  const mobileBaselineBounds = await first
+    .locator('[data-method="vist3a"]')
+    .boundingBox();
+  const mobileOursBounds = await first.locator(".ours-cell").boundingBox();
+  assert(
+    mobileOursBounds.y >= mobileBaselineBounds.y + mobileBaselineBounds.height,
+  );
+  assert(mobileOursBounds.width >= 350);
   await page.waitForTimeout(100);
   await assertPixels(
     first.locator(".ours-cell .viewer-surface"),
@@ -415,14 +499,11 @@ try {
   await page.screenshot({ path: `${output}/mobile-vist3a-expanded.png` });
   await page.locator(".dialog-close").click();
   report.checks.push(
-    "390px mobile layout has no page overflow; horizontal comparison and expanded Plan4D/VIST3A canvases work",
+    "390px mobile layout has two full-width stacked results and no page overflow; expanded Plan4D/VIST3A canvases work",
   );
   await aggregateFirst.evaluate((element) =>
     element.scrollIntoView({ block: "center", behavior: "instant" }),
   );
-  await page.locator("#aggregated .comparison-scroll").evaluate((element) => {
-    element.scrollLeft = element.scrollWidth;
-  });
   await page.waitForTimeout(100);
   await assertPixels(aggregateSurface, "mobile aggregated Plan4D");
   await page.screenshot({ path: `${output}/aggregated-mobile.png` });
@@ -447,6 +528,134 @@ try {
   );
   report.checks.push(
     "Aggregated mobile viewer and modal render; 320px page has no overflow",
+  );
+  await selectScene("#comparisons", first);
+  await setFrame(first, 0);
+  await first.locator(".playback-button").click();
+  await page.locator("#comparisons .scene-choice").evaluateAll((buttons) => {
+    for (const index of [1, 4, 2, 5, 0, 3]) {
+      const button = buttons[index];
+      if (button instanceof HTMLButtonElement) button.click();
+    }
+  });
+  const finalRow = allRows[3];
+  await waitFrame(finalRow, 0);
+  assert.equal(
+    await first.locator(".playback-button").getAttribute("aria-pressed"),
+    "false",
+  );
+  await page.locator("#comparison-baseline").evaluate((select) => {
+    for (const value of ["tesseract", "gen3r", "vist3a"]) {
+      select.value = value;
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+  });
+  await waitFrame(finalRow, 0);
+  assert.deepEqual(
+    await finalRow
+      .locator(".cloud-cell:not([hidden])")
+      .evaluateAll((cells) => cells.map((cell) => cell.dataset.method)),
+    ["vist3a", "plan4d"],
+  );
+  report.checks.push(
+    "Rapid scene/baseline changes keep the final pair synchronized and stop previous playback",
+  );
+  await finalRow.locator(".ours-cell .viewer-surface").scrollIntoViewIfNeeded();
+  await page.locator("#comparisons .scene-choice").evaluateAll((buttons) => {
+    for (const index of [1, 3]) {
+      const button = buttons[index];
+      if (button instanceof HTMLButtonElement) button.click();
+    }
+  });
+  await waitFrame(finalRow, 0);
+  await assertPixels(
+    finalRow.locator(".ours-cell .viewer-surface"),
+    "rapid return to same scene",
+  );
+  await page.locator("#aggregate-baseline").evaluate((select) => {
+    for (const value of ["vist3a", "tesseract", "gen3r"]) {
+      select.value = value;
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+  });
+  await waitFrame(aggregateFirst, 0);
+  for (const width of [1920, 1440, 901, 768, 601, 600, 390, 320]) {
+    await page.setViewportSize({ width, height: 1000 });
+    for (const row of [finalRow, aggregateFirst]) {
+      const panels = row.locator(".cloud-cell:not([hidden])");
+      const baselineBounds = await panels.nth(0).boundingBox();
+      const oursBounds = await panels.nth(1).boundingBox();
+      assert(Math.abs(baselineBounds.width - oursBounds.width) < 1);
+      if (width > 600) {
+        assert(Math.abs(baselineBounds.y - oursBounds.y) < 1);
+        assert(oursBounds.x >= baselineBounds.x + baselineBounds.width);
+      } else {
+        assert(oursBounds.y >= baselineBounds.y + baselineBounds.height);
+        assert(Math.abs(baselineBounds.x - oursBounds.x) < 1);
+      }
+      assert(
+        await row.evaluate(
+          (element) => element.scrollWidth <= element.clientWidth + 1,
+        ),
+      );
+    }
+    assert(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    );
+  }
+  await selectScene("#comparisons", first);
+  await selectBaseline("#comparisons", first, "gen3r");
+  let releaseFrame;
+  const delayedFrame = new Promise((resolve) => {
+    releaseFrame = resolve;
+  });
+  await page.route(
+    "**/gen3r-P02_122_161/0063.ply.gz",
+    async (route) => {
+      await delayedFrame;
+      await route.continue();
+    },
+    { times: 1 },
+  );
+  const requestStarted = page.waitForRequest(
+    "**/gen3r-P02_122_161/0063.ply.gz",
+  );
+  await first.locator(".frame-slider").evaluate((slider) => {
+    slider.value = "63";
+    slider.dispatchEvent(new Event("input", { bubbles: true }));
+  });
+  await requestStarted;
+  await selectScene("#comparisons", allRows[1]);
+  const requestFinished = page.waitForResponse(
+    "**/gen3r-P02_122_161/0063.ply.gz",
+  );
+  releaseFrame();
+  await requestFinished;
+  await page.waitForTimeout(200);
+  await waitFrame(allRows[1], 0);
+  assert.equal(await first.getAttribute("data-frame"), "0");
+  await selectScene("#comparisons", first);
+  await waitFrame(first, 0);
+  await setFrame(first, 80);
+  await selectScene("#comparisons", allRows[1]);
+  await page.locator("#comparisons").evaluate((section) => {
+    section.querySelector("button.scene-choice").click();
+    const select = section.querySelector("select[data-baseline-select]");
+    select.value = "tesseract";
+    select.dispatchEvent(new Event("change", { bubbles: true }));
+  });
+  await waitFrame(first, 0);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page
+    .locator("#comparisons")
+    .evaluate((section) =>
+      section.scrollIntoView({ block: "start", behavior: "instant" }),
+    );
+  await page.screenshot({ path: `${output}/mobile-scene-selector.png` });
+  report.checks.push(
+    "Late frame responses cannot update a different scene; rapid return renders correctly; equal-size panels fit 320-1920px",
   );
   assert.deepEqual(report.errors, []);
   await writeFile(`${output}/report.json`, JSON.stringify(report, null, 2));

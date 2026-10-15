@@ -20,9 +20,9 @@ Plan4D 仅来自 `../../plan4d_final_outputs-best`。排除 `P28_101_119`，使�
 
 VIST3A 指原始 Wan2.1 + AnySplat baseline，原始结果来自 `../../ti2v_bench_anysplat_outputs/epic_kitchens100_81`，整理副本位于 `../../plan4d_final_outputs-baselines/vist3a`。它的相机取自 `decode_outputs.pt` 的 `extrinsic_w2c`，不使用 DA3 后处理几何或基于 VIST3A 的 Plan4D 输出。
 
-列顺序固定为输入文本、输入图像、Gen3R、TesserAct、VIST3A、Plan4D。对比支持同步播放/暂停、帧滑块、前后帧、倍速、相机联动、旋转/平移/缩放、点大小、视角复位、放大和失败重试。手机保留六列，可横向浏览并放大单项。
+对比区通过输入缩略图选择场景，完整输入图与文本只展示一次。左侧 baseline 可选 Gen3R、TesserAct、VIST3A，右侧固定 Plan4D；桌面双栏大画幅，手机上下两行，不需要横向滚动。对比支持同步播放/暂停、帧滑块、前后帧、倍速、相机联动、旋转/平移/缩放、点大小、视角复位、放大和失败重试。只加载当前场景的两个方法；切换场景暂停并回到首帧，切换 baseline 暂停并保持帧号，过期请求不会更新当前视图。逐帧默认点尺寸为 0.012（滑条 1），聚合为 0.0045（滑条 0.5）。
 
-聚合对比位于 `#aggregated`，三列为 `Input text`、`Input image`、`Aggregated 4D Point Cloud`。第三列按 Gen3R、TesserAct、VIST3A、Plan4D 顺序并排展示，使用三个指定场景：
+聚合对比位于 `#aggregated`，使用相同的场景选择与 baseline/Plan4D 双方法布局，保留三个指定场景：
 
 - `iaHNa6cm64k-0:02:50.044-0:02:56.759`
 - `test_cab_e_3rd_00000_00081`
@@ -151,8 +151,9 @@ GitHub Pages 目标为 `https://fogradio.github.io/plan4d-project/`，仓库 Set
 ## 主要文件
 
 - `src/pages/index.astro`：论文页面。
-- `src/components/ResultsComparison.astro`：六列对比及控制项。
-- `src/components/AggregatedComparison.astro`：三列聚合对比及四方法查看器。
+- `src/components/ResultsComparison.astro`：六场景双方法逐帧对比及控制项。
+- `src/components/AggregatedComparison.astro`：三场景双方法聚合对比。
+- `src/components/ComparisonSelector.astro`：两类对比共用的输入缩略图选择器。
 - `src/components/Gallery.astro`、`src/scripts/gallery.ts`：17 场景、单输出框及五模态交互。
 - `src/scripts/comparison.ts`：Three.js、PLY 解码、加载缓存和时间同步。
 - `src/styles/plan4d.css`：响应式样式。

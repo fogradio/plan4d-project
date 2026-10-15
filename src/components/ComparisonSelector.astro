@@ -1,0 +1,34 @@
+---
+interface Props {
+  id: string;
+  scenes: { id: string; image: string; prompt: string }[];
+}
+
+const { id, scenes } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+---
+
+<div class="scene-selector wide-shell" role="group" aria-label="Input scene">
+  {
+    scenes.map((scene, index) => (
+      <button
+        type="button"
+        class="scene-choice"
+        data-select-case={scene.id}
+        aria-pressed={index === 0 ? "true" : "false"}
+        aria-controls={`${id}-scene-${index}`}
+        aria-label={`Scene ${index + 1}: ${scene.prompt}`}
+        title={scene.prompt}
+      >
+        <img
+          src={base + scene.image}
+          alt=""
+          width="160"
+          height="90"
+          loading="lazy"
+        />
+        <span>{String(index + 1).padStart(2, "0")}</span>
+      </button>
+    ))
+  }
+</div>
