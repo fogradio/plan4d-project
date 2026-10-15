@@ -161,6 +161,10 @@ try {
     "Teaser, six frame comparisons, three aggregated comparisons and 17-scene Gallery are restored",
     "Quantitative tables and dataset tabs are absent",
   );
+  assert.equal(
+    (await page.locator("#citation-text").textContent()).split("\n")[1],
+    "  title     = {Plan4D: Generative Plannable 4D Worlds},",
+  );
   await page.locator("#copy-citation").click();
   await page.waitForFunction(
     () => document.getElementById("copy-status").textContent.length > 0,
