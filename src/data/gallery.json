@@ -4,7 +4,7 @@
   "cases": [
     {
       "id": "0YrdfBnmrVU-0:02:42.000-0:02:48.840",
-      "label": "01 / Blending Soup",
+      "label": "01 / Soup Pot and Blender",
       "prompt": "In the video, a person uses an immersion blender to process a pot of soup. The soup initially contains visible chunks of vegetables, including green leafy pieces and other colorful bits, with steam rising from the pot, indicating it is hot. As the immersion blender is submerged and activated, the blades spin, breaking down the solid ingredients. The vegetables gradually disintegrate, and the soup’s texture shifts from chunky to smooth and creamy. The person holding the pot handle keeps the vessel steady while the blender moves through the liquid, causing the soup to swirl and thicken slightly as the ingredients blend together. The steam continues to rise throughout the process, emphasizing the soup’s warmth, and the once-lumpy mixture transforms into a uniform, velvety consistency.",
       "sourcePrompt": "In the video, a person uses an immersion blender to process a pot of soup. The soup initially contains visible chunks of vegetables, including green leafy pieces and other colorful bits, with steam rising from the pot, indicating it is hot. As the immersion blender is submerged and activated, the blades spin, breaking down the solid ingredients. The vegetables gradually disintegrate, and the soup’s texture shifts from chunky to smooth and creamy. The person holding the pot handle keeps the vessel steady while the blender moves through the liquid, causing the soup to swirl and thicken slightly as the ingredients blend together. The steam continues to rise throughout the process, emphasizing the soup’s warmth, and the once-lumpy mixture transforms into a uniform, velvety consistency.",
       "image": "results/gallery/0YrdfBnmrVU-0:02:42.000-0:02:48.840/input.webp",
@@ -123,7 +123,7 @@
     },
     {
       "id": "2l9TyNV64Zo-0:01:26.920-0:01:33.426",
-      "label": "02 / Liquid Dripping off a Spoon",
+      "label": "02 / Glass Bowl and Spoon",
       "prompt": "When the spoon is lifted from the bowl, the thick, light brown liquid slowly drips from the spoon back into the bowl. The liquid flows in a thin, steady stream as it descends, gradually returning to the bowl’s contents. The spoon’s movement upward causes the liquid to release from its surface, and the substance’s viscosity ensures the drip is controlled rather than a sudden pour. The liquid continues to fall until the spoon is fully raised, with the stream connecting the spoon to the bowl’s surface below.",
       "sourcePrompt": "When the spoon is lifted from the bowl, the thick, light brown liquid slowly drips from the spoon back into the bowl. The liquid flows in a thin, steady stream as it descends, gradually returning to the bowl’s contents. The spoon’s movement upward causes the liquid to release from its surface, and the substance’s viscosity ensures the drip is controlled rather than a sudden pour. The liquid continues to fall until the spoon is fully raised, with the stream connecting the spoon to the bowl’s surface below.",
       "image": "results/gallery/2l9TyNV64Zo-0:01:26.920-0:01:33.426/input.webp",
@@ -242,7 +242,7 @@
     },
     {
       "id": "3Aku0Zz2_RI-0:03:26.956-0:03:33.379",
-      "label": "03 / Lowering Chopsticks",
+      "label": "03 / Man with Noodle Bowl",
       "prompt": "After the person eats the food with chopsticks, they lower the chopsticks back into the bowl, resting them against the bowl’s edge. The bowl, which is held in their left hand, remains steady as the chopsticks—previously used to bring food to their mouth—return to the dish. The motion is smooth and deliberate, with the chopsticks settling into the bowl as the person prepares for the next bite. The surrounding elements, like the red and dark-colored bowls on the table and the restaurant’s interior, stay consistent, emphasizing the natural flow of eating.",
       "sourcePrompt": "After the person eats the food with chopsticks, they lower the chopsticks back into the bowl, resting them against the bowl’s edge. The bowl, which is held in their left hand, remains steady as the chopsticks—previously used to bring food to their mouth—return to the dish. The motion is smooth and deliberate, with the chopsticks settling into the bowl as the person prepares for the next bite. The surrounding elements, like the red and dark-colored bowls on the table and the restaurant’s interior, stay consistent, emphasizing the natural flow of eating.",
       "image": "results/gallery/3Aku0Zz2_RI-0:03:26.956-0:03:33.379/input.webp",
@@ -361,7 +361,7 @@
     },
     {
       "id": "4MbIbjWJz7k-0:11:10.219-0:11:16.492",
-      "label": "04 / Eating Pizza",
+      "label": "04 / Man with Pizza",
       "prompt": "In the video, a person in a restaurant takes a bite of a pizza topped with ingredients like greens and red toppings. After taking the bite, the person chews the pizza while still holding it with both hands. The restaurant environment remains active in the background, with other diners and warm lighting visible, but the focus stays on the person’s action as they chew the pizza. No further movement or interaction with the pizza is shown beyond the chewing sequence, so the key event after the bite is the person chewing the piece of pizza they just ate.",
       "sourcePrompt": "In the video, a person in a restaurant takes a bite of a pizza topped with ingredients like greens and red toppings. After taking the bite, the person chews the pizza while still holding it with both hands. The restaurant environment remains active in the background, with other diners and warm lighting visible, but the focus stays on the person’s action as they chew the pizza. No further movement or interaction with the pizza is shown beyond the chewing sequence, so the key event after the bite is the person chewing the piece of pizza they just ate.",
       "image": "results/gallery/4MbIbjWJz7k-0:11:10.219-0:11:16.492/input.webp",
@@ -480,7 +480,7 @@
     },
     {
       "id": "EsaTyAI2qxs-0:06:53.371-0:06:59.877",
-      "label": "05 / Slicing a Frosted Cake",
+      "label": "05 / White Frosted Cake",
       "prompt": "A round cake covered in smooth, creamy white frosting sits on a metal cake stand. A person holds a large knife and begins cutting into the cake’s side. As the knife moves through the frosting, the cake stand rotates steadily, allowing the knife to slice cleanly along the cake’s circumference. The frosting yields to the knife’s pressure, with small portions of it being displaced or lifted as the cut progresses. The cake continues to rotate while the knife maintains a consistent, smooth motion, ensuring an even slice. The background shows a kitchen setting with blurred shelves, emphasizing the focused action of cutting the cake. The entire process highlights the precision of the cut, with the cake’s rotation and the knife’s steady movement working together to create a clean division in the frosted surface.",
       "sourcePrompt": "A round cake covered in smooth, creamy white frosting sits on a metal cake stand. A person holds a large knife and begins cutting into the cake’s side. As the knife moves through the frosting, the cake stand rotates steadily, allowing the knife to slice cleanly along the cake’s circumference. The frosting yields to the knife’s pressure, with small portions of it being displaced or lifted as the cut progresses. The cake continues to rotate while the knife maintains a consistent, smooth motion, ensuring an even slice. The background shows a kitchen setting with blurred shelves, emphasizing the focused action of cutting the cake. The entire process highlights the precision of the cut, with the cake’s rotation and the knife’s steady movement working together to create a clean division in the frosted surface.",
       "image": "results/gallery/EsaTyAI2qxs-0:06:53.371-0:06:59.877/input.webp",
@@ -599,7 +599,7 @@
     },
     {
       "id": "FyA7Ft2p5b8-0:03:58.371-0:04:05.111",
-      "label": "06 / Spraying a Car Wheel",
+      "label": "06 / Blue Car Wheel",
       "prompt": "A person’s arm appears holding a spray bottle, directing a fine mist onto the wheel of a blue car. The spray is applied to both the tire and the alloy rim, coating the wheel’s surface with the liquid from the bottle. As the spray hits the wheel, droplets scatter across the tire and rim, leaving the wheel visibly wet and covered in the sprayed substance. The interaction shows the spray bottle releasing the liquid in a controlled manner, ensuring even coverage over the wheel’s surface, which is then left damp from the application.",
       "sourcePrompt": "A person’s arm appears holding a spray bottle, directing a fine mist onto the wheel of a blue car. The spray is applied to both the tire and the alloy rim, coating the wheel’s surface with the liquid from the bottle. As the spray hits the wheel, droplets scatter across the tire and rim, leaving the wheel visibly wet and covered in the sprayed substance. The interaction shows the spray bottle releasing the liquid in a controlled manner, ensuring even coverage over the wheel’s surface, which is then left damp from the application.",
       "image": "results/gallery/FyA7Ft2p5b8-0:03:58.371-0:04:05.111/input.webp",
@@ -718,7 +718,7 @@
     },
     {
       "id": "Gi56pKL0DpE-0:07:56.480-0:08:03.320",
-      "label": "07 / Shaping a Clay Sculpture",
+      "label": "07 / Sculptor and Clay Head",
       "prompt": "In a well-lit studio adorned with plaster busts mounted on the walls, a person wearing a gray apron over a black turtleneck focuses intently on a clay sculpture of a head mounted on a wooden stand. As the individual moves their hand toward the sculpture, they press firmly into the clay’s surface. The soft, malleable clay responds to the pressure by deforming—the texture shifts and indents where the hand makes contact, reshaping the sculpted form. The person’s deliberate motion emphasizes the clay’s pliable nature, allowing the sculpture to take on new contours as the hand applies force. The surrounding studio, filled with finished busts, underscores the artistic process, where each touch alters the clay’s shape, guiding the creation of the figure.",
       "sourcePrompt": "In a well-lit studio adorned with plaster busts mounted on the walls, a person wearing a gray apron over a black turtleneck focuses intently on a clay sculpture of a head mounted on a wooden stand. As the individual moves their hand toward the sculpture, they press firmly into the clay’s surface. The soft, malleable clay responds to the pressure by deforming—the texture shifts and indents where the hand makes contact, reshaping the sculpted form. The person’s deliberate motion emphasizes the clay’s pliable nature, allowing the sculpture to take on new contours as the hand applies force. The surrounding studio, filled with finished busts, underscores the artistic process, where each touch alters the clay’s shape, guiding the creation of the figure.",
       "image": "results/gallery/Gi56pKL0DpE-0:07:56.480-0:08:03.320/input.webp",
@@ -837,7 +837,7 @@
     },
     {
       "id": "iXTH_6_bIMw-0:01:47.774-0:01:54.489",
-      "label": "08 / Mixing Broccoli and Pasta",
+      "label": "08 / Pasta and Broccoli Bowl",
       "prompt": "After the broccoli is added to the large metal bowl, it joins a mixture of bow - tie pasta and other ingredients. A hand holding a wooden spoon begins to stir the contents of the bowl in a circular motion. As the spoon moves through the mixture, the broccoli pieces shift and blend with the pasta, gradually becoming evenly distributed throughout the dish. The stirring continues, ensuring that the broccoli is thoroughly incorporated with the pasta and other components, so that each part of the mixture contains a combination of the various ingredients. The motion of the spoon causes the broccoli to move from its initial position among the pasta, mixing it seamlessly into the overall dish.",
       "sourcePrompt": "After the broccoli is added to the large metal bowl, it joins a mixture of bow - tie pasta and other ingredients. A hand holding a wooden spoon begins to stir the contents of the bowl in a circular motion. As the spoon moves through the mixture, the broccoli pieces shift and blend with the pasta, gradually becoming evenly distributed throughout the dish. The stirring continues, ensuring that the broccoli is thoroughly incorporated with the pasta and other components, so that each part of the mixture contains a combination of the various ingredients. The motion of the spoon causes the broccoli to move from its initial position among the pasta, mixing it seamlessly into the overall dish.",
       "image": "results/gallery/iXTH_6_bIMw-0:01:47.774-0:01:54.489/input.webp",
@@ -956,7 +956,7 @@
     },
     {
       "id": "Lax0Ppfhct4-0:02:32.785-0:02:39.492",
-      "label": "09 / Tasting Fruit",
+      "label": "09 / Woman with Orange Fruit",
       "prompt": "After the man takes the fruit from the woman, he brings it to his mouth and takes a bite. As he chews, he holds the fruit in his hand, examining it closely. The woman stands nearby, and the background shows numerous trays of dried fruits arranged on stands, with a traditional building and greenery surrounding them. The man’s actions suggest he is tasting the fruit to assess its quality or flavor, and the scene captures a moment of interaction between the two individuals in what appears to be a rural or traditional setting focused on fruit drying or processing.",
       "sourcePrompt": "After the man takes the fruit from the woman, he brings it to his mouth and takes a bite. As he chews, he holds the fruit in his hand, examining it closely. The woman stands nearby, and the background shows numerous trays of dried fruits arranged on stands, with a traditional building and greenery surrounding them. The man’s actions suggest he is tasting the fruit to assess its quality or flavor, and the scene captures a moment of interaction between the two individuals in what appears to be a rural or traditional setting focused on fruit drying or processing.",
       "image": "results/gallery/Lax0Ppfhct4-0:02:32.785-0:02:39.492/input.webp",
@@ -1075,7 +1075,7 @@
     },
     {
       "id": "LcL2UPoQ1C4-0:06:28.788-0:06:35.745",
-      "label": "10 / Draining Fried Food",
+      "label": "10 / Deep Fryer Basket",
       "prompt": "As the person lifts the golden-brown fried food from the deep fryer using metal tongs, streams of oil begin to drip from its surface. The oil flows downward in thin, glistening trails, cascading from the crispy exterior of the food as it is raised above the fryer’s oil-filled basin. The tongs hold the item securely, while the other hand grips a blue-handled utensil, likely to support the fryer’s basket. As the food is lifted higher, the oil continues to drip steadily, creating a slow, rhythmic motion of liquid falling away from the fried piece. The surrounding environment, with tables and people in the background, remains static, drawing focus to the interaction between the food and the oil as the excess liquid drains off, highlighting the texture of the fried coating and the movement of the oil as it separates from the food.",
       "sourcePrompt": "As the person lifts the golden-brown fried food from the deep fryer using metal tongs, streams of oil begin to drip from its surface. The oil flows downward in thin, glistening trails, cascading from the crispy exterior of the food as it is raised above the fryer’s oil-filled basin. The tongs hold the item securely, while the other hand grips a blue-handled utensil, likely to support the fryer’s basket. As the food is lifted higher, the oil continues to drip steadily, creating a slow, rhythmic motion of liquid falling away from the fried piece. The surrounding environment, with tables and people in the background, remains static, drawing focus to the interaction between the food and the oil as the excess liquid drains off, highlighting the texture of the fried coating and the movement of the oil as it separates from the food.",
       "image": "results/gallery/LcL2UPoQ1C4-0:06:28.788-0:06:35.745/input.webp",
@@ -1194,7 +1194,7 @@
     },
     {
       "id": "OFI1bV8KPlk-0:01:21.915-0:01:28.354",
-      "label": "11 / Washing Hands",
+      "label": "11 / Woman at Kitchen Sink",
       "prompt": "After the person presses the soap dispenser, a stream of liquid soap is dispensed onto their hands. They then bring their hands together under the running water from the faucet, rubbing them thoroughly in a circular motion to lather the soap. The hands move fluidly against one another, ensuring the soap spreads across all surfaces as the water continues to flow. This sequence of actions—dispensing soap, then rubbing hands under the water—creates a steady rhythm of cleaning, with the hands actively interacting with both the soap and the water to achieve a thorough wash.",
       "sourcePrompt": "After the person presses the soap dispenser, a stream of liquid soap is dispensed onto their hands. They then bring their hands together under the running water from the faucet, rubbing them thoroughly in a circular motion to lather the soap. The hands move fluidly against one another, ensuring the soap spreads across all surfaces as the water continues to flow. This sequence of actions—dispensing soap, then rubbing hands under the water—creates a steady rhythm of cleaning, with the hands actively interacting with both the soap and the water to achieve a thorough wash.",
       "image": "results/gallery/OFI1bV8KPlk-0:01:21.915-0:01:28.354/input.webp",
@@ -1313,7 +1313,7 @@
     },
     {
       "id": "omniworld_047cd85f5ef7_005257_005337__ti2v",
-      "label": "12 / Walking a Neon-Lit Street",
+      "label": "12 / Neon-Lit City Street",
       "prompt": "A solitary figure walks along a rainslicked urban street at night, illuminated by vibrant neon lights and digital billboards. The individual moves steadily forward along the sidewalk, positioned near the center of the frame, progressing from the foreground towards the middle distance. On the left, tall buildings feature large digital displays with vivid, colorful imagery. In the center, a prominent skyscraper rises into the dark sky, its windows glowing faintly. To the right, another building with horizontal lines and illuminated windows stands out. The street is wet, reflecting the lights and creating a glossy surface. A sleek blue car speeds past on the right, leaving streaks of light behind it. The camera remains stationary, capturing the scene from a fixed perspective, maintaining a wideangle view that encompasses both the moving subject and the dynamic urban backdrop. The angle slightly shifts to follow the subject's movement, ensuring they remain centered in the frame.",
       "sourcePrompt": "A solitary figure walks along a rainslicked urban street at night, illuminated by vibrant neon lights and digital billboards. The individual moves steadily forward along the sidewalk, positioned near the center of the frame, progressing from the foreground towards the middle distance. On the left, tall buildings feature large digital displays with vivid, colorful imagery. In the center, a prominent skyscraper rises into the dark sky, its windows glowing faintly. To the right, another building with horizontal lines and illuminated windows stands out. The street is wet, reflecting the lights and creating a glossy surface. A sleek blue car speeds past on the right, leaving streaks of light behind it. The camera remains stationary, capturing the scene from a fixed perspective, maintaining a wideangle view that encompasses both the moving subject and the dynamic urban backdrop. The angle slightly shifts to follow the subject's movement, ensuring they remain centered in the frame.",
       "image": "results/gallery/omniworld_047cd85f5ef7_005257_005337__ti2v/input.webp",
@@ -1432,7 +1432,7 @@
     },
     {
       "id": "Phu_HyoQWVU-0:00:00.867-0:00:07.841",
-      "label": "13 / Pipetting Pink Liquid",
+      "label": "13 / Pipette and Glass Dish",
       "prompt": "Hold the small glass dish. Dispense pink liquid using a pipette. Release the liquid smoothly. Fill the dish gradually.",
       "sourcePrompt": "In the video, a person carefully dispenses a pink liquid using a pipette into a small glass dish held in their other hand. As the liquid is released from the pipette, it flows smoothly into the dish, gradually filling it. The hands move with precision, ensuring the liquid is transferred without spilling, and the small glass dish now contains the pink liquid after the dispensing process is complete. The surrounding laboratory equipment, like the rotating platform and other tools, remains visible in the background, emphasizing the controlled environment of the task.",
       "image": "results/gallery/Phu_HyoQWVU-0:00:00.867-0:00:07.841/input.webp",
@@ -1551,7 +1551,7 @@
     },
     {
       "id": "rPT0zZRAzIs-0:05:52.880-0:05:59.160",
-      "label": "14 / Stethoscope Check-Up",
+      "label": "14 / Child and Stethoscope",
       "prompt": "After the doctor lifts the child’s shirt to expose the back, the doctor carefully places a stethoscope against the child’s skin, pressing it gently to listen to the heart or lungs. The doctor’s hands adjust the stethoscope slightly as they move it across the child’s back, ensuring a thorough examination. Meanwhile, another person—likely a parent—holds a colorful, rainbow-shaped toy in the child’s line of sight, using it to distract and soothe the child during the check-up. The child remains seated, with the doctor’s other hand keeping the shirt lifted to maintain access to the back. The scene conveys a calm, clinical environment where the medical professional focuses on the examination while the parent provides comfort through the toy.",
       "sourcePrompt": "After the doctor lifts the child’s shirt to expose the back, the doctor carefully places a stethoscope against the child’s skin, pressing it gently to listen to the heart or lungs. The doctor’s hands adjust the stethoscope slightly as they move it across the child’s back, ensuring a thorough examination. Meanwhile, another person—likely a parent—holds a colorful, rainbow-shaped toy in the child’s line of sight, using it to distract and soothe the child during the check-up. The child remains seated, with the doctor’s other hand keeping the shirt lifted to maintain access to the back. The scene conveys a calm, clinical environment where the medical professional focuses on the examination while the parent provides comfort through the toy.",
       "image": "results/gallery/rPT0zZRAzIs-0:05:52.880-0:05:59.160/input.webp",
@@ -1670,7 +1670,7 @@
     },
     {
       "id": "test_423875-3_obj_source_right_00486_00567",
-      "label": "15 / Bending Forward",
+      "label": "15 / Woman in Living Room",
       "prompt": "The person bends forward while keeping arms extended, maintaining a steady posture throughout the sequence.",
       "sourcePrompt": "The person bends forward while keeping arms extended, maintaining a steady posture throughout the sequence.",
       "image": "results/gallery/test_423875-3_obj_source_right_00486_00567/input.webp",
@@ -1789,7 +1789,7 @@
     },
     {
       "id": "test_90ac3c-3_obj_source_right_00729_00810",
-      "label": "16 / Man and Animals in Motion",
+      "label": "16 / Cow in Meeting Room",
       "prompt": "Man lifts leg, monkey stands and walks, cow shifts position in room.",
       "sourcePrompt": "Man lifts leg, monkey stands and walks, cow shifts position in room.",
       "image": "results/gallery/test_90ac3c-3_obj_source_right_00729_00810/input.webp",
@@ -1908,7 +1908,7 @@
     },
     {
       "id": "u0SFYiZcQG4-0:06:16.709-0:06:23.216",
-      "label": "17 / Drizzling Takoyaki Sauce",
+      "label": "17 / Plate of Takoyaki",
       "prompt": "After the person removes the red cap from the squeeze bottle, they hold the bottle with both hands and begin squeezing it. As they apply pressure, a smooth stream of sauce flows from the bottle’s opening, drizzling over the golden-brown takoyaki on the white plate. The sauce cascades in a controlled pattern, coating the tops of the round balls, which already have a drizzle of dark sauce from earlier. The green container with shredded cabbage and the packaged item on the right remain stationary on the table, while the person’s blue apron and striped sleeves stay in focus as they carefully finish adding the sauce.",
       "sourcePrompt": "After the person removes the red cap from the squeeze bottle, they hold the bottle with both hands and begin squeezing it. As they apply pressure, a smooth stream of sauce flows from the bottle’s opening, drizzling over the golden-brown takoyaki on the white plate. The sauce cascades in a controlled pattern, coating the tops of the round balls, which already have a drizzle of dark sauce from earlier. The green container with shredded cabbage and the packaged item on the right remain stationary on the table, while the person’s blue apron and striped sleeves stay in focus as they carefully finish adding the sauce.",
       "image": "results/gallery/u0SFYiZcQG4-0:06:16.709-0:06:23.216/input.webp",

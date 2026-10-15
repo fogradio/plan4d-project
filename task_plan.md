@@ -1,5 +1,12 @@
 # Plan4D 项目页实施计划
 
+## Gallery 按输入图像命名（2026-10-15）
+- [x] 查看全部 17 张输入图，按可见主体或场景确定简短英文名称。
+- [x] 仅更新 Gallery label、导出脚本映射和命名说明。
+- [x] 核对非 label 数据不变、导出一致性、浏览器场景对应和手机名称宽度。
+- 预览：http://localhost:4327/#gallery；验证报告：artifacts/gallery-image-labels-20261015/report.json。
+- 不重新导出媒体，不修改 prompt、顺序、场景 ID、点云或视频。实现验证后，用户已明确授权正式提交发布。
+
 ## 提交、推送与发布（2026-10-15）
 - [x] 核对 Git 改动、远端 main、GitHub 登录、Pages 配置与已有媒体 Release。
 - [x] 准备 teaser 增量媒体 Release 和工作流，验证正式子路径构建。

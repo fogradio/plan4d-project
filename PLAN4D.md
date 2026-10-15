@@ -36,6 +36,8 @@ VIST3A 指原始 Wan2.1 + AnySplat baseline，原始结果来自 `../../ti2v_ben
 
 `#gallery` 按用户指定顺序提供 17 个 best 场景的下拉菜单。页面仅有一个 Gallery 输出框，左右箭头循环切换以下五种模态，也可以使用底部图标直接选择；导航条支持左右键和触摸滑动，不与点云旋转手势冲突。
 
+案例名称根据输入图像中可见的主体、物体或场景命名，不再概括文本中的后续动作。例如 `White Frosted Cake`、`Blue Car Wheel`、`Cow in Meeting Room`。保留编号、场景顺序、完整 prompt 与全部媒体对应关系；清单及导出脚本使用相同命名。
+
 1. `INTERACTIVE 4D OUTPUT`：81 帧真实 PLY，可播放/暂停、拖动时间轴、调速、旋转/平移/缩放、调整点大小、复位、放大和失败重试。
 2. `RGB Video`：来自 `generated_video.mp4`。
 3. `Depth Video`：来自 `pred_depth_vis.mp4`。
