@@ -3,6 +3,7 @@ import { Icon } from "astro-icon/components";
 import ResultsComparison from "../components/ResultsComparison.astro";
 import AggregatedComparison from "../components/AggregatedComparison.astro";
 import Gallery from "../components/Gallery.astro";
+import Teaser from "../components/Teaser.astro";
 import "../styles/plan4d.css";
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
@@ -38,7 +39,7 @@ const citation = `@inproceedings{zhang2026plan4d,
     <meta property="og:type" content="website" />
     <meta
       property="og:image"
-      content={base + "figures/method-chuanxia-20261014.webp"}
+      content={base + "results/teaser/plan4d-teaser-poster.webp"}
     />
     <link rel="icon" href={base + "plan4d.svg"} type="image/svg+xml" />
     <title>{title}</title>
@@ -106,20 +107,7 @@ const citation = `@inproceedings{zhang2026plan4d,
         </div>
       </section>
 
-      <figure class="teaser content-shell">
-        <img
-          src={base + "figures/teaser.webp"}
-          alt="Plan4D generates future video, depth, camera rays and scene flow, lifted into dynamic 4D reconstructions, for a pipette interaction and a person walking with a stabilizer."
-          width="2048"
-          height="912"
-          fetchpriority="high"
-        />
-        <figcaption>
-          <strong>From planned actions to dynamic 4D worlds.</strong> An observed
-          scene and a text-specified action become synchronized video, geometry, and
-          motion.
-        </figcaption>
-      </figure>
+      <Teaser />
 
       <section class="section abstract-section" id="abstract">
         <div class="text-shell">

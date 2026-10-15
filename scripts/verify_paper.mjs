@@ -79,7 +79,8 @@ try {
       .count(),
     0,
   );
-  assert.equal(await page.locator(".teaser img").count(), 1);
+  assert.equal(await page.locator("#teaser-video").count(), 1);
+  assert.equal(await page.locator("#teaser-video source").count(), 2);
   assert.equal(await page.locator("#comparisons .comparison-row").count(), 6);
   assert.equal(await page.locator("#comparisons .cloud-cell").count(), 24);
   assert.equal(await page.locator("#aggregated .aggregate-row").count(), 3);

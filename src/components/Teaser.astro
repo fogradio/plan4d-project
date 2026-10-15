@@ -1,0 +1,76 @@
+---
+import { Icon } from "astro-icon/components";
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const media = base + "results/teaser/";
+---
+
+<figure class="teaser content-shell" id="teaser">
+  <video
+    id="teaser-video"
+    width="1280"
+    height="720"
+    poster={media + "plan4d-teaser-poster.webp"}
+    muted
+    loop
+    playsinline
+    controls
+    preload="metadata"
+    aria-label="Plan4D teaser: observed images and planned actions become generated video, depth, dynamic point clouds and scene flow."
+    aria-describedby="teaser-caption"
+  >
+    <source src={media + "plan4d-teaser.mp4"} type="video/mp4" />
+    <source src={media + "plan4d-teaser.webm"} type="video/webm" />
+    <a href={media + "plan4d-teaser.mp4"}>Download the Plan4D teaser</a>
+  </video>
+  <figcaption id="teaser-caption">
+    <span
+      ><strong>From planned actions to dynamic 4D worlds.</strong> An observed scene
+      and a text-specified action become synchronized video, geometry, and motion.</span
+    >
+    <a
+      class="teaser-download"
+      href={media + "plan4d-teaser-1080p.mp4"}
+      download
+      title="Download the 1080p teaser"
+      ><Icon name="ri:download-2-line" /> 1080p</a
+    >
+  </figcaption>
+</figure>
+
+<script>
+  const video = document.querySelector<HTMLVideoElement>("#teaser-video")!;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let visible = false;
+  let userPaused = false;
+  let automaticPause = false;
+
+  function syncPlayback() {
+    if (!visible || document.hidden || reducedMotion.matches) {
+      if (!video.paused) {
+        automaticPause = true;
+        video.pause();
+      }
+    } else if (!userPaused) {
+      void video.play().catch(() => {});
+    }
+  }
+
+  video.addEventListener("pause", () => {
+    if (automaticPause) automaticPause = false;
+    else userPaused = true;
+  });
+  video.addEventListener("play", () => {
+    userPaused = false;
+  });
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      visible = entry.isIntersecting;
+      syncPlayback();
+    },
+    { threshold: 0.15 },
+  );
+  observer.observe(video);
+  document.addEventListener("visibilitychange", syncPlayback);
+  reducedMotion.addEventListener("change", syncPlayback);
+</script>

@@ -9,6 +9,10 @@ const files = [
   "plan4d.svg",
   "figures/teaser.webp",
   "figures/method-chuanxia-20261014.webp",
+  "results/teaser/plan4d-teaser.mp4",
+  "results/teaser/plan4d-teaser.webm",
+  "results/teaser/plan4d-teaser-1080p.mp4",
+  "results/teaser/plan4d-teaser-poster.webp",
 ];
 for (const scene of [...manifest.cases, ...aggregated.cases])
   files.push(scene.image);

@@ -1,0 +1,76 @@
+{
+  "title": "Plan4D: Generative Plannable 4D Worlds",
+  "width": 1920,
+  "height": 1080,
+  "sourceFps": 15,
+  "outputFps": 30,
+  "shotFrames": 81,
+  "shots": [
+    {
+      "layout": "opening",
+      "scene": 12,
+      "cloud": "pipette",
+      "title": "Plan4D",
+      "subtitle": "Generative Plannable 4D Worlds",
+      "action": "Dispense pink liquid using a pipette."
+    },
+    {
+      "layout": "condition",
+      "scene": 0,
+      "title": "One observation. A planned action.",
+      "action": "Submerge the blender. Blend the vegetables into a smooth soup."
+    },
+    {
+      "layout": "modalities",
+      "scene": 0,
+      "cloud": "soup",
+      "title": "Appearance. Geometry. Motion.",
+      "action": "Synchronized predictions of the same future."
+    },
+    {
+      "layout": "detail",
+      "scene": 1,
+      "title": "Fine-grained physical interactions.",
+      "action": "Lift the spoon. Let the thick liquid drip back into the bowl."
+    },
+    {
+      "layout": "pair",
+      "scene": 14,
+      "cloud": "body",
+      "title": "Actions unfold in 3D.",
+      "action": "Bend forward while keeping the arms extended."
+    },
+    {
+      "layout": "pair",
+      "scene": 15,
+      "title": "Multiple actors. One evolving scene.",
+      "action": "A person lifts a leg as the animals move through the room."
+    },
+    {
+      "layout": "aggregate",
+      "scene": 12,
+      "cloud": "pipette-aggregate-v2",
+      "title": "Dense geometry across time.",
+      "action": "Aggregated point cloud with predicted camera trajectory."
+    },
+    {
+      "layout": "pair",
+      "scene": 11,
+      "title": "From close-up actions to moving worlds.",
+      "action": "Walk forward along a neon-lit street."
+    },
+    {
+      "layout": "mosaic",
+      "scenes": [0, 1, 4, 5, 6, 7, 10, 12, 16],
+      "title": "A range of actions and environments.",
+      "action": "Generated futures, conditioned on an observed scene and planned actions."
+    },
+    {
+      "layout": "closing",
+      "scenes": [12, 0, 14, 11, 10, 1],
+      "title": "Plan4D",
+      "subtitle": "Generative Plannable 4D Worlds",
+      "action": "Plan an action. Generate its 4D future."
+    }
+  ]
+}

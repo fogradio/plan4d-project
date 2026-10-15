@@ -1,5 +1,9 @@
 # Plan4D 项目页
 
+## 开场视频（2026-10-15）
+
+首屏 teaser 更新为 54 秒真实结果视频，提供 1080p MP4 下载与 720p MP4/WebM 网页播放，英文短字幕、无配音。素材来源、分镜、复现和验证方式见 [TEASER.md](TEASER.md)。旧静态 teaser 与所有定性结果保留。
+
 ## 内容与范围
 
 当前页面包括单行论文标题、居中的 NeurIPS 2026、作者与单位、Paper/Code/Model/BibTeX 四个入口、teaser、新版论文摘要与方法图、六场景逐帧对比、三场景聚合点云对比、17 场景五模态 Gallery 和 BibTeX。根据用户最终更正，保留全部原定性展示，移除原定量表格。
@@ -141,6 +145,8 @@ npm run preview -- --host 0.0.0.0 --port 4322
 GitHub Pages 目标为 `https://fogradio.github.io/plan4d-project/`，仓库 Settings → Pages 的 Source 应设为 GitHub Actions。媒体以公开 Release 附件发布，不加入源码 Git 历史；压缩包内的顶层目录须为 `results/`，使工作流解压到 `public/` 后得到正确路径。仓库 Actions 变量 `PLAN4D_RESULTS_ARCHIVE_URL` 应指向该附件的固定版本下载地址，再推送 `main` 触发构建和部署。
 
 2026-10-14 发布候选的媒体包为 `artifacts/plan4d-results-20261014-release.tar.gz`，SHA-256：`79240366da1e22f100804d54fecb67046c3503ec1cd25168d7202c170547daef`。正式构建位于 `artifacts/github-pages-release-20261014/`，使用 `/plan4d-project/` 资源前缀，与 Nebula 预览构建分开保存。
+
+2026-10-15 teaser 以独立 Release `plan4d-teaser-20261015` 补充，附件为 `plan4d-teaser-20261015-release.tar.gz`，SHA-256：`431aa1138690b4b1d168f95711477df16a0601c22b65b2a755c0b6a0acb27b88`。工作流先恢复原定性媒体，再下载、校验并解压 teaser；无需重新上传原 1 GB 媒体包。16.2 秒 group publication 短片仅在本地 `artifacts/`，不加入公开站点或 Release。
 
 ## 主要文件
 

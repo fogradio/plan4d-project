@@ -272,10 +272,12 @@ sup {
   max-width: 1040px;
   padding-top: 8px;
 }
-.teaser img {
+.teaser video {
+  display: block;
   width: 100%;
   height: auto;
-  max-height: 360px;
+  aspect-ratio: 16 / 9;
+  background: #f4f6f5;
   object-fit: contain;
 }
 figcaption {
@@ -285,7 +287,23 @@ figcaption {
   color: var(--muted);
 }
 .teaser figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 20px;
   text-align: center;
+}
+.teaser-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.teaser-download [data-icon] {
+  width: 16px;
+  height: 16px;
 }
 figcaption strong {
   color: #424b50;

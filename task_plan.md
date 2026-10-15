@@ -1,5 +1,28 @@
 # Plan4D 项目页实施计划
 
+## 提交、推送与发布（2026-10-15）
+- [x] 核对 Git 改动、远端 main、GitHub 登录、Pages 配置与已有媒体 Release。
+- [x] 准备 teaser 增量媒体 Release 和工作流，验证正式子路径构建。
+- [ ] 提交并推送 main，跟踪 GitHub Actions 部署。
+- [ ] 检查公开页面、视频与原定性结果资源。
+- 用户已明确授权本次提交、推送与发布。16.2 秒 group publication 视频仅保留在本地 artifacts，不上传公开 Release 或页面。
+- 起始远端 main 为 c26ec9a，当前 Pages 最近部署成功，GitHub 账号 fogradio 权限有效；原媒体包变量继续指向 plan4d-media-20261014。
+
+## Group publication 独立短 Demo（2026-10-15）
+- [x] 核实已有真实结果与点云镜头，确定三个场景的纯 demo 短片。
+- [x] 合成 16.2 秒四模态短视频，导出高清和轻量下载版。
+- [x] 完整解码、目视检查并提供独立下载地址。
+- 用户明确要求不放入公开项目页；本次视频仅写入 artifacts/group-publication-demo-20261015，不改页面、public 或发布配置。
+
+## Teaser 视频制作（2026-10-15）
+- [x] 核对工作区规则、现有页面和 17 个 Gallery 场景，读取 CUT3R 与 VGGT-Omega 的开场结构。
+- [x] 制作素材接触表，确定分镜、片长和点云镜头。
+- [x] 从真实结果导出 teaser、网页兼容版本、封面及可复现剪辑脚本。
+- [x] 将视频接入首屏，验证编码、关键帧、桌面和手机播放，提供预览。
+- 用户明确要求完成 teaser，按该授权执行；原始结果只读，生成资产不覆盖旧文件，不启动训练。
+- 用户已选择英文短字幕、无配音的 45–60 秒项目页开场版；成片采用 10 段各 5.4 秒，共 54 秒。
+- 当前工作区没有新增 AGENTS.md；父目录 VIST3A 规则适用。登录 shell 出现 basename 提示，后续命令使用非登录 shell。
+
 ## GitHub Pages 发布（2026-10-14）
 - [x] 确认目标为 fogradio/plan4d-project，用户授权提交、推送并上传公开 Release 媒体。
 - [x] 核对现有工作流与远端状态：Pages 未启用，最近工作流在 Setup Pages 失败，现有编辑器 GitHub 凭据失效。
