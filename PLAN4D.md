@@ -167,6 +167,22 @@ GitHub Pages 目标为 `https://fogradio.github.io/plan4d-project/`，仓库 Set
 
 ## 导师反馈展示优化（2026-10-15）
 
+### 候选场景预览（2026-10-17）
+
+两区缩略图的主体继续直接选择场景；右上角放大按钮独立打开共享图片弹窗，不改变当前对比。弹窗显示原始高清条件图、完整动作文本和场景编号，支持前后按钮及左右方向键循环浏览当前区块，点击 `Select This Scene` 才调用原有场景选择入口。重复选择当前场景不重置帧或相机。
+
+主输入图的放大入口保留纯图片模式。两种模式均支持 Escape、关闭按钮、背景关闭、焦点返回与 Tab 循环。图片仍复用 `conditioning-images.json` 和 Astro base 路径，打开或切换预览时才下载；高清图失败时回退已有预览图，全部失败则显示错误状态。不新增点云、视频、依赖或渲染器。
+
+回归命令（先按上文启动含完整本地媒体的开发或构建预览服务）：
+
+```bash
+PLAN4D_TEST_URL=http://127.0.0.1:4334/plan4d-project/ PLAYWRIGHT_BROWSERS_PATH=/tmp/plan4d-browsers node scripts/verify_comparison_layout.mjs
+```
+
+用户后续已授权提交发布此功能，并补充六位作者个人主页链接；作者顺序、单位上标与通讯作者标记保持不变。发布复用现有媒体 Release 与 GitHub Pages 工作流，不包含独立 group demo 或尚未完成的九案例片尾制作。
+
+### 既有展示与资源
+
 - 主要内容容器共用 `--content-width: 1360px` 和响应式边距；全部主要 h2 居中，面板标题、正文和控制项保留适合阅读的对齐。
 - 两个比较区共用 `ConditioningInput.astro` 和 `ConditionImageDialog.astro`。条件图按原比例展示，点击按需加载 832×480、960×540 或 1280×720 的无损原始条件图；按钮、Escape、背景均能关闭并恢复焦点，支持手机，不重新合成细节。
 - `BaselineSelector.astro` 位于左侧结果面板标题栏；单一选择器随场景和方法移动，不阻挡 OrbitControls。切方法保持当前请求帧、播放状态和左/右视角，Plan4D 不闪回首帧。

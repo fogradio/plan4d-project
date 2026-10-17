@@ -133,6 +133,41 @@ try {
       /†/,
     );
   }
+  assert.deepEqual(
+    await page.locator(".authors > span > a").evaluateAll((links) =>
+      links.map((link) => ({
+        name: link.textContent.trim(),
+        url: link.getAttribute("href"),
+        target: link.target,
+        rel: link.rel,
+      })),
+    ),
+    [
+      ["Hangwei Zhang", "https://fogradio.github.io/"],
+      [
+        "Rujing Dang",
+        "https://scholar.google.com/citations?user=QKTF2UQAAAAJ&hl=zh-TW",
+      ],
+      [
+        "Ruimin Lin",
+        "https://www.researchgate.net/scientific-contributions/Ruimin-Lin-2338212314",
+      ],
+      [
+        "Jiahong Wu",
+        "https://scholar.google.com/citations?user=zCljkooAAAAJ&hl=zh-CN",
+      ],
+      ["Xiangxiang Chu", "https://cxxgtxy.github.io"],
+      ["Chuanxia Zheng", "https://physicalvision.github.io/people/~chuanxia"],
+    ].map(([name, url]) => ({
+      name,
+      url,
+      target: "_blank",
+      rel: "noopener noreferrer",
+    })),
+  );
+  report.checks.push(
+    "All six author names link to the supplied profiles in author order with safe new-tab attributes",
+  );
   assert.equal(
     await page.locator(".author-note").innerText(),
     "† Corresponding authors",

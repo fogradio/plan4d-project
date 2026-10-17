@@ -4,44 +4,180 @@ import { Icon } from "astro-icon/components";
 
 <dialog id="condition-dialog" aria-labelledby="condition-dialog-title">
   <div class="condition-dialog-heading">
-    <h3 id="condition-dialog-title">Input image</h3>
+    <h3 id="condition-dialog-title" aria-live="polite">Input image</h3>
     <button
       type="button"
       class="icon-button"
       data-condition-close
-      aria-label="Close input image"
-      title="Close input image"><Icon name="ri:close-line" /></button
+      aria-label="Close input preview"
+      title="Close input preview"><Icon name="ri:close-line" /></button
     >
   </div>
-  <img id="condition-dialog-image" alt="" />
-  <p id="condition-dialog-prompt"></p>
+  <div class="condition-dialog-content">
+    <div class="condition-image-stage" data-image-state="loading">
+      <img id="condition-dialog-image" alt="" />
+      <span class="condition-image-status" role="status"></span>
+    </div>
+    <div class="condition-dialog-description">
+      <span class="input-label">Input text</span>
+      <p id="condition-dialog-prompt"></p>
+    </div>
+  </div>
+  <div class="condition-dialog-actions" hidden>
+    <div
+      class="condition-preview-navigation"
+      role="group"
+      aria-label="Preview scenes"
+    >
+      <button
+        type="button"
+        class="icon-button"
+        data-condition-previous
+        aria-label="Previous scene"
+        title="Previous scene"><Icon name="ri:arrow-left-line" /></button
+      >
+      <button
+        type="button"
+        class="icon-button"
+        data-condition-next
+        aria-label="Next scene"
+        title="Next scene"><Icon name="ri:arrow-right-line" /></button
+      >
+    </div>
+    <button type="button" class="condition-select-button" data-condition-select>
+      <Icon name="ri:check-line" aria-hidden="true" />
+      Select This Scene
+    </button>
+  </div>
 </dialog>
 
 <script>
   const dialog =
     document.querySelector<HTMLDialogElement>("#condition-dialog")!;
-  const image = dialog.querySelector<HTMLImageElement>("img")!;
+  const title = dialog.querySelector<HTMLElement>("#condition-dialog-title")!;
+  const stage = dialog.querySelector<HTMLElement>(".condition-image-stage")!;
+  const status = dialog.querySelector<HTMLElement>(".condition-image-status")!;
+  const content = dialog.querySelector<HTMLElement>(
+    ".condition-dialog-content",
+  )!;
+  const actions = dialog.querySelector<HTMLElement>(
+    ".condition-dialog-actions",
+  )!;
+  const close = dialog.querySelector<HTMLButtonElement>(
+    "[data-condition-close]",
+  )!;
+  const previous = dialog.querySelector<HTMLButtonElement>(
+    "[data-condition-previous]",
+  )!;
+  const next = dialog.querySelector<HTMLButtonElement>(
+    "[data-condition-next]",
+  )!;
+  let image = dialog.querySelector<HTMLImageElement>("img")!;
   const prompt = dialog.querySelector<HTMLElement>("#condition-dialog-prompt")!;
   let trigger: HTMLButtonElement | null = null;
+  let candidates: HTMLButtonElement[] = [];
+  let previewIndex = 0;
   let previousOverflow = "";
+
+  function loadImage(button: HTMLButtonElement) {
+    const source = button.querySelector<HTMLImageElement>("img");
+    const fallback =
+      button.dataset.image || source?.currentSrc || source?.src || "";
+    const fullImage = button.dataset.fullImage || fallback;
+    const replacement = new Image();
+    replacement.id = "condition-dialog-image";
+    replacement.alt =
+      source?.alt || `Observed input for ${button.dataset.prompt || ""}`;
+    replacement.decoding = "async";
+    let usingFallback = false;
+    stage.dataset.imageState = "loading";
+    stage.setAttribute("aria-busy", "true");
+    status.textContent = "Loading image...";
+    replacement.onload = () => {
+      if (image !== replacement) return;
+      stage.dataset.imageState = usingFallback ? "fallback" : "ready";
+      stage.setAttribute("aria-busy", "false");
+      status.textContent = usingFallback
+        ? "Full-resolution image unavailable. Showing preview image."
+        : "";
+    };
+    replacement.onerror = () => {
+      if (image !== replacement) return;
+      if (!usingFallback && fullImage !== fallback) {
+        usingFallback = true;
+        replacement.src = fallback;
+      } else {
+        stage.dataset.imageState = "error";
+        stage.setAttribute("aria-busy", "false");
+        status.textContent = "Image unavailable.";
+      }
+    };
+    image.replaceWith(replacement);
+    image = replacement;
+    image.src = fullImage;
+    prompt.textContent = button.dataset.prompt || "";
+    content.scrollTop = 0;
+  }
+
+  function open(button: HTMLButtonElement) {
+    trigger = button;
+    previousOverflow = document.body.style.overflow;
+    dialog.showModal();
+    document.body.style.overflow = "hidden";
+    close.focus({ preventScroll: true });
+  }
+
+  function dismiss() {
+    dialog.close();
+    document.body.style.overflow = previousOverflow;
+    trigger?.focus({ preventScroll: true });
+    candidates = [];
+  }
+
+  function showCandidate(index: number) {
+    previewIndex = (index + candidates.length) % candidates.length;
+    title.textContent = `Scene ${String(previewIndex + 1).padStart(2, "0")} / ${String(candidates.length).padStart(2, "0")} - Input Preview`;
+    loadImage(candidates[previewIndex]);
+  }
 
   for (const button of document.querySelectorAll<HTMLButtonElement>(
     "[data-condition-image]",
   )) {
     button.addEventListener("click", () => {
-      const source = button.querySelector<HTMLImageElement>("img")!;
-      trigger = button;
-      image.src = button.dataset.fullImage || source.currentSrc || source.src;
-      image.alt = source.alt;
-      prompt.textContent = button.dataset.prompt || "";
-      previousOverflow = document.body.style.overflow;
-      dialog.showModal();
-      document.body.style.overflow = "hidden";
+      candidates = [];
+      actions.hidden = true;
+      title.textContent = "Input image";
+      loadImage(button);
+      open(button);
     });
   }
+  for (const button of document.querySelectorAll<HTMLButtonElement>(
+    "[data-preview-case]",
+  )) {
+    button.addEventListener("click", () => {
+      candidates = Array.from(
+        button
+          .closest(".scene-selector")!
+          .querySelectorAll<HTMLButtonElement>("[data-preview-case]"),
+      );
+      actions.hidden = false;
+      previous.disabled = next.disabled = candidates.length < 2;
+      showCandidate(candidates.indexOf(button));
+      open(button);
+    });
+  }
+  previous.addEventListener("click", () => showCandidate(previewIndex - 1));
+  next.addEventListener("click", () => showCandidate(previewIndex + 1));
   dialog
-    .querySelector("[data-condition-close]")!
-    .addEventListener("click", () => dialog.close());
+    .querySelector("[data-condition-select]")!
+    .addEventListener("click", () => {
+      const choice = candidates[previewIndex]
+        ?.closest(".scene-candidate")
+        ?.querySelector<HTMLButtonElement>("[data-select-case]");
+      dismiss();
+      choice?.click();
+    });
+  close.addEventListener("click", dismiss);
   dialog.addEventListener("click", (event) => {
     if (event.target !== dialog) return;
     const bounds = dialog.getBoundingClientRect();
@@ -51,18 +187,37 @@ import { Icon } from "astro-icon/components";
       event.clientY < bounds.top ||
       event.clientY > bounds.bottom
     )
-      dialog.close();
+      dismiss();
   });
-  dialog.addEventListener("close", () => {
-    document.body.style.overflow = previousOverflow;
-    trigger?.focus({ preventScroll: true });
+  dialog.addEventListener("cancel", (event) => {
+    event.preventDefault();
+    dismiss();
   });
   dialog.addEventListener("keydown", (event) => {
+    if (
+      candidates.length &&
+      !event.altKey &&
+      !event.ctrlKey &&
+      !event.metaKey
+    ) {
+      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        event.preventDefault();
+        showCandidate(previewIndex + (event.key === "ArrowLeft" ? -1 : 1));
+      }
+    }
     if (event.key === "Tab") {
-      event.preventDefault();
-      dialog
-        .querySelector<HTMLButtonElement>("[data-condition-close]")!
-        .focus();
+      const controls = Array.from(
+        dialog.querySelectorAll<HTMLButtonElement>("button:not(:disabled)"),
+      ).filter((button) => button.getClientRects().length > 0);
+      const first = controls[0];
+      const last = controls[controls.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     }
   });
 </script>

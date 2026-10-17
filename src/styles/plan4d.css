@@ -212,6 +212,14 @@ sup {
 .authors > span {
   white-space: nowrap;
 }
+.authors a {
+  color: var(--accent);
+  text-underline-offset: 3px;
+}
+.authors a:hover,
+.authors a:focus-visible {
+  text-decoration: underline;
+}
 .affiliations {
   display: flex;
   flex-wrap: wrap;
@@ -435,12 +443,18 @@ figcaption strong {
   gap: 10px;
   padding-bottom: 20px;
 }
-.scene-choice {
+.scene-candidate {
   position: relative;
   width: 96px;
   min-width: 0;
   flex: 0 1 96px;
   aspect-ratio: 16 / 9;
+}
+.scene-choice {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
   padding: 0;
   border: 2px solid transparent;
   border-radius: 4px;
@@ -467,6 +481,37 @@ figcaption strong {
   color: #fff;
   font-size: 10px;
   font-variant-numeric: tabular-nums;
+}
+.scene-preview {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid #dce4dfe6;
+  border-radius: 4px;
+  background: #fffffff2;
+  color: var(--ink);
+  cursor: zoom-in;
+}
+.scene-preview:hover,
+.scene-preview:focus-visible {
+  color: var(--accent);
+  background: #fff;
+  border-color: var(--accent);
+}
+.scene-preview svg {
+  width: 17px;
+  height: 17px;
+}
+.scene-choice:focus-visible,
+.scene-preview:focus-visible,
+#condition-dialog button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 .baseline-control {
   display: flex;
@@ -616,6 +661,11 @@ figcaption strong {
   background: #fff;
   color: var(--ink);
   overscroll-behavior: contain;
+  overflow: hidden;
+}
+#condition-dialog[open] {
+  display: flex;
+  flex-direction: column;
 }
 #condition-dialog::backdrop {
   background: #121d24b8;
@@ -630,22 +680,103 @@ figcaption strong {
   gap: 16px;
   padding: 10px 16px;
   background: #fff;
+  flex-shrink: 0;
+}
+.condition-dialog-heading h3 {
+  min-width: 0;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.condition-dialog-content {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 #condition-dialog .icon-button {
   width: 44px;
   height: 44px;
+  flex-shrink: 0;
 }
-#condition-dialog-image {
-  width: 100%;
-  height: auto;
-  max-height: 68dvh;
-  object-fit: contain;
+.condition-image-stage {
+  position: relative;
+  height: min(58dvh, 650px);
   background: var(--soft);
 }
-#condition-dialog-prompt {
+#condition-dialog-image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.condition-image-stage[data-image-state="loading"] img,
+.condition-image-stage[data-image-state="error"] img {
+  visibility: hidden;
+}
+.condition-image-status {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+}
+.condition-image-stage[data-image-state="ready"] .condition-image-status {
+  display: none;
+}
+.condition-image-stage[data-image-state="fallback"] .condition-image-status {
+  top: auto;
+  background: #fffffff2;
+  padding: 8px;
+}
+.condition-dialog-description {
   padding: 16px 20px;
+}
+#condition-dialog-prompt {
+  margin-top: 5px;
   font-size: 14px;
+  line-height: 1.65;
   overflow-wrap: anywhere;
+}
+.condition-dialog-actions {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 20px;
+  border-top: 1px solid var(--line);
+  background: #fff;
+}
+.condition-preview-navigation {
+  display: flex;
+  gap: 8px;
+}
+.condition-select-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 16px;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+}
+.condition-select-button:hover {
+  background: #124d3c;
+}
+.condition-select-button svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
 }
 .cloud-cell {
   min-width: 0;
@@ -1059,8 +1190,36 @@ code {
     grid-template-columns: repeat(3, minmax(0, 96px));
     gap: 7px;
   }
-  .scene-choice {
+  .scene-candidate {
     width: 100%;
+  }
+  .scene-preview {
+    width: 44px;
+    height: 44px;
+  }
+  .condition-dialog-heading {
+    gap: 8px;
+    padding: 8px 12px;
+  }
+  .condition-dialog-heading h3 {
+    font-size: 16px;
+  }
+  .condition-image-stage {
+    height: auto;
+    aspect-ratio: 16 / 9;
+    max-height: 52dvh;
+  }
+  .condition-dialog-description {
+    padding: 12px;
+  }
+  .condition-dialog-actions {
+    padding: 10px;
+    gap: 8px;
+  }
+  .condition-select-button {
+    padding: 8px 10px;
+    gap: 4px;
+    font-size: 13px;
   }
   .row-timeline {
     flex-wrap: wrap;
@@ -1235,6 +1394,17 @@ code {
   }
 }
 
+@media (max-width: 360px) {
+  .scene-selector {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (pointer: coarse) {
+  .scene-preview {
+    width: 44px;
+    height: 44px;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

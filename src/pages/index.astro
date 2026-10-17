@@ -13,12 +13,28 @@ const title = "Plan4D: Generative Plannable 4D Worlds";
 const description =
   "Plan4D predicts future RGB video and dense 4D geometry from an observed scene and text-specified actions.";
 const authors = [
-  ["Hangwei Zhang", "1,2"],
-  ["Rujing Dang", "2"],
-  ["Ruimin Lin", "2"],
-  ["Jiahong Wu", "2,†"],
-  ["Xiangxiang Chu", "2"],
-  ["Chuanxia Zheng", "1,†"],
+  ["Hangwei Zhang", "1,2", "https://fogradio.github.io/"],
+  [
+    "Rujing Dang",
+    "2",
+    "https://scholar.google.com/citations?user=QKTF2UQAAAAJ&hl=zh-TW",
+  ],
+  [
+    "Ruimin Lin",
+    "2",
+    "https://www.researchgate.net/scientific-contributions/Ruimin-Lin-2338212314",
+  ],
+  [
+    "Jiahong Wu",
+    "2,†",
+    "https://scholar.google.com/citations?user=zCljkooAAAAJ&hl=zh-CN",
+  ],
+  ["Xiangxiang Chu", "2", "https://cxxgtxy.github.io"],
+  [
+    "Chuanxia Zheng",
+    "1,†",
+    "https://physicalvision.github.io/people/~chuanxia",
+  ],
 ];
 const citation = `@inproceedings{zhang2026plan4d,
   title     = {Plan4D: Generative Plannable 4D Worlds},
@@ -70,9 +86,11 @@ const citation = `@inproceedings{zhang2026plan4d,
         <p class="paper-conference">NeurIPS 2026</p>
         <div class="authors">
           {
-            authors.map(([name, affiliation]) => (
+            authors.map(([name, affiliation, url]) => (
               <span>
-                {name}
+                <a href={url} target="_blank" rel="noopener noreferrer">
+                  {name}
+                </a>
                 <sup>{affiliation}</sup>
               </span>
             ))
