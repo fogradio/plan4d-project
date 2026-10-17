@@ -103,6 +103,15 @@ jobs:
           printf '%s  %s\n' "$PLAN4D_AGGREGATES_ARCHIVE_SHA256" "$RUNNER_TEMP/plan4d-aggregates.tar.gz" | sha256sum --check
           tar -xzf "$RUNNER_TEMP/plan4d-aggregates.tar.gz" -C public
         working-directory: ${{ env.BUILD_PATH }}
+      - name: Restore Plan4D nine-case future teaser
+        env:
+          PLAN4D_FUTURE_GRID_ARCHIVE_URL: https://github.com/fogradio/plan4d-project/releases/download/plan4d-future-grid-20261017/plan4d-future-grid-20261017-release.tar.gz
+          PLAN4D_FUTURE_GRID_ARCHIVE_SHA256: e01c5ffe9db0c8541c6636f21a0d100f570c515685f0826867fe4f47f46acb6c
+        run: |
+          curl --fail --location --retry 3 "$PLAN4D_FUTURE_GRID_ARCHIVE_URL" --output "$RUNNER_TEMP/plan4d-future-grid.tar.gz"
+          printf '%s  %s\n' "$PLAN4D_FUTURE_GRID_ARCHIVE_SHA256" "$RUNNER_TEMP/plan4d-future-grid.tar.gz" | sha256sum --check
+          tar -xzf "$RUNNER_TEMP/plan4d-future-grid.tar.gz" -C public
+        working-directory: ${{ env.BUILD_PATH }}
       - name: Build with Astro
         env:
           ASTRO_TELEMETRY_DISABLED: "1"

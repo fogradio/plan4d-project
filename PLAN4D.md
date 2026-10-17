@@ -2,6 +2,8 @@
 
 ## 开场视频（2026-10-15）
 
+2026-10-17 延长为 66 秒：保留已发布的前 48 秒，追加原九案例的动态 4D 九宫格。新版位于 `public/results/teaser-future-20261015/dynamic-grid-20261017/`，详见 [FUTURE_GRID_TEASER.md](FUTURE_GRID_TEASER.md)。旧成片完整保留；发布工作流新增独立的 `plan4d-future-grid-20261017` 媒体包，并保留此前全部页面功能和资源恢复步骤。
+
 首屏 teaser 按导师意见更新为 48 秒版本：顶部持续显示单帧图像与文本输入，未来 RGB 依次显现为深度、三维和跟踪轨迹。提供 1080p MP4 下载与 720p MP4/WebM 网页播放，英文短标签、无配音。详见 [FUTURE_TEASER.md](FUTURE_TEASER.md)。旧 54 秒视频的制作记录见 [TEASER.md](TEASER.md)，所有旧媒体保留；发布工作流从独立的 `plan4d-future-teaser-20261015` Release 校验并恢复新媒体。
 
 ## 内容与范围

@@ -108,6 +108,57 @@ try {
     await pixels(page, time);
     await video.screenshot({ path: `${output}/stage-${time}.png` });
   }
+  if (teaser.duration > 48) {
+    const samples = [];
+    for (const time of [48.4, 50.3, 52.4, 54.2, 55, 60, 65.8]) {
+      await pixels(page, time);
+      samples.push(
+        await video.evaluate((element) => {
+          const canvas = document.createElement("canvas");
+          canvas.width = 960;
+          canvas.height = 540;
+          const context = canvas.getContext("2d");
+          context.drawImage(element, 0, 0, 960, 540);
+          return Array.from({ length: 9 }, (_, index) => {
+            const left = 24 + (index % 3) * 308;
+            const top = 104 + Math.floor(index / 3) * 147;
+            const data = context.getImageData(left, top, 296, 108).data;
+            let occupied = 0;
+            let checksum = 0;
+            for (let offset = 0; offset < data.length; offset += 4) {
+              if (
+                Math.abs(data[offset] - 244) +
+                  Math.abs(data[offset + 1] - 246) +
+                  Math.abs(data[offset + 2] - 245) >
+                70
+              )
+                occupied++;
+              checksum = (checksum + data[offset] * (offset + 1)) % 1000000007;
+            }
+            return { occupied, checksum };
+          });
+        }),
+      );
+      await video.screenshot({ path: `${output}/grid-${time}.png` });
+    }
+    for (let index = 0; index < 9; index++) {
+      assert(samples.every((sample) => sample[index].occupied > 500));
+      assert.notEqual(samples[4][index].checksum, samples[5][index].checksum);
+      assert.notEqual(samples[5][index].checksum, samples[6][index].checksum);
+    }
+    report.gridSamples = samples;
+    report.checks.push(
+      "All nine restored mosaic cells decode nonblank, show changing geometry and remain visible during orbit",
+    );
+    await video.evaluate((element) => {
+      element.currentTime = 47.7;
+      return element.play();
+    });
+    await page.waitForFunction(
+      () => document.querySelector("#teaser-video").currentTime > 48.5,
+    );
+    report.checks.push("Playback crosses the original-to-mosaic join");
+  }
   await video.evaluate((element) => element.play());
   await page.locator("#citation").scrollIntoViewIfNeeded();
   await page.waitForFunction(
@@ -158,6 +209,10 @@ try {
       `Teaser must begin in first viewport at ${width}`,
     );
     await page.screenshot({ path: `${output}/${width}x${height}.png` });
+    if (teaser.duration > 48) {
+      await pixels(page, 60);
+      await page.screenshot({ path: `${output}/grid-${width}x${height}.png` });
+    }
     report.viewports.push({
       viewportWidth: width,
       viewportHeight: height,
