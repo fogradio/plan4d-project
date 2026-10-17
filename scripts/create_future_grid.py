@@ -24,6 +24,8 @@ GALLERY = json.loads(GALLERY_PATH.read_text())["cases"]
 WORK = PROJECT / BOARD["work"]
 OUTPUT = PROJECT / BOARD["output"]
 ORIGINAL = PROJECT / BOARD["original"]
+PREFIX_BOARD_PATH = PROJECT / "scripts/future_teaser_storyboard.json"
+PREVIOUS_BOARD_PATH = PROJECT / "scripts/teaser_storyboard.json"
 SIZE = (BOARD["width"], BOARD["height"])
 FPS = BOARD["sourceFps"]
 OUT_FPS = BOARD["outputFps"]
@@ -31,7 +33,7 @@ SCHEDULE = [
     {"stage": stage["name"], "frame": stage["sourceStart"] + round((stage["sourceEnd"] - stage["sourceStart"]) * index / max(1, stage["frames"] - 1)), "phase": index / max(1, stage["frames"] - 1)}
     for stage in BOARD["stages"] for index in range(stage["frames"])
 ]
-PREVIEW_FRAMES = [0, 35, 66, 93, 100, 180, 194, 269]
+PREVIEW_FRAMES = [0, 35, 66, 93, 100, 160, 162, 269]
 PREFIX_FRAMES = 48 * OUT_FPS
 SUFFIXES = ["-1080p.mp4", ".mp4", ".webm"]
 INK, GREEN, BLUE, AMBER, MUTED = "#172722", "#11785b", "#2768a4", "#9b5917", "#5b6a63"
@@ -40,6 +42,29 @@ TILES = [(48 + column * 616, 144 + row * 294, 592, 280) for row in range(3) for 
 
 def digest(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def validate_storyboard(board=BOARD):
+    prefix_indices = {shot["scene"] for shot in json.loads(PREFIX_BOARD_PATH.read_text())["shots"]}
+    previous_indices = next(shot["scenes"] for shot in json.loads(PREVIOUS_BOARD_PATH.read_text())["shots"] if shot["layout"] == "mosaic")
+    indices = [shot["scene"] for shot in board["shots"]]
+    assert len(indices) == len(set(indices)) == 9
+    assert not prefix_indices.intersection(indices), "The mosaic must not repeat any opening case"
+    replaced = []
+    for position, (previous, current) in enumerate(zip(previous_indices, indices)):
+        if previous in prefix_indices:
+            assert current not in previous_indices
+            replaced.append(position + 1)
+        else:
+            assert current == previous, "Preserve the six non-repeated cases and their positions"
+    assert replaced == [1, 2, 8]
+    assert [indices[position - 1] for position in replaced] == [2, 9, 13]
+    assert len({shot["name"] for shot in board["shots"]}) == 9
+    assert board["stages"] == [
+        {"name": "dynamic", "frames": 162, "sourceStart": 0, "sourceEnd": 80},
+        {"name": "final", "frames": 108, "sourceStart": 80, "sourceEnd": 80},
+    ], "The entire 18-second tail must contain geometry, without RGB playback"
+    return {"prefixSceneIndices": sorted(prefix_indices), "sceneIndices": indices, "replacedSlots": replaced, "fourDOnly": True}
 
 
 def text(canvas, position, content, size, color=INK, bold=False, width=None):
@@ -88,10 +113,6 @@ class GridAssets:
         self.last[path] = Image.fromarray(cv2.cvtColor(pixels, cv2.COLOR_BGR2RGB))
         return self.last[path]
 
-    def rgb(self, shot, frame):
-        root = Path(GALLERY[shot["scene"]]["videos"]["rgb"]["source"]).parent
-        return self.video(root / "generated_video_geometry.mp4", frame)
-
     def cloud(self, shot, frame):
         if self.preview:
             return Image.open(self.preview / f"{shot['name']}-{frame}.jpg").convert("RGB")
@@ -110,9 +131,9 @@ def compose(frame, assets):
     text(canvas, (48, 26), "Plan", 58, INK, True)
     text(canvas, (170, 26), "4D", 58, GREEN, True)
     text(canvas, (385, 38), "Nine scenes. Nine generated 4D futures.", 43, INK, True, 1487)
-    labels = {"input": "ONE IMAGE + TEXT PER CASE", "rgb": "GENERATED FUTURE RGB", "reveal": "FROM VIDEO TO 3D", "orbit": "THE SAME FUTURE, IN 3D", "dynamic": "DYNAMIC 4D / 0.5x PLAYBACK", "final": "EXPLORE EACH GENERATED FUTURE"}
-    held = stage in ("reveal", "orbit", "final")
-    text(canvas, (48, 105), labels[stage], 24, BLUE if stage == "input" else GREEN, True, 1200)
+    labels = {"dynamic": "DYNAMIC 4D / 0.5x PLAYBACK", "final": "EXPLORE EACH GENERATED FUTURE"}
+    held = stage == "final"
+    text(canvas, (48, 105), labels[stage], 24, GREEN, True, 1200)
     time_label = ("TIME HELD / " if held else "") + f"t = +{state['frame'] / FPS:.2f} s"
     label_width = draw.textlength(time_label, font=font(24, True))
     text(canvas, (1872 - label_width, 105), time_label, 24, AMBER if held else GREEN, True)
@@ -123,22 +144,12 @@ def compose(frame, assets):
         text(canvas, (left + 104, top + 27), shot["action"], 23, INK, True, 480)
         display = Image.new("RGB", (width, 216), BACKGROUND)
         region = (0, 0, width, 216)
-        if stage == "input":
-            paste(display, assets.still(shot), region)
-        elif stage == "rgb":
-            paste(display, assets.rgb(shot, state["frame"]), region)
-        else:
-            paste(display, assets.cloud(shot, frame), region)
-            if stage == "reveal":
-                rgb = Image.new("RGB", display.size, BACKGROUND)
-                paste(rgb, assets.rgb(shot, state["frame"]), region)
-                phase = state["phase"]
-                display = Image.blend(rgb, display, phase * phase * (3 - 2 * phase))
+        paste(display, assets.cloud(shot, frame), region)
         canvas.paste(display, (left, top + 64))
         if index < 6:
             draw.line((left, top + height + 7, left + width, top + height + 7), fill="#d4ded8", width=1)
     text(canvas, (48, 1036), "One observed image per case. All future frames are generated.", 24, MUTED, False, 1250)
-    text(canvas, (1410, 1036), "RGB + DYNAMIC 4D", 24, GREEN, True, 462)
+    text(canvas, (1410, 1036), "NINE DYNAMIC 4D SCENES", 24, GREEN, True, 462)
     return canvas
 
 
@@ -162,7 +173,7 @@ def encode():
     for suffix in SUFFIXES + ["-poster.webp"]:
         assert not (OUTPUT / (BOARD["basename"] + suffix)).exists(), "Preserving existing final media"
     assert not (OUTPUT / "provenance.json").exists()
-    original_hashes = {str(path): digest(path) for path in ORIGINAL.iterdir() if path.is_file()}
+    original_hashes = {str(path): digest(path) for directory in [ORIGINAL, PROJECT / BOARD["previous"]] for path in directory.iterdir() if path.is_file()}
     master = WORK / "grid-tail-1080p.mp4"
     assert not master.exists(), "Preserving existing tail; use --assemble-only after a partial run"
     assets = GridAssets()
@@ -179,7 +190,7 @@ def encode():
         if encoder.poll() is None:
             encoder.terminate()
             encoder.wait()
-    sources = {**assets.sources, **original_hashes, str(BOARD_PATH): digest(BOARD_PATH), str(GALLERY_PATH): digest(GALLERY_PATH), str(Path(__file__).resolve()): digest(__file__)}
+    sources = {**assets.sources, **original_hashes, str(BOARD_PATH): digest(BOARD_PATH), str(GALLERY_PATH): digest(GALLERY_PATH), str(PREFIX_BOARD_PATH): digest(PREFIX_BOARD_PATH), str(PREVIOUS_BOARD_PATH): digest(PREVIOUS_BOARD_PATH), str(Path(__file__).resolve()): digest(__file__)}
     scenes = []
     for shot in BOARD["shots"]:
         path = WORK / "renders" / f"{shot['name']}.json"
@@ -188,7 +199,7 @@ def encode():
         sources[str(path)] = digest(path)
         sources[str(WORK / "renders" / f"{shot['name']}.mp4")] = rendered["outputSha256"]
         scenes.append({**shot, "id": rendered["sceneId"], "inputFrames": rendered["inputFrames"], "originalPrompt": rendered["originalPrompt"]})
-    provenance = {"created": datetime.now(timezone.utc).isoformat(), "durationSeconds": 66, "preservedPrefixSeconds": 48, "tailSeconds": 18, "sourceFps": FPS, "outputFps": OUT_FPS, "scenes": scenes, "schedule": SCHEDULE, "sourceHashes": sources, "originalHashes": original_hashes, "notes": ["The first 48 seconds are stream-copied from the previous teaser, without re-encoding.", "The nine scenes and their order match the original 2D mosaic.", "One observed image and corresponding text per case, not nine views of a single input.", "All 141120 original PLY points are rendered per frame; no geometry completion or motion interpolation.", "Dynamic geometry uses a fixed display camera. Slow motion is explicitly labeled 0.5x PLAYBACK.", "The orbit changes only the display camera and is labeled TIME HELD.", "The appended mosaic shows dynamic point clouds, not newly computed tracking."]}
+    provenance = {"created": datetime.now(timezone.utc).isoformat(), "durationSeconds": 66, "preservedPrefixSeconds": 48, "tailSeconds": 18, "sourceFps": FPS, "outputFps": OUT_FPS, "selection": validate_storyboard(), "scenes": scenes, "schedule": SCHEDULE, "sourceHashes": sources, "originalHashes": original_hashes, "notes": ["The first 48 seconds are stream-copied from the previous teaser, without re-encoding.", "Only the three repeated cases in slots 1, 2 and 8 are replaced. All nine cases are absent from the opening.", "The entire appended mosaic displays point clouds, without RGB video playback or RGB-to-3D transitions.", "One static observed image and corresponding text per case, not nine views of a single input.", "All 141120 original PLY points are rendered per frame; no geometry completion or motion interpolation.", "Dynamic geometry uses a fixed display camera. Slow motion is explicitly labeled 0.5x PLAYBACK.", "The orbit changes only the display camera and is labeled TIME HELD.", "The appended mosaic shows dynamic point clouds, not newly computed tracking."]}
     with (WORK / "provenance-prepared.json").open("x") as stream:
         json.dump(provenance, stream, indent=2)
         stream.write("\n")
@@ -225,23 +236,24 @@ def verify():
     provenance = json.loads((OUTPUT / "provenance.json").read_text())
     for path, expected in provenance["sourceHashes"].items():
         assert digest(path) == expected, path
-    original_board = json.loads((PROJECT / "scripts/teaser_storyboard.json").read_text())
-    original_indices = next(shot["scenes"] for shot in original_board["shots"] if shot["layout"] == "mosaic")
-    assert [shot["scene"] for shot in BOARD["shots"]] == original_indices
+    selection = validate_storyboard()
+    assert provenance["selection"] == selection
+    assert all(Path(path).name not in {"generated_video.mp4", "generated_video_geometry.mp4"} for path in provenance["sourceHashes"])
     assert sorted(set(state["frame"] for state in SCHEDULE)) == list(range(81))
     assert all(right["frame"] >= left["frame"] for left, right in zip(SCHEDULE, SCHEDULE[1:]))
-    report = {"sourceCount": len(provenance["sourceHashes"]), "originalMediaUnchanged": True, "sceneIndices": original_indices, "renders": [], "videos": []}
+    report = {"sourceCount": len(provenance["sourceHashes"]), "originalMediaUnchanged": True, **selection, "renders": [], "videos": []}
     configuration = hashlib.sha256(BOARD_PATH.read_bytes() + GALLERY_PATH.read_bytes() + (PROJECT / "scripts/render_future_grid.mjs").read_bytes()).hexdigest()
     for shot in BOARD["shots"]:
         rendered = json.loads((WORK / "renders" / f"{shot['name']}.json").read_text())
         assert rendered["configuration"] == configuration
         assert len([path for path in rendered["sourceHashes"] if path.endswith(".ply")]) == 81
+        assert all(not path.endswith((".mp4", ".webm")) for path in rendered["sourceHashes"])
         assert len(rendered["samples"]) == len(SCHEDULE)
         assert all(sample["frame"] == state["frame"] and sample["stage"] == state["stage"] and sample["points"] == 141120 for sample, state in zip(rendered["samples"], SCHEDULE))
         dynamic = [sample for sample in rendered["samples"] if sample["stage"] == "dynamic"]
         assert len({sample["angle"] for sample in dynamic}) == 1
         changes = [sample["changed"] for sample in dynamic if sample["sourceChanged"] and sample["sameCamera"]]
-        assert len(changes) == 50 and min(changes) > 100
+        assert len(changes) == 80 and min(changes) > 100
         report["renders"].append({"name": shot["name"], "frames": len(SCHEDULE), "pointsPerFrame": 141120, "fixedCameraChangedPixelsMinimum": min(changes)})
     for suffix, dimensions in [("-1080p.mp4", SIZE), (".mp4", (1280, 720)), (".webm", (1280, 720))]:
         filename = BOARD["basename"] + suffix
@@ -261,7 +273,7 @@ def verify():
                     break
                 small = cv2.resize(pixels, (192, 108))
                 minimum_color = min(minimum_color, float((np.ptp(small.astype(np.int16), axis=2) > 24).mean()))
-                if count in [PREFIX_FRAMES + index * 2 for index in [0, 35, 66, 93, 100, 180, 194, 269]]:
+                if count in [PREFIX_FRAMES + index * 2 for index in PREVIEW_FRAMES]:
                     selected[(count - PREFIX_FRAMES) // 2] = cv2.resize(pixels, SIZE).astype(np.float32)
                 count += 1
         finally:
@@ -270,8 +282,8 @@ def verify():
         motion = []
         for left, top, width, height in TILES:
             area = np.s_[top + 64:top + height, left:left + width]
-            difference = float(np.abs(selected[180][area] - selected[100][area]).mean())
-            orbit_difference = float(np.abs(selected[269][area] - selected[194][area]).mean())
+            difference = float(np.abs(selected[160][area] - selected[35][area]).mean())
+            orbit_difference = float(np.abs(selected[269][area] - selected[162][area]).mean())
             assert difference > 0.3 and orbit_difference > 0.3, (filename, left, top, difference, orbit_difference)
             motion.append({"dynamicDifference": difference, "orbitDifference": orbit_difference})
         atoms = mp4_atoms(path) if path.suffix == ".mp4" else []
@@ -298,7 +310,12 @@ def main():
     modes.add_argument("--preview", type=Path, help="Compose stills from a fresh render-preview directory")
     modes.add_argument("--verify-only", action="store_true", help="Check all frames, sources, preserved prefix, inputs and motion")
     modes.add_argument("--assemble-only", action="store_true", help="Transcode and concatenate an already prepared master tail")
+    modes.add_argument("--verify-storyboard", action="store_true", help="Check unique cases, preserved slots and the geometry-only schedule")
     arguments = parser.parse_args()
+    selection = validate_storyboard()
+    if arguments.verify_storyboard:
+        print(json.dumps(selection, indent=2))
+        return
     if arguments.preview:
         preview(arguments.preview)
         return

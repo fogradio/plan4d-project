@@ -2,7 +2,7 @@
 
 ## 九案例延长版（2026-10-17）
 
-新增版本保留本页记录的 48 秒成片，并接回 18 秒原九案例的动态 4D 九宫格。新媒体另存于同目录的 `dynamic-grid-20261017/`，分镜、时间语义和复现方法见 [FUTURE_GRID_TEASER.md](FUTURE_GRID_TEASER.md)。以下仍为已发布 48 秒版本的记录。
+已发布版本保留本页记录的 48 秒成片，并接回 18 秒九案例动态 4D 九宫格。其独立媒体位于同目录的 `dynamic-grid-20261017/`。后续应用户反馈制作了 4D-only 去重版，另存于 `dynamic-grid-4d-only-20261017/`；用户于 2026-10-18 授权发布，网页源码与独立媒体 Release `plan4d-future-grid-4d-only-20261018` 对应。所有旧版本继续保留。分镜、时间语义和复现方法见 [FUTURE_GRID_TEASER.md](FUTURE_GRID_TEASER.md)。以下仍为已发布 48 秒版本的制作记录。
 
 ## 叙事与成片
 

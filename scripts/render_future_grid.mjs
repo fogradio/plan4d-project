@@ -13,6 +13,10 @@ const project = resolve(dirname(script), "..");
 const boardPath = resolve(project, "scripts/future_grid_storyboard.json");
 const galleryPath = resolve(project, "src/data/gallery.json");
 const board = JSON.parse(await readFile(boardPath, "utf8"));
+assert.deepEqual(
+  board.stages.map((stage) => stage.name),
+  ["dynamic", "final"],
+);
 const gallery = JSON.parse(await readFile(galleryPath, "utf8"));
 const preview = process.argv.includes("--preview");
 const hash = (data) => createHash("sha256").update(data).digest("hex");
@@ -46,7 +50,7 @@ const schedule = board.stages.flatMap((stage) =>
     phase: index / Math.max(1, stage.frames - 1),
   })),
 );
-const selectedFrames = [0, 35, 66, 93, 100, 180, 194, 269];
+const selectedFrames = [0, 35, 66, 93, 100, 160, 162, 269];
 const ffmpeg =
   process.env.PLAN4D_FFMPEG ||
   "/mnt/workspace/hwzhang/miniconda3/envs/dav3/lib/python3.10/site-packages/imageio_ffmpeg/binaries/ffmpeg-linux-x86_64-v7.0.2";

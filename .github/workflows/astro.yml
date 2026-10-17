@@ -112,6 +112,15 @@ jobs:
           printf '%s  %s\n' "$PLAN4D_FUTURE_GRID_ARCHIVE_SHA256" "$RUNNER_TEMP/plan4d-future-grid.tar.gz" | sha256sum --check
           tar -xzf "$RUNNER_TEMP/plan4d-future-grid.tar.gz" -C public
         working-directory: ${{ env.BUILD_PATH }}
+      - name: Restore Plan4D deduplicated 4D-only teaser
+        env:
+          PLAN4D_FUTURE_GRID_ONLY_ARCHIVE_URL: https://github.com/fogradio/plan4d-project/releases/download/plan4d-future-grid-4d-only-20261018/plan4d-future-grid-4d-only-20261018-release.tar.gz
+          PLAN4D_FUTURE_GRID_ONLY_ARCHIVE_SHA256: 55741e079ec5087210260fc5569fd0701b4c59df2eabc54e06b202f9f2a9c203
+        run: |
+          curl --fail --location --retry 3 "$PLAN4D_FUTURE_GRID_ONLY_ARCHIVE_URL" --output "$RUNNER_TEMP/plan4d-future-grid-only.tar.gz"
+          printf '%s  %s\n' "$PLAN4D_FUTURE_GRID_ONLY_ARCHIVE_SHA256" "$RUNNER_TEMP/plan4d-future-grid-only.tar.gz" | sha256sum --check
+          tar -xzf "$RUNNER_TEMP/plan4d-future-grid-only.tar.gz" -C public
+        working-directory: ${{ env.BUILD_PATH }}
       - name: Build with Astro
         env:
           ASTRO_TELEMETRY_DISABLED: "1"

@@ -88,6 +88,7 @@ try {
   assert.equal(metadata.width, teaser.width);
   assert.equal(metadata.height, teaser.height);
   assert(metadata.muted && metadata.loop && metadata.controls);
+  assert(new URL(metadata.source).pathname.includes(teaser.directory));
   report.metadata = metadata;
   for (const [start, end] of [
     [1.3, 3.0],
@@ -110,7 +111,7 @@ try {
   }
   if (teaser.duration > 48) {
     const samples = [];
-    for (const time of [48.4, 50.3, 52.4, 54.2, 55, 60, 65.8]) {
+    for (const time of [48.05, 48.4, 50.3, 55, 58.6, 60, 65.8]) {
       await pixels(page, time);
       samples.push(
         await video.evaluate((element) => {
@@ -143,12 +144,12 @@ try {
     }
     for (let index = 0; index < 9; index++) {
       assert(samples.every((sample) => sample[index].occupied > 500));
-      assert.notEqual(samples[4][index].checksum, samples[5][index].checksum);
+      assert.notEqual(samples[3][index].checksum, samples[4][index].checksum);
       assert.notEqual(samples[5][index].checksum, samples[6][index].checksum);
     }
     report.gridSamples = samples;
     report.checks.push(
-      "All nine restored mosaic cells decode nonblank, show changing geometry and remain visible during orbit",
+      "All nine geometry-only cells are visible and show motion from the first tail frame through the final orbit",
     );
     await video.evaluate((element) => {
       element.currentTime = 47.7;
@@ -157,7 +158,7 @@ try {
     await page.waitForFunction(
       () => document.querySelector("#teaser-video").currentTime > 48.5,
     );
-    report.checks.push("Playback crosses the original-to-mosaic join");
+    report.checks.push("Playback crosses the original-to-4D-only mosaic join");
   }
   await video.evaluate((element) => element.play());
   await page.locator("#citation").scrollIntoViewIfNeeded();
